@@ -1,6 +1,6 @@
 #include "HelloWorldScene.h"
 #include "SimpleAudioEngine.h"
-
+#include "../moomoo/proj.win32/RingBuffer.h"
 USING_NS_CC;
 
 Scene* HelloWorld::createScene()
@@ -45,7 +45,19 @@ bool HelloWorld::init()
     // add a label shows "Hello World"
     // create and initialize a label
     
-    auto label = Label::createWithTTF("Hello World", "fonts/Marker Felt.ttf", 24);
+	// Test RingBuffer Code //
+
+	auto ring = RingBuffer(10);
+
+	ring.push((char *)"hello", 5);
+	char res[10] = { 0, };
+	ring.pop((char*)res, 5);
+	
+
+	// Test RingBuffer Code End //
+
+
+    auto label = Label::createWithTTF(res, "fonts/Marker Felt.ttf", 24);
     
     // position the label on the center of the screen
     label->setPosition(Vec2(origin.x + visibleSize.width/2,
