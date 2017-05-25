@@ -38,7 +38,7 @@ int RingBuffer::push(const char *data, int data_size)
 		memcpy(&m_Q + m_tail, data, data_size);
 		m_tail += data_size;
 	}
-
+	
 	::LeaveCriticalSection(&m_cs_write);
 	return ret;
 

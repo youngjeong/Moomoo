@@ -1,6 +1,7 @@
 #include "HelloWorldScene.h"
 #include "SimpleAudioEngine.h"
 #include "../moomoo/proj.win32/RingBuffer.h"
+#include "network/SocketIO.h";
 USING_NS_CC;
 
 Scene* HelloWorld::createScene()
@@ -57,7 +58,7 @@ bool HelloWorld::init()
 	// Test RingBuffer Code End //
 
 
-    auto label = Label::createWithTTF(res, "fonts/Marker Felt.ttf", 24);
+    auto label = Label::createWithTTF("ESCAPE", "fonts/Marker Felt.ttf", 24);
     
     // position the label on the center of the screen
     label->setPosition(Vec2(origin.x + visibleSize.width/2,
@@ -67,7 +68,7 @@ bool HelloWorld::init()
     this->addChild(label, 1);
 
     // add "HelloWorld" splash screen"
-    auto sprite = Sprite::create("HelloWorld.png");
+    auto sprite = Sprite::create("escape.png");
 
     // position the sprite on the center of the screen
     sprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
