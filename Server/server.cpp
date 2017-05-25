@@ -5,6 +5,7 @@
 #include<arpa/inet.h>
 #include<sys/socket.h>
 #include<sys/epoll.h>
+#include "protocol.h"
 
 #define BUF_SIZE 100
 #define EPOLL_SIZE 50
