@@ -42,8 +42,8 @@ public:
 };
 
 struct _header : _protocol {
-   __int32 protocolD;
-   __int32 result;
+   int protocolD;
+   int result;
    char accessToken[16];
 };
 
@@ -90,9 +90,9 @@ typedef struct _PROTOCOL_LOGIN_ACK : _protocol {
 } S_PROTOCOL_LOGIN_ACK;
 
 struct _room_info {
-   __int32 num;
-   __int32 current;
-   __int32 total;
+   int num;
+   int current;
+   int total;
 };
 
 typedef struct _PROTOCOL_LOBBY_ROOMLIST_REQ : _protocol {
@@ -106,7 +106,7 @@ typedef struct _PROTOCOL_LOBBY_ROOMLIST_REQ : _protocol {
 
 typedef struct _PROTOCOL_LOBBY_ROOMLIST_ACK : _protocol {
    _header header;
-   __int32 count;
+   int count;
    _room_info rooms[255];
 
    _PROTOCOL_LOBBY_ROOMLIST_ACK()
@@ -116,8 +116,8 @@ typedef struct _PROTOCOL_LOBBY_ROOMLIST_ACK : _protocol {
 } S_PROTOCOL_LOBBY_ROOMLIST_ACK;
 
 struct _player_info {
-   __int32 win;
-   __int32 lose;
+   int win;
+   int lose;
    char nickname[10];
 };
 
@@ -132,7 +132,7 @@ typedef struct _PROTOCOL_LOBBY_PLAYER_LIST_REQ : _protocol {
 
 typedef struct _PROTOCOL_LOBBY_PLAYER_LIST_ACK : _protocol {
    _header header;
-   __int32 count;
+   int count;
    _player_info players[255];
 
    _PROTOCOL_LOBBY_PLAYER_LIST_ACK()
@@ -172,7 +172,7 @@ typedef struct _PROTOCOL_ROOM_PLAYER_LIST_REQ : _protocol {
 
 typedef struct _PROTOCOL_ROOM_PLAYER_LIST_ACK : _protocol {
    _header header;
-   __int32 count;
+   int count;
    _player_info players[4];
 
    _PROTOCOL_ROOM_PLAYER_LIST_ACK()
@@ -201,9 +201,9 @@ typedef struct _PROTOCOL_INGAME_START_GAME : _protocol {
 
 typedef struct _PROTOCOL_PLAYER_STATUS_CHANGED_REQ : _protocol {
    _header header;
-   __int32 x_coord;
-   __int32 y_coord;
-   __int8 direction;
+   int x_coord;
+   int y_coord;
+   char direction;
 
    _PROTOCOL_PLAYER_STATUS_CHANGED_REQ()
    {
@@ -213,10 +213,10 @@ typedef struct _PROTOCOL_PLAYER_STATUS_CHANGED_REQ : _protocol {
 
 typedef struct _PROTOCOL_PLAYER_STATUS_CHANGED_ACK : _protocol {
    _header header;
-   __int32 userID;
-   __int32 x_coord;
-   __int32 y_coord;
-   __int8 direction;
+   int userID;
+   int x_coord;
+   int y_coord;
+   char direction;
 
    _PROTOCOL_PLAYER_STATUS_CHANGED_ACK()
    {
@@ -235,7 +235,7 @@ typedef struct _PROTOCOL_GAME_END_REQ : _protocol {
 
 typedef struct _PROTOCOL_GAME_END_ACK : _protocol {
    _header header;
-   __int32 win_userID;
+   int win_userID;
 
    _PROTOCOL_GAME_END_ACK()
    {
