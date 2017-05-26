@@ -42,7 +42,7 @@ public:
 };
 
 struct _header : _protocol {
-   int protocolD;
+   int protocolID;
    int result;
    char accessToken[16];
 };
@@ -55,7 +55,7 @@ typedef struct _PROTOCOL_JOIN_REQ : _protocol {
 
    _PROTOCOL_JOIN_REQ()
    {
-      header.protocolD = PROTOCOL_JOIN_REQ;
+      header.protocolID = PROTOCOL_JOIN_REQ;
    }
 } S_PROTOCOL_JOIN_REQ;
 
@@ -64,7 +64,7 @@ typedef struct _PROTOCOL_JOIN_ACK : _protocol {
 
    _PROTOCOL_JOIN_ACK()
    {
-      header.protocolD = PROTOCOL_JOIN_ACK;
+      header.protocolID = PROTOCOL_JOIN_ACK;
    }
 } S_PROTOCOL_JOIN_ACK;
 
@@ -75,7 +75,7 @@ typedef struct _PROTOCOL_LOGIN_REQ : _protocol {
 
    _PROTOCOL_LOGIN_REQ()
    {
-      header.protocolD = PROTOCOL_LOGIN_REQ;
+      header.protocolID = PROTOCOL_LOGIN_REQ;
    }
 } S_PROTOCOL_LOGIN_REQ;
 
@@ -85,7 +85,7 @@ typedef struct _PROTOCOL_LOGIN_ACK : _protocol {
 
    _PROTOCOL_LOGIN_ACK()
    {
-      header.protocolD = PROTOCOL_LOGIN_ACK;
+      header.protocolID = PROTOCOL_LOGIN_ACK;
    }
 } S_PROTOCOL_LOGIN_ACK;
 
@@ -100,7 +100,7 @@ typedef struct _PROTOCOL_LOBBY_ROOMLIST_REQ : _protocol {
 
    _PROTOCOL_LOBBY_ROOMLIST_REQ()
    {
-      header.protocolD = PROTOCOL_LOBBY_ROOMLIST_REQ;
+      header.protocolID = PROTOCOL_LOBBY_ROOMLIST_REQ;
    }
 } S_PROTOCOL_LOBBY_ROOMLIST_REQ;
 
@@ -111,7 +111,7 @@ typedef struct _PROTOCOL_LOBBY_ROOMLIST_ACK : _protocol {
 
    _PROTOCOL_LOBBY_ROOMLIST_ACK()
    {
-      header.protocolD = PROTOCOL_LOBBY_ROOMLIST_ACK;
+      header.protocolID = PROTOCOL_LOBBY_ROOMLIST_ACK;
    }
 } S_PROTOCOL_LOBBY_ROOMLIST_ACK;
 
@@ -126,7 +126,7 @@ typedef struct _PROTOCOL_LOBBY_PLAYER_LIST_REQ : _protocol {
 
    _PROTOCOL_LOBBY_PLAYER_LIST_REQ()
    {
-      header.protocolD = PROTOCOL_LOBBY_PLAYER_LIST_REQ;
+      header.protocolID = PROTOCOL_LOBBY_PLAYER_LIST_REQ;
    }
 } S_PROTOCOL_LOBBY_PLAYER_LIST_REQ;
 
@@ -137,7 +137,7 @@ typedef struct _PROTOCOL_LOBBY_PLAYER_LIST_ACK : _protocol {
 
    _PROTOCOL_LOBBY_PLAYER_LIST_ACK()
    {
-      header.protocolD = PROTOCOL_LOBBY_PLAYER_LIST_ACK;
+      header.protocolID = PROTOCOL_LOBBY_PLAYER_LIST_ACK;
    }
 } S_PROTOCOL_LOBBY_PLAYER_LIST_ACK;
 
@@ -147,7 +147,7 @@ typedef struct _PROTOCOL_ROOM_SET_READY_STATUS_REQ : _protocol {
 
    _PROTOCOL_ROOM_SET_READY_STATUS_REQ()
    {
-      header.protocolD = PROTOCOL_ROOM_SET_READY_STATUS_REQ;
+      header.protocolID = PROTOCOL_ROOM_SET_READY_STATUS_REQ;
    }
 } S_PROTOCOL_ROOM_SET_READY_STATUS_REQ;
 
@@ -157,7 +157,7 @@ typedef struct _PROTOCOL_ROOM_SET_READY_STATUS_ACK : _protocol {
 
    _PROTOCOL_ROOM_SET_READY_STATUS_ACK()
    {
-      header.protocolD = PROTOCOL_ROOM_SET_READY_STATUS_ACK;
+      header.protocolID = PROTOCOL_ROOM_SET_READY_STATUS_ACK;
    }
 } S_PROTOCOL_ROOM_SET_READY_STATUS_ACK;
 
@@ -166,7 +166,7 @@ typedef struct _PROTOCOL_ROOM_PLAYER_LIST_REQ : _protocol {
 
    _PROTOCOL_ROOM_PLAYER_LIST_REQ()
    {
-      header.protocolD = PROTOCOL_ROOM_PLAYER_LIST_REQ;
+      header.protocolID = PROTOCOL_ROOM_PLAYER_LIST_REQ;
    }
 } S_PROTOCOL_ROOM_PLAYER_LIST_REQ;
 
@@ -177,7 +177,7 @@ typedef struct _PROTOCOL_ROOM_PLAYER_LIST_ACK : _protocol {
 
    _PROTOCOL_ROOM_PLAYER_LIST_ACK()
    {
-      header.protocolD = PROTOCOL_ROOM_PLAYER_LIST_ACK;
+      header.protocolID = PROTOCOL_ROOM_PLAYER_LIST_ACK;
    }
 } S_PROTOCOL_ROOM_PLAYER_LIST_ACK;
 
@@ -186,7 +186,7 @@ typedef struct _PROTOCOL_INGAME_LOADING_COMPLETED : _protocol {
 
    _PROTOCOL_INGAME_LOADING_COMPLETED()
    {
-      header.protocolD = PROTOCOL_INGAME_LOADING_COMPLETED;
+      header.protocolID = PROTOCOL_INGAME_LOADING_COMPLETED;
    }
 } S_PROTOCOL_INGAME_LOADING_COMPLETED;
 
@@ -195,7 +195,7 @@ typedef struct _PROTOCOL_INGAME_START_GAME : _protocol {
 
    _PROTOCOL_INGAME_START_GAME()
    {
-      header.protocolD = PROTOCOL_INGAME_START_GAME;
+      header.protocolID = PROTOCOL_INGAME_START_GAME;
    }
 } S_PROTOCOL_INGAME_START_GAME;
 
@@ -207,7 +207,7 @@ typedef struct _PROTOCOL_PLAYER_STATUS_CHANGED_REQ : _protocol {
 
    _PROTOCOL_PLAYER_STATUS_CHANGED_REQ()
    {
-      header.protocolD = PROTOCOL_PLAYER_STATUS_CHANGED_REQ;
+      header.protocolID = PROTOCOL_PLAYER_STATUS_CHANGED_REQ;
    }
 } S_PROTOCOL_PLAYER_STATUS_CHANGED_REQ;
 
@@ -220,7 +220,7 @@ typedef struct _PROTOCOL_PLAYER_STATUS_CHANGED_ACK : _protocol {
 
    _PROTOCOL_PLAYER_STATUS_CHANGED_ACK()
    {
-      header.protocolD = PROTOCOL_PLAYER_STATUS_CHANGED_ACK;
+      header.protocolID = PROTOCOL_PLAYER_STATUS_CHANGED_ACK;
    }
 } S_PROTOCOL_PLAYER_STATUS_CHANGED_ACK;
 
@@ -229,7 +229,7 @@ typedef struct _PROTOCOL_GAME_END_REQ : _protocol {
 
    _PROTOCOL_GAME_END_REQ()
    {
-      header.protocolD = PROTOCOL_GAME_END_REQ;
+      header.protocolID = PROTOCOL_GAME_END_REQ;
    }
 } S_PROTOCOL_GAME_END_REQ;
 
@@ -239,6 +239,6 @@ typedef struct _PROTOCOL_GAME_END_ACK : _protocol {
 
    _PROTOCOL_GAME_END_ACK()
    {
-      header.protocolD = PROTOCOL_GAME_END_ACK;
+      header.protocolID = PROTOCOL_GAME_END_ACK;
    }
 } S_PROTOCOL_GAME_END_ACK;
