@@ -142,7 +142,6 @@ tags
 # Cmake files
 CMakeCache.txt
 CMakeFiles
-Makefile
 cmake_install.cmake
 CMakeLists.txt.user
 
@@ -452,3 +451,4 @@ __pycache__/
 *.xsd.cs
 
 # End of https://www.gitignore.io/api/c++,cocos2dx,visualstudio
+Client/moomoo/cocos2d/
