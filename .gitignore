@@ -142,7 +142,6 @@ tags
 # Cmake files
 CMakeCache.txt
 CMakeFiles
-Makefile
 cmake_install.cmake
 CMakeLists.txt.user
 

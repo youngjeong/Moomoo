@@ -24,6 +24,8 @@
     <ClCompile Include="RingBuffer.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="TestScene.cpp" />
+    <ClCompile Include="LoginEditBox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -38,6 +40,8 @@
     <ClInclude Include="RingBuffer.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="TestScene.h" />
+    <ClInclude Include="LoginEditBox.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">
