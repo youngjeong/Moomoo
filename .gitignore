@@ -452,3 +452,12 @@ __pycache__/
 
 # End of https://www.gitignore.io/api/c++,cocos2dx,visualstudio
 Client/moomoo/cocos2d/
+
+
+### NetBeans ###
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
