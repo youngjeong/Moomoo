@@ -87,21 +87,20 @@ int main(int argc, char *argv[])
                 switch(header_buf.protocolID){
                     case PROTOCOL_JOIN_REQ:
                     {
-                        S_PROTOCOL_JOIN_REQ body_buf;
-                //        memcpy(&body_buf+4, &header_buf, header_size);
-                        body_buf.header = header_buf;
-                        int size = sizeof(body_buf);
-                        //body_size = read_body(ep_events[i].data.fd, (char*)&body_buf+header_size, size-header_size);
+                        char body_buf[BUF_SIZE]={0,};
+                        memcpy(body_buf+4, &header_buf, header_size);
+                        int size = sizeof(S_PROTOCOL_JOIN_REQ);
                         int body_size = size-header_size-4;
                         recv_len=0;
-                       
+                        
                         while(recv_len < body_size)
                         {
-                            int recv_size = read(ep_events[i].data.fd, (_header*)&body_buf+recv_len+header_size+4, body_size-recv_len);
+                            int recv_size = read(ep_events[i].data.fd, body_buf+recv_len+header_size+4, body_size-recv_len);
                             recv_len+=recv_size;
                         }
-                      
-                        join_request(&body_buf);
+                        S_PROTOCOL_JOIN_REQ body;
+                        memcpy(&body, body_buf, sizeof(body));
+                        join_request(&body);
                         break;
                     }
                     case PROTOCOL_LOGIN_REQ:
