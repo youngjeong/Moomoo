@@ -4,11 +4,7 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-<<<<<<< HEAD
-      <itemPath>protocol.h</itemPath>
-=======
       <itemPath>DBConnect.h</itemPath>
->>>>>>> 7edd844f72a1fb306577e841d8cb171014712f06
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -57,13 +53,9 @@
           <commandLine>-lmysqlclient</commandLine>
         </linkerTool>
       </compileType>
-<<<<<<< HEAD
-      <item path="protocol.h" ex="false" tool="3" flavor2="0">
-=======
       <item path="DBConnect.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="DBConnect.h" ex="false" tool="3" flavor2="0">
->>>>>>> 7edd844f72a1fb306577e841d8cb171014712f06
       </item>
       <item path="server.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -88,13 +80,9 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-<<<<<<< HEAD
-      <item path="protocol.h" ex="false" tool="3" flavor2="0">
-=======
       <item path="DBConnect.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="DBConnect.h" ex="false" tool="3" flavor2="0">
->>>>>>> 7edd844f72a1fb306577e841d8cb171014712f06
       </item>
       <item path="server.cpp" ex="false" tool="1" flavor2="0">
       </item>
