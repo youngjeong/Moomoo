@@ -11,7 +11,7 @@ public class UIButtonListener: MonoBehaviour {
 
     public void Join()
     {
-
+        Communicator.i().join("THISISTEST", "12341234", "FINN");
     }
 
     // Use this for initialization
