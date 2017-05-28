@@ -142,7 +142,6 @@ tags
 # Cmake files
 CMakeCache.txt
 CMakeFiles
-Makefile
 cmake_install.cmake
 CMakeLists.txt.user
 
@@ -453,3 +452,22 @@ __pycache__/
 
 # End of https://www.gitignore.io/api/c++,cocos2dx,visualstudio
 Client/moomoo/cocos2d/
+
+
+### NetBeans ###
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+Server/nbproject/private/timestamps-13.124.83.116-ubuntu-22
+Server/nbproject/private/timestamps-13.124.83.116-ubuntu-22
+Server/nbproject/private/timestamps-13.124.83.116-ubuntu-22
+*.116-ubuntu-22
+testClient/nbproject/private/c_standard_headers_indexer.c
+testClient/nbproject/private/configurations.xml
+testClient/nbproject/private/launcher.properties
+testClient/nbproject/private/Makefile-variables.mk
+testClient/nbproject/private/private.xml
+testClient/nbproject/private/cpp_standard_headers_indexer.cpp

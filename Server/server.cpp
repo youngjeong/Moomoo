@@ -6,11 +6,13 @@
 #include<sys/socket.h>
 #include<sys/epoll.h>
 #include "protocol.h"
-
-#define BUF_SIZE 100
+#include "DBConnect.h" 
+#define BUF_SIZE 2048
 #define EPOLL_SIZE 50
 void error_handling(char *buf);
-
+int read_body(int fd, char* body_buf, int size);
+int join_request(S_PROTOCOL_JOIN_REQ *body_buf);
+int login_request(S_PROTOCOL_LOGIN_REQ *body_buf);
 int main(int argc, char *argv[])
 {
     int serv_sock, clnt_sock;
@@ -29,6 +31,10 @@ int main(int argc, char *argv[])
     }
     
     serv_sock=socket(PF_INET, SOCK_STREAM, 0);
+    int option;
+    socklen_t optlen= sizeof(option);
+    option=true;
+    setsockopt(serv_sock, SOL_SOCKET, SO_REUSEADDR, (void*)&option, optlen);
     memset(&serv_adr, 0, sizeof(serv_adr));
     serv_adr.sin_family=AF_INET;
     serv_adr.sin_addr.s_addr=htonl(INADDR_ANY);
@@ -67,7 +73,66 @@ int main(int argc, char *argv[])
             }
             else
             {
-                str_len=read(ep_events[i].data.fd, buf, BUF_SIZE);
+                int recv_len=0;
+                _header header_buf;
+                int header_size = sizeof(_header);
+                char body_buf[BUF_SIZE]={0,};
+                int body_size = 0;
+                char tmp_buf[4]={0,};
+                read(ep_events[i].data.fd, tmp_buf, 4);    
+                while(recv_len<header_size)
+                {
+                    int read_byte=read(ep_events[i].data.fd, &header_buf+recv_len, header_size-recv_len);    
+                    recv_len+=read_byte;
+                }
+                memcpy(body_buf+4, &header_buf, header_size);
+                switch(header_buf.protocolID){
+                    case PROTOCOL_JOIN_REQ:
+                    {
+                        read_body(ep_events[i].data.fd, body_buf, sizeof(S_PROTOCOL_JOIN_REQ));
+                        S_PROTOCOL_JOIN_REQ body;
+                        memcpy(&body, body_buf, sizeof(body));
+                        join_request(&body);
+                        break;
+                    }
+                    case PROTOCOL_LOGIN_REQ:
+                    {
+                        S_PROTOCOL_LOGIN_REQ body;
+                        read_body(ep_events[i].data.fd, body_buf, sizeof(body));
+                        memcpy(&body, body_buf, sizeof(body));
+                        login_request(&body);
+                        break;
+                    }
+                    case PROTOCOL_LOBBY_ROOMLIST_REQ:
+                    {
+                        break;
+                    }
+                    case PROTOCOL_LOBBY_PLAYER_LIST_REQ:
+                    {
+                        break;
+                    }
+                    case PROTOCOL_ROOM_SET_READY_STATUS_REQ:
+                    {
+                        break;
+                    }
+                    case PROTOCOL_ROOM_PLAYER_LIST_REQ:
+                    {
+                        break;
+                    }
+                    case PROTOCOL_INGAME_LOADING_COMPLETED:
+                    {
+                        break;
+                    }
+                    case PROTOCOL_PLAYER_STATUS_CHANGED_REQ:
+                    {
+                        break;
+                    }
+                    case PROTOCOL_GAME_END_REQ:
+                    {
+                        break;
+                    }
+                }
+                
                 if(str_len==0)
                 {
                     epoll_ctl(epfd, EPOLL_CTL_DEL, ep_events[i].data.fd, NULL);
@@ -90,4 +155,44 @@ void error_handling(char *buf)
     fputs(buf, stderr);
     fputc('\n', stderr);
     exit(1);
+}
+
+int read_body(int fd, char* body_buf, int size)
+{
+    int header_size = sizeof(_header);
+    int body_size = size-header_size-4;
+    int recv_len=0;
+                        
+    while(recv_len < body_size)
+    {
+        int recv_size = read(fd, body_buf+recv_len+header_size+4, body_size-recv_len);
+        recv_len+=recv_size;
+    }
+}
+
+int join_request(S_PROTOCOL_JOIN_REQ *body_buf)
+{
+    printf("Received ID : %s\n", body_buf->id);
+    printf("Received PW : %s\n", body_buf->password);
+    printf("Received Nick : %s\n", body_buf->nickname);
+    DBConnect db;
+    if(db.signUp(body_buf->id, body_buf->password, body_buf->nickname)){
+        printf("signup error at server");
+        return 1;
+    }
+    return 0;
+}
+
+int login_request(S_PROTOCOL_LOGIN_REQ *body_buf)
+{
+    printf("Recevied ID : %s\n", body_buf->id);
+    printf("Recevied PW : %s\n", body_buf->password);
+    
+    DBConnect db;
+    if(db.login(body_buf->id, body_buf->password)){
+        printf("login error at server\n");
+        return 1;
+    }
+    printf("login success\n");
+    return 0;
 }
