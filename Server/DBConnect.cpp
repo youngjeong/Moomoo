@@ -50,7 +50,31 @@ int DBConnect::signUp(const char* id, const char* passwd, const char* nickname)
     char query[256];
     memset(query,0,sizeof(256));
     
-    strcat(query,"insert into userinfo VALUES(");
+    strcat(query,"select * from userinfo where (id=\"");
+    strcat(query,id);
+    strcat(query,"\"");
+    strcat(query,");");
+   
+    
+    query_stat=mysql_query(connection,query);
+    if(query_stat!=0)
+    {
+        fprintf(stderr,"mysql query error : %s\n",mysql_error(&conn));
+        return 1;
+    }
+    
+     sql_result=mysql_store_result(connection);
+    
+    while((sql_row=mysql_fetch_row(sql_result))!=NULL)
+    {
+        fprintf(stderr,"already exist user : %s\n",sql_row[0]);
+        return 1;
+    }
+    if(sql_row==NULL)
+    {
+        memset(query,0,sizeof(query));
+        
+         strcat(query,"insert into userinfo VALUES(");
     strcat(query,"'");
     strcat(query,id);
     strcat(query,"','");
@@ -70,6 +94,12 @@ int DBConnect::signUp(const char* id, const char* passwd, const char* nickname)
     sql_result=mysql_store_result(connection);
     mysql_close(connection);
     return 0;
+    }
+    
+    
+    
+    
+   
     
     
 }
