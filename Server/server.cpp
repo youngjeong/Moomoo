@@ -6,12 +6,13 @@
 #include<sys/socket.h>
 #include<sys/epoll.h>
 #include "protocol.h"
-
+#include "DBConnect.h" 
 #define BUF_SIZE 2048
 #define EPOLL_SIZE 50
 void error_handling(char *buf);
 int read_body(int fd, char* body_buf, int size);
 int join_request(S_PROTOCOL_JOIN_REQ *body_buf);
+int login_request(S_PROTOCOL_LOGIN_REQ *body_buf);
 int main(int argc, char *argv[])
 {
     int serv_sock, clnt_sock;
@@ -96,6 +97,10 @@ int main(int argc, char *argv[])
                     }
                     case PROTOCOL_LOGIN_REQ:
                     {
+                        S_PROTOCOL_LOGIN_REQ body;
+                        read_body(ep_events[i].data.fd, body_buf, sizeof(body));
+                        memcpy(&body, body_buf, sizeof(body));
+                        login_request(&body);
                         break;
                     }
                     case PROTOCOL_LOBBY_ROOMLIST_REQ:
@@ -170,5 +175,24 @@ int join_request(S_PROTOCOL_JOIN_REQ *body_buf)
     printf("Received ID : %s\n", body_buf->id);
     printf("Received PW : %s\n", body_buf->password);
     printf("Received Nick : %s\n", body_buf->nickname);
+    DBConnect db;
+    if(db.signUp(body_buf->id, body_buf->password, body_buf->nickname)){
+        printf("signup error at server");
+        return 1;
+    }
+    return 0;
+}
+
+int login_request(S_PROTOCOL_LOGIN_REQ *body_buf)
+{
+    printf("Recevied ID : %s\n", body_buf->id);
+    printf("Recevied PW : %s\n", body_buf->password);
+    
+    DBConnect db;
+    if(db.login(body_buf->id, body_buf->password)){
+        printf("login error at server\n");
+        return 1;
+    }
+    printf("login success\n");
     return 0;
 }

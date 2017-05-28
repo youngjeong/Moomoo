@@ -5,6 +5,7 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>DBConnect.h</itemPath>
+      <itemPath>protocol.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -57,6 +58,8 @@
       </item>
       <item path="DBConnect.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="protocol.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="server.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
@@ -83,6 +86,8 @@
       <item path="DBConnect.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="DBConnect.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="protocol.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="server.cpp" ex="false" tool="1" flavor2="0">
       </item>
