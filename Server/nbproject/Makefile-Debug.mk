@@ -35,8 +35,9 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/Communicator.o \
 	${OBJECTDIR}/DBConnect.o \
-	${OBJECTDIR}/server.o
+	${OBJECTDIR}/Epoll.o
 
 
 # C Compiler Flags
@@ -63,15 +64,20 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/server: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/server ${OBJECTFILES} ${LDLIBSOPTIONS} -lmysqlclient
 
+${OBJECTDIR}/Communicator.o: Communicator.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Communicator.o Communicator.cpp
+
 ${OBJECTDIR}/DBConnect.o: DBConnect.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/DBConnect.o DBConnect.cpp
 
-${OBJECTDIR}/server.o: server.cpp
+${OBJECTDIR}/Epoll.o: Epoll.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/server.o server.cpp
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Epoll.o Epoll.cpp
 
 # Subprojects
 .build-subprojects:
