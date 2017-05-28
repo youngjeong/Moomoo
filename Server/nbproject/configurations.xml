@@ -6,7 +6,15 @@
                    projectFiles="true">
       <itemPath>Communicator.h</itemPath>
       <itemPath>DBConnect.h</itemPath>
+      <itemPath>InGameController.h</itemPath>
+      <itemPath>InLobbyController.h</itemPath>
+      <itemPath>InLoginController.h</itemPath>
+      <itemPath>InRoomController.h</itemPath>
+      <itemPath>Room.h</itemPath>
+      <itemPath>User.h</itemPath>
       <itemPath>protocol.h</itemPath>
+      <itemPath>roomManger.h</itemPath>
+      <itemPath>userManger.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -18,6 +26,37 @@
       <itemPath>Communicator.cpp</itemPath>
       <itemPath>DBConnect.cpp</itemPath>
       <itemPath>Epoll.cpp</itemPath>
+      <itemPath>InGameController.cpp</itemPath>
+      <itemPath>InLobbyController.cpp</itemPath>
+      <itemPath>InLoginController.cpp</itemPath>
+      <itemPath>InRoomController.cpp</itemPath>
+      <itemPath>Room.cpp</itemPath>
+      <itemPath>User.cpp</itemPath>
+      <itemPath>roomManger.cpp</itemPath>
+      <itemPath>server.cpp</itemPath>
+      <itemPath>userManger.cpp</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -64,9 +103,43 @@
       </item>
       <item path="DBConnect.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="InGameController.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="InGameController.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="InLobbyController.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="InLobbyController.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="InLoginController.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="InLoginController.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="InRoomController.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="InRoomController.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Room.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Room.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="User.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="User.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Epoll.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="protocol.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="roomManger.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="roomManger.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="server.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="userManger.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="userManger.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -97,9 +170,43 @@
       </item>
       <item path="DBConnect.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="InGameController.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="InGameController.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="InLobbyController.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="InLobbyController.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="InLoginController.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="InLoginController.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="InRoomController.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="InRoomController.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Room.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Room.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="User.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="User.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Epoll.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="protocol.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="roomManger.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="roomManger.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="server.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="userManger.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="userManger.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>
