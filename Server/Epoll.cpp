@@ -5,8 +5,12 @@
 #include<arpa/inet.h>
 #include<sys/socket.h>
 #include<sys/epoll.h>
+#include<algorithm>
+#include<vector>
 #include "protocol.h"
 #include "DBConnect.h" 
+#include "Communicator.h"
+
 #define BUF_SIZE 2048
 #define EPOLL_SIZE 50
 void error_handling(char *buf);
@@ -15,6 +19,7 @@ int join_request(S_PROTOCOL_JOIN_REQ *body_buf);
 int login_request(S_PROTOCOL_LOGIN_REQ *body_buf);
 int main(int argc, char *argv[])
 {
+    printf("%d", getpid());
     int serv_sock, clnt_sock;
     struct sockaddr_in serv_adr, clnt_adr;
     socklen_t adr_sz;
@@ -51,7 +56,7 @@ int main(int argc, char *argv[])
     event.events=EPOLLIN;
     event.data.fd=serv_sock;
     epoll_ctl(epfd, EPOLL_CTL_ADD, serv_sock, &event);
-    
+    vector<int> enabled_fd;
     while(1)
     {
         event_cnt=epoll_wait(epfd, ep_events, EPOLL_SIZE, -1);
@@ -69,78 +74,16 @@ int main(int argc, char *argv[])
                 event.events=EPOLLIN;
                 event.data.fd=clnt_sock;
                 epoll_ctl(epfd, EPOLL_CTL_ADD, clnt_sock, &event);
+                enabled_fd.push_back(clnt_sock);
                 printf("connected client: %d \n", clnt_sock);
             }
             else
             {
-                int recv_len=0;
-                _header header_buf;
-                int header_size = sizeof(_header);
-                char body_buf[BUF_SIZE]={0,};
-                int body_size = 0;
-                char tmp_buf[4]={0,};
-                read(ep_events[i].data.fd, tmp_buf, 4);    
-                while(recv_len<header_size)
-                {
-                    int read_byte=read(ep_events[i].data.fd, &header_buf+recv_len, header_size-recv_len);    
-                    recv_len+=read_byte;
-                }
-                memcpy(body_buf+4, &header_buf, header_size);
-                switch(header_buf.protocolID){
-                    case PROTOCOL_JOIN_REQ:
-                    {
-                        read_body(ep_events[i].data.fd, body_buf, sizeof(S_PROTOCOL_JOIN_REQ));
-                        S_PROTOCOL_JOIN_REQ body;
-                        memcpy(&body, body_buf, sizeof(body));
-                        join_request(&body);
-                        break;
-                    }
-                    case PROTOCOL_LOGIN_REQ:
-                    {
-                        S_PROTOCOL_LOGIN_REQ body;
-                        read_body(ep_events[i].data.fd, body_buf, sizeof(body));
-                        memcpy(&body, body_buf, sizeof(body));
-                        login_request(&body);
-                        break;
-                    }
-                    case PROTOCOL_LOBBY_ROOMLIST_REQ:
-                    {
-                        break;
-                    }
-                    case PROTOCOL_LOBBY_PLAYER_LIST_REQ:
-                    {
-                        break;
-                    }
-                    case PROTOCOL_ROOM_SET_READY_STATUS_REQ:
-                    {
-                        break;
-                    }
-                    case PROTOCOL_ROOM_PLAYER_LIST_REQ:
-                    {
-                        break;
-                    }
-                    case PROTOCOL_INGAME_LOADING_COMPLETED:
-                    {
-                        break;
-                    }
-                    case PROTOCOL_PLAYER_STATUS_CHANGED_REQ:
-                    {
-                        break;
-                    }
-                    case PROTOCOL_GAME_END_REQ:
-                    {
-                        break;
-                    }
-                }
-                
-                if(str_len==0)
-                {
+                if(Communicator::parse(ep_events[i].data.fd) < 0){
                     epoll_ctl(epfd, EPOLL_CTL_DEL, ep_events[i].data.fd, NULL);
                     close(ep_events[i].data.fd);
+                    enabled_fd.erase(find(enabled_fd.begin(), enabled_fd.end(), ep_events[i].data.fd));
                     printf("closed client: %d\n", ep_events[i].data.fd);
-                }
-                else{
-                    write(ep_events[i].data.fd, buf, str_len);
                 }
             }
         }
@@ -157,18 +100,6 @@ void error_handling(char *buf)
     exit(1);
 }
 
-int read_body(int fd, char* body_buf, int size)
-{
-    int header_size = sizeof(_header);
-    int body_size = size-header_size-4;
-    int recv_len=0;
-                        
-    while(recv_len < body_size)
-    {
-        int recv_size = read(fd, body_buf+recv_len+header_size+4, body_size-recv_len);
-        recv_len+=recv_size;
-    }
-}
 
 int join_request(S_PROTOCOL_JOIN_REQ *body_buf)
 {
