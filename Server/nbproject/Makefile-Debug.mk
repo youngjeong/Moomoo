@@ -36,7 +36,15 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/DBConnect.o \
-	${OBJECTDIR}/server.o
+	${OBJECTDIR}/InGameController.o \
+	${OBJECTDIR}/InLobbyController.o \
+	${OBJECTDIR}/InLoginController.o \
+	${OBJECTDIR}/InRoomController.o \
+	${OBJECTDIR}/Room.o \
+	${OBJECTDIR}/User.o \
+	${OBJECTDIR}/roomManger.o \
+	${OBJECTDIR}/server.o \
+	${OBJECTDIR}/userManger.o
 
 
 # C Compiler Flags
@@ -68,10 +76,50 @@ ${OBJECTDIR}/DBConnect.o: DBConnect.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/DBConnect.o DBConnect.cpp
 
+${OBJECTDIR}/InGameController.o: InGameController.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/InGameController.o InGameController.cpp
+
+${OBJECTDIR}/InLobbyController.o: InLobbyController.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/InLobbyController.o InLobbyController.cpp
+
+${OBJECTDIR}/InLoginController.o: InLoginController.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/InLoginController.o InLoginController.cpp
+
+${OBJECTDIR}/InRoomController.o: InRoomController.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/InRoomController.o InRoomController.cpp
+
+${OBJECTDIR}/Room.o: Room.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Room.o Room.cpp
+
+${OBJECTDIR}/User.o: User.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/User.o User.cpp
+
+${OBJECTDIR}/roomManger.o: roomManger.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/roomManger.o roomManger.cpp
+
 ${OBJECTDIR}/server.o: server.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/server.o server.cpp
+
+${OBJECTDIR}/userManger.o: userManger.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/userManger.o userManger.cpp
 
 # Subprojects
 .build-subprojects:
