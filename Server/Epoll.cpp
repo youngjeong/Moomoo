@@ -100,18 +100,6 @@ void error_handling(char *buf)
     exit(1);
 }
 
-int read_body(int fd, char* body_buf, int size)
-{
-    int header_size = sizeof(_header);
-    int body_size = size-header_size-4;
-    int recv_len=0;
-                        
-    while(recv_len < body_size)
-    {
-        int recv_size = read(fd, body_buf+recv_len+header_size+4, body_size-recv_len);
-        recv_len+=recv_size;
-    }
-}
 
 int join_request(S_PROTOCOL_JOIN_REQ *body_buf)
 {
