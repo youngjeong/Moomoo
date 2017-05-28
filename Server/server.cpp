@@ -75,6 +75,7 @@ int main(int argc, char *argv[])
                 int recv_len=0;
                 _header header_buf;
                 int header_size = sizeof(_header);
+                char body_buf[BUF_SIZE]={0,};
                 int body_size = 0;
                 char tmp_buf[4]={0,};
                 read(ep_events[i].data.fd, tmp_buf, 4);    
@@ -83,21 +84,11 @@ int main(int argc, char *argv[])
                     int read_byte=read(ep_events[i].data.fd, &header_buf+recv_len, header_size-recv_len);    
                     recv_len+=read_byte;
                 }
-                
+                memcpy(body_buf+4, &header_buf, header_size);
                 switch(header_buf.protocolID){
                     case PROTOCOL_JOIN_REQ:
                     {
-                        char body_buf[BUF_SIZE]={0,};
-                        memcpy(body_buf+4, &header_buf, header_size);
-                        int size = sizeof(S_PROTOCOL_JOIN_REQ);
-                        int body_size = size-header_size-4;
-                        recv_len=0;
-                        
-                        while(recv_len < body_size)
-                        {
-                            int recv_size = read(ep_events[i].data.fd, body_buf+recv_len+header_size+4, body_size-recv_len);
-                            recv_len+=recv_size;
-                        }
+                        read_body(ep_events[i].data.fd, body_buf, sizeof(S_PROTOCOL_JOIN_REQ));
                         S_PROTOCOL_JOIN_REQ body;
                         memcpy(&body, body_buf, sizeof(body));
                         join_request(&body);
@@ -105,67 +96,34 @@ int main(int argc, char *argv[])
                     }
                     case PROTOCOL_LOGIN_REQ:
                     {
-                        S_PROTOCOL_LOGIN_REQ body_buf;
-                        memcpy(&body_buf, &header_buf, header_size);
-                        int size = sizeof(body_buf);
-                        body_size = read_body(ep_events[i].data.fd, (char*)&body_buf+header_size, size-header_size);
                         break;
-                        
                     }
                     case PROTOCOL_LOBBY_ROOMLIST_REQ:
                     {
-                        S_PROTOCOL_LOBBY_ROOMLIST_REQ body_buf;
-                        memcpy(&body_buf, &header_buf, header_size);
-                        int size = sizeof(body_buf);
-                        body_size = read_body(ep_events[i].data.fd, (char*)&body_buf+header_size, size-header_size);
                         break;
                     }
                     case PROTOCOL_LOBBY_PLAYER_LIST_REQ:
                     {
-                        S_PROTOCOL_LOBBY_PLAYER_LIST_REQ body_buf;
-                        memcpy(&body_buf, &header_buf, header_size);
-                        int size = sizeof(body_buf);
-                        body_size = read_body(ep_events[i].data.fd, (char*)&body_buf+header_size, size-header_size);
                         break;
                     }
                     case PROTOCOL_ROOM_SET_READY_STATUS_REQ:
                     {
-                        S_PROTOCOL_ROOM_SET_READY_STATUS_REQ body_buf;
-                        memcpy(&body_buf, &header_buf, header_size);
-                        int size = sizeof(body_buf);
-                        body_size = read_body(ep_events[i].data.fd, (char*)&body_buf+header_size, size-header_size);
                         break;
                     }
                     case PROTOCOL_ROOM_PLAYER_LIST_REQ:
                     {
-                        S_PROTOCOL_ROOM_PLAYER_LIST_REQ body_buf;
-                        memcpy(&body_buf, &header_buf, header_size);
-                        int size = sizeof(body_buf);
-                        body_size = read_body(ep_events[i].data.fd, (char*)&body_buf+header_size, size-header_size);
                         break;
                     }
                     case PROTOCOL_INGAME_LOADING_COMPLETED:
                     {
-                        S_PROTOCOL_INGAME_LOADING_COMPLETED body_buf;
-                        memcpy(&body_buf, &header_buf, header_size);
-                        int size = sizeof(body_buf);
-                        body_size = read_body(ep_events[i].data.fd, (char*)&body_buf+header_size, size-header_size);
                         break;
                     }
                     case PROTOCOL_PLAYER_STATUS_CHANGED_REQ:
                     {
-                        S_PROTOCOL_PLAYER_STATUS_CHANGED_REQ body_buf;
-                        memcpy(&body_buf, &header_buf, header_size);
-                        int size = sizeof(body_buf);
-                        body_size = read_body(ep_events[i].data.fd, (char*)&body_buf+header_size, size-header_size);
                         break;
                     }
                     case PROTOCOL_GAME_END_REQ:
                     {
-                        S_PROTOCOL_GAME_END_REQ body_buf;
-                        memcpy(&body_buf, &header_buf, header_size);
-                        int size = sizeof(body_buf);
-                        body_size = read_body(ep_events[i].data.fd, (char*)&body_buf+header_size, size-header_size);
                         break;
                     }
                 }
@@ -196,14 +154,15 @@ void error_handling(char *buf)
 
 int read_body(int fd, char* body_buf, int size)
 {
-    int body_size = size;
+    int header_size = sizeof(_header);
+    int body_size = size-header_size-4;
     int recv_len=0;
+                        
     while(recv_len < body_size)
     {
-        int recv_size = read(fd, body_buf+recv_len, body_size-recv_len);
+        int recv_size = read(fd, body_buf+recv_len+header_size+4, body_size-recv_len);
         recv_len+=recv_size;
     }
-    return recv_len;
 }
 
 int join_request(S_PROTOCOL_JOIN_REQ *body_buf)
