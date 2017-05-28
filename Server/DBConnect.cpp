@@ -257,12 +257,9 @@ userInfo * DBConnect::searchUserInfo(const char* id)
 
     
 }
-
-int main(int argc, char *argv[])
-{
-   
-    DBConnect DBConnect;
-    DBConnect.makeDBConnect();
+ 
+//    DBConnect DBConnect;
+//    DBConnect.makeDBConnect();
     
 //    if(DBConnect.login("20122472","1234")==0)
 //    {
@@ -284,7 +281,7 @@ int main(int argc, char *argv[])
 //        puts("search failed");
 //    }
     
-    ladderInfo *ladder;
+  /*  ladderInfo *ladder;
     ladder= DBConnect.searchLadderInfo("dordong");
     if(ladder!=NULL)
     {
@@ -293,7 +290,6 @@ int main(int argc, char *argv[])
     }
     else
         puts("ladder info not found");
-    
+    */
     //DBConnect.signUp("1","1","1");
     //DBConnect.insertLadderInfo("dordong","05:05");
-}
