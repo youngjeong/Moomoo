@@ -4,22 +4,26 @@ using System.Net.Sockets;
 using System.Net;
 using System.Text;
 
-public class Network : MonoBehaviour
+public class Network
 {
+    private static Network _instance;
+
     private Socket m_Socket;
 
-    public string iPAdress = "192.168.1.95";
-    public int kPort = 9999;
+    string iPAdress = "13.124.83.116";
+    int kPort = 9090;
 
     private int SenddataLength;                     // Send Data Length. (byte)
     private int ReceivedataLength;                     // Receive Data Length. (byte)
 
     private byte[] Sendbyte;                        // Data encoding to send. ( to Change bytes)
     private byte[] Receivebyte = new byte[2000];    // Receive data by this array to save.
-    private string ReceiveString;                     // Receive bytes to Change string. 
+    private string ReceiveString;
 
-    void Awake()
+
+    public Network()
     {
+        Debug.Log("NETWORK CREATED");
         //=======================================================
         // Socket create.
         m_Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -40,19 +44,16 @@ public class Network : MonoBehaviour
             return;
         }
 
-        //=======================================================
-        // Send data write.
-        StringBuilder sb = new StringBuilder(); // String Builder Create
-        sb.Append("Test 1 - By Mac!!");
-        sb.Append("Test 2 - By Mac!!");
+        receive();
+    }
 
+    public void send(byte[] buffer, int size)
+    {
         try
         {
             //=======================================================
             // Send.
-            SenddataLength = Encoding.Default.GetByteCount(sb.ToString());
-            Sendbyte = Encoding.Default.GetBytes(sb.ToString());
-            m_Socket.Send(Sendbyte, Sendbyte.Length, 0);
+            m_Socket.Send(buffer, size, 0);
 
             //=======================================================       
             // Receive.
@@ -67,7 +68,30 @@ public class Network : MonoBehaviour
         }
     }
 
-    void OnApplicationQuit()
+    IEnumerator receive()
+    {
+        try
+        {
+            m_Socket.Receive(Receivebyte);
+            ReceiveString = Encoding.Default.GetString(Receivebyte);
+            ReceivedataLength = Encoding.Default.GetByteCount(ReceiveString.ToString());
+            Debug.Log("Receive Data : " + ReceiveString + "(" + ReceivedataLength + ")");
+        }
+        catch (SocketException err)
+        {
+            Debug.Log("Socket send or receive error! : " + err.ToString());
+        }
+
+        yield return null;
+    }
+
+    public static Network i()
+    {
+        if (_instance == null) _instance = new Network();
+        return _instance;
+    }
+
+    ~Network()
     {
         m_Socket.Close();
         m_Socket = null;
