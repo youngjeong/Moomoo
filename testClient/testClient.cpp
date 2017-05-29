@@ -26,11 +26,11 @@ int main() {
     memset(&header,0,sizeof(header));
     S_PROTOCOL_JOIN_REQ body;
     memset(&body,0,sizeof(body));
-    body.header.protocolID = PROTOCOL_LOGIN_REQ;
+    body.header.protocolID = PROTOCOL_JOIN_REQ;
     body.header.result = 10;
     strcpy(body.id, "eldkqmfhf123");
     strcpy(body.password, "password1");
-    //strcpy(body.nickname, "test_nickname");
+    strcpy(body.nickname, "test_nickname");
     
     int body_size = sizeof(body);
     write(sock, &body,body_size);

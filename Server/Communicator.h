@@ -19,9 +19,10 @@ class Communicator
 public:
     static int parse(int sock);
     
+    
 private:
     Communicator(){}
-    void readBody(int sock, char* body_buf, int size);
+    static void readBody(int sock, char* body_buf, int size);
     
 };
 

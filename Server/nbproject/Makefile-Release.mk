@@ -37,15 +37,15 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/Communicator.o \
 	${OBJECTDIR}/DBConnect.o \
-	${OBJECTDIR}/Epoll.o
+	${OBJECTDIR}/Epoll.o \
 	${OBJECTDIR}/InGameController.o \
 	${OBJECTDIR}/InLobbyController.o \
 	${OBJECTDIR}/InLoginController.o \
 	${OBJECTDIR}/InRoomController.o \
 	${OBJECTDIR}/Room.o \
 	${OBJECTDIR}/User.o \
+	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/roomManger.o \
-	${OBJECTDIR}/server.o \
 	${OBJECTDIR}/userManger.o
 
 
@@ -83,6 +83,11 @@ ${OBJECTDIR}/DBConnect.o: DBConnect.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/DBConnect.o DBConnect.cpp
 
+${OBJECTDIR}/Epoll.o: Epoll.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Epoll.o Epoll.cpp
+
 ${OBJECTDIR}/InGameController.o: InGameController.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -113,16 +118,15 @@ ${OBJECTDIR}/User.o: User.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/User.o User.cpp
 
+${OBJECTDIR}/main.o: main.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
+
 ${OBJECTDIR}/roomManger.o: roomManger.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/roomManger.o roomManger.cpp
-
-${OBJECTDIR}/server.o: server.cpp
-${OBJECTDIR}/Epoll.o: Epoll.cpp
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Epoll.o Epoll.cpp
 
 ${OBJECTDIR}/userManger.o: userManger.cpp
 	${MKDIR} -p ${OBJECTDIR}

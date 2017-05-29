@@ -1,7 +1,19 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<unistd.h>
+#include<arpa/inet.h>
+#include<sys/socket.h>
+#include<sys/epoll.h>
 #include "protocol.h"
 #include "Communicator.h"
+#include "DBConnect.h"
 
 #define BUF_SIZE 2048
+
+// Todo: Test function must be removed
+int join_request(S_PROTOCOL_JOIN_REQ *body_buf);
+int login_request(S_PROTOCOL_LOGIN_REQ *body_buf);
 
 int Communicator::parse(int sock) {
     int recv_len = 0;
@@ -18,17 +30,17 @@ int Communicator::parse(int sock) {
     switch (header_buf.protocolID) {
         case PROTOCOL_JOIN_REQ:
         {
-            readBody(sock, body_buf, sizeof (S_PROTOCOL_JOIN_REQ));
+            Communicator::readBody(sock, body_buf, sizeof (S_PROTOCOL_JOIN_REQ));
             S_PROTOCOL_JOIN_REQ body;
             memcpy(&body, body_buf, sizeof (body));
             // Join Request Function
-            // join_request(&body); 
+            join_request(&body); 
             break;
         }
         case PROTOCOL_LOGIN_REQ:
         {
             S_PROTOCOL_LOGIN_REQ body;
-            readBody(sock, body_buf, sizeof (body));
+            Communicator::readBody(sock, body_buf, sizeof (body));
             memcpy(&body, body_buf, sizeof (body));
             // Login Request Function
             // login_request(&body);
@@ -66,7 +78,7 @@ int Communicator::parse(int sock) {
     return 1;
 }
 
-int Communicator::readBody(int sock, char* body_buf, int size)
+void Communicator::readBody(int sock, char* body_buf, int size)
 {
     int header_size = sizeof(_header);
     int body_size = size-header_size-4;
@@ -74,7 +86,36 @@ int Communicator::readBody(int sock, char* body_buf, int size)
                         
     while(recv_len < body_size)
     {
-        int recv_size = read(fd, body_buf+recv_len+header_size+4, body_size-recv_len);
+        int recv_size = read(sock, body_buf+recv_len+header_size+4, body_size-recv_len);
         recv_len+=recv_size;
     }
+}
+
+
+// Todo: Test function must be removed
+int join_request(S_PROTOCOL_JOIN_REQ *body_buf)
+{
+    printf("Received ID : %s\n", body_buf->id);
+    printf("Received PW : %s\n", body_buf->password);
+    printf("Received Nick : %s\n", body_buf->nickname);
+    DBConnect db;
+    if(db.signUp(body_buf->id, body_buf->password, body_buf->nickname)){
+        printf("signup error at server");
+        return 1;
+    }
+    return 0;
+}
+
+int login_request(S_PROTOCOL_LOGIN_REQ *body_buf)
+{
+    printf("Recevied ID : %s\n", body_buf->id);
+    printf("Recevied PW : %s\n", body_buf->password);
+    
+    DBConnect db;
+    if(db.login(body_buf->id, body_buf->password)){
+        printf("login error at server\n");
+        return 1;
+    }
+    printf("login success\n");
+    return 0;
 }
