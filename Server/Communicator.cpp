@@ -48,30 +48,58 @@ int Communicator::parse(int sock) {
         }
         case PROTOCOL_LOBBY_ROOMLIST_REQ:
         {
+            S_PROTOCOL_LOBBY_ROOMLIST_REQ body;
+            Communicator::readBody(sock, body_buf, sizeof(body));
+            memcpy(&body, body_buf, sizeof (body));
+            // Request Room List Function
             break;
         }
         case PROTOCOL_LOBBY_PLAYER_LIST_REQ:
         {
+            S_PROTOCOL_LOBBY_PLAYER_LIST_REQ body;
+            Communicator::readBody(sock, body_buf, sizeof(body));
+            memcpy(&body, body_buf, sizeof (body));
+            // Request Lobby Player List Function
             break;
         }
         case PROTOCOL_ROOM_SET_READY_STATUS_REQ:
         {
+            S_PROTOCOL_ROOM_SET_READY_STATUS_REQ body;
+            Communicator::readBody(sock, body_buf, sizeof(body));
+            memcpy(&body, body_buf, sizeof (body));
+            // Change Player Status Function
             break;
         }
         case PROTOCOL_ROOM_PLAYER_LIST_REQ:
         {
+            S_PROTOCOL_ROOM_PLAYER_LIST_REQ body;
+            Communicator::readBody(sock, body_buf, sizeof(body));
+            memcpy(&body, body_buf, sizeof (body));
+            // Request Room Player List Function
             break;
         }
         case PROTOCOL_INGAME_LOADING_COMPLETED:
         {
+            S_PROTOCOL_INGAME_LOADING_COMPLETED body;
+            Communicator::readBody(sock, body_buf, sizeof(body));
+            memcpy(&body, body_buf, sizeof (body));
+            // Change Player Status to Load Complete Function
             break;
         }
         case PROTOCOL_PLAYER_STATUS_CHANGED_REQ:
         {
+            S_PROTOCOL_PLAYER_STATUS_CHANGED_REQ body;
+            Communicator::readBody(sock, body_buf, sizeof(body));
+            memcpy(&body, body_buf, sizeof (body));
+            // Change Player Status Function
             break;
         }
         case PROTOCOL_GAME_END_REQ:
         {
+            S_PROTOCOL_GAME_END_REQ body;
+            Communicator::readBody(sock, body_buf, sizeof(body));
+            memcpy(&body, body_buf, sizeof (body));
+            // Change Player Status Function
             break;
         }
     }
