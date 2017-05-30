@@ -10,6 +10,7 @@
 #include "Communicator.h"
 #include "DBConnect.h"
 #include "InLoginController.h"
+#include "UserMap.h"
 
 #define BUF_SIZE 2048
 
@@ -51,6 +52,22 @@ int Communicator::parse(int sock) {
             // Login Request Function
             ack_msg = InLoginController::loginRequest(&body, sock);
             write(sock, &ack_msg, sizeof(ack_msg));
+            break;
+        }
+        case PROTOCOL_LOBBY_CHAT_REQ:
+        {
+            S_PROTOCOL_LOBBY_CHAT_REQ body;
+            S_PROTOCOL_LOBBY_CHAT_ACK ack_msg;
+            Communicator::readBody(sock, body_buf, sizeof(body));
+            memcpy(&body, body_buf, sizeof(body));
+            memcpy(&ack_msg, &body, sizeof(body));
+            
+            UserMap* usermap_instance  = UserMap::getInstance();
+            auto UserMap = usermap_instance->getMap();
+            for(auto it=UserMap.begin(); it!=UserMap.end();it++){
+                if(it->second.getSockNum() == sock)continue;
+                write(it->second.getSockNum(), &ack_msg, sizeof(ack_msg));
+            }
             break;
         }
         case PROTOCOL_LOBBY_ROOMLIST_REQ:
