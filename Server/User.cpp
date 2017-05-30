@@ -11,19 +11,34 @@
  * Created on 2017년 5월 28일 (일), 오후 6:03
  */
 
+#include <string.h>
 #include "User.h"
 
-User::User() {
-    
-    username=(char *)malloc(sizeof(char )*16);
-    nickname=(char *)malloc(sizeof(char )*16);
-    accessToken=(char *)malloc(sizeof(char )*16);
-    ready=false;
-}
-
-User::User(const User& orig) {
+User::User(int sockNum, char *username, char *nickname) {
+    m_sockNum = sockNum;
+    strcpy(m_username, username);
+    strcpy(m_nickname, nickname);
 }
 
 User::~User() {
 }
 
+int User::getSockNum() {
+    return m_sockNum;
+}
+
+char* User::getUsername() {
+    return m_username;
+}
+
+char* User::getNickname() {
+    return m_nickname;
+}
+
+int User::getRoomNo() {
+    return m_roomNumber;
+}
+
+int User::getStatus() {
+    return m_state;
+}
