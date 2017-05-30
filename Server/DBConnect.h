@@ -47,7 +47,7 @@ public:
     int makeDBConnect();
     
     int signUp(const char *id, const char *passwd, const char *nickname);
-    userInfo* searchUserInfo(const char*id);
+    int searchUserInfo(const char* id, userInfo*);
     int insertLadderInfo(const char *nickname,const char *timestamp);
     ladderInfo * searchLadderInfo(const char *nickname);
     int login(const char *id, const char *passwd);

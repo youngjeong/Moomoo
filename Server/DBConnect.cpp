@@ -211,18 +211,20 @@ ladderInfo * DBConnect::searchLadderInfo(const char* nickname) {//search success
     mysql_close(connection);
 }
 
-userInfo * DBConnect::searchUserInfo(const char* id) {
+int DBConnect::searchUserInfo(const char* id , userInfo *result) {
     //search successed : userInfo return;
     //search failed :  NULL
-    userInfo * foundUser = (userInfo *) malloc(sizeof (userInfo *)*1);
+
+    /*userInfo * foundUser = (userInfo *) malloc(sizeof (userInfo )*1);
     memset(foundUser->id, 0, sizeof (foundUser->id));
     memset(foundUser->passwd, 0, sizeof (foundUser->passwd));
-    memset(foundUser->nickname, 0, sizeof (foundUser->nickname));
+    memset(foundUser->nickname, 0, sizeof (foundUser->nickname));*/
 
 
     if (makeDBConnect() != 0) {
         fprintf(stderr, "DB connnection failed : login\n");
-        return NULL;
+        mysql_close(connection);
+        return INTERNAL_SERVER_ERROR;
     }
     char _id[16];
     char _passwd[16];
@@ -239,24 +241,26 @@ userInfo * DBConnect::searchUserInfo(const char* id) {
     query_stat = mysql_query(connection, query);
     if (query_stat != 0) {
         fprintf(stderr, "mysql query error : %s\n", mysql_error(&conn));
-
-        return NULL;
+        mysql_close(connection);
+        return INTERNAL_SERVER_ERROR;
     }
     sql_result = mysql_store_result(connection);
 
     while ((sql_row = mysql_fetch_row(sql_result)) != NULL) {
         printf("%s %s %s\n", sql_row[0], sql_row[1], sql_row[2]);
-        strcpy(foundUser->id, sql_row[0]);
-        strcpy(foundUser->passwd, sql_row[1]);
-        strcpy(foundUser->nickname, sql_row[2]);
-
-        return foundUser;
+        strcpy(result->id, sql_row[0]);
+        strcpy(result->passwd, sql_row[1]);
+        strcpy(result->nickname, sql_row[2]);
+        mysql_close(connection);
+        return SUCCESS;
 
     }
     if (sql_row == NULL)
-        return NULL;
-
-    mysql_close(connection);
+    {
+        mysql_close(connection);
+        return INTERNAL_SERVER_ERROR;
+    }
+    
 
 
 }
