@@ -9,9 +9,11 @@
  * Author: admin
  * 
  * Created on 2017년 5월 28일 (일), 오후 8:05
- */
 
+ *  */
+#include <stdio.h>
 #include "InLoginController.h"
+#include "DBConnect.h"
 
 InLoginController::InLoginController() {
 }
@@ -49,11 +51,7 @@ int InLoginController::signUpRequest(S_PROTOCOL_JOIN_REQ *msg) {
     printf("Received PW : %s\n", msg->password);
     printf("Received Nick : %s\n", msg->nickname);
     DBConnect db;
-    if(db.signUp(msg->id, msg->password, msg->nickname)){
-        printf("signup error at server");
-        return 0;
-    }
-    return 1;
+    return db.signUp(msg->id, msg->password, msg->nickname);
 }
 
 InLoginController::InLoginController(const InLoginController& orig) {

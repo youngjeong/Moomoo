@@ -28,16 +28,19 @@ int main() {
     memset(&body,0,sizeof(body));
     body.header.protocolID = PROTOCOL_JOIN_REQ;
     body.header.result = 10;
-    strcpy(body.id, "eldkqmfhf123");
-    strcpy(body.password, "password1");
-    strcpy(body.nickname, "test_nickname");
+    strcpy(body.id, "1234");
+    strcpy(body.password, "1234");
+    strcpy(body.nickname, "1234");
     
     int body_size = sizeof(body);
     write(sock, &body,body_size);
-    while(1){
-        char buf[BUF_SIZE]={0,};
-        if(read(sock, buf, BUF_SIZE)>0)
-            printf("%s\n", buf);
-    }
+    
+    char buf[BUF_SIZE]={0,};
+    read(sock, buf, BUF_SIZE);
+    S_PROTOCOL_JOIN_ACK ack_msg;
+    memcpy(&ack_msg, buf, sizeof(ack_msg));
+    
+    printf("%d", ack_msg.header.result);
+        
     return 0;
 }
