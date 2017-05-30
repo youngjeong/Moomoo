@@ -18,67 +18,22 @@
 #include<cstdlib>
 class User {
 public:
-    User();
-    User(const User& orig);
+    User(int, char*, char*){}; 
     virtual ~User();
     
-
-    char* GetNickname() const {
-        return nickname;
-    }
-
-    void SetNickname(char* nickname) {
-        strcpy(this->nickname,nickname);
-    }
-
-    char* GetUsername() const {
-        return username;
-    }
-
-    void SetUsername(char* username) {
-        strcpy(this->username,username);
-    }
-    int GetRoomNumber() const {
-        return roomNumber;
-    }
-
-    void SetRoomNumber(int roomNumber) {
-        this->roomNumber = roomNumber;
-    }
-
-    int GetState() const {
-        return state;
-    }
-
-    void SetState(int state) {
-        this->state = state;
-    }
-    char* GetAccessToken() const {
-        return accessToken;
-    }
-
-    void SetAccessToken(char* accessToken) {
-        strcpy(this->accessToken,accessToken);
-    }
-
-    bool IsReady() const {
-        return ready;
-    }
-
-    void SetReady(bool ready) {
-        this->ready = ready;
-    }
-
-private:
-
-    
-    int sockNum;
-    bool ready;
-    char *username;
-    char *nickname;
-    char *accessToken;
-    int roomNumber;
-    int state;//in lobby : 1 in room : 2 in game : 3
+    int getSockNum();
+    char *getUsername();
+    char *getNickname();
+    int getRoomNo();
+    int getStatus();
+  
+private:  
+    int m_sockNum;
+    bool m_ready;
+    char m_username[16];
+    char m_nickname[16];
+    int m_roomNumber;
+    int m_state;//in lobby : 1 in room : 2 in game : 3
     
 };
 
