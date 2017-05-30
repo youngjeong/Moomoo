@@ -10,6 +10,7 @@
       <itemPath>InLoginController.h</itemPath>
       <itemPath>InRoomController.h</itemPath>
       <itemPath>Room.h</itemPath>
+      <itemPath>RoomMap.h</itemPath>
       <itemPath>User.h</itemPath>
       <itemPath>protocol.h</itemPath>
       <itemPath>roomManger.h</itemPath>
@@ -28,6 +29,7 @@
       <itemPath>InLoginController.cpp</itemPath>
       <itemPath>InRoomController.cpp</itemPath>
       <itemPath>Room.cpp</itemPath>
+      <itemPath>RoomMap.cpp</itemPath>
       <itemPath>User.cpp</itemPath>
       <itemPath>roomManger.cpp</itemPath>
       <itemPath>server.cpp</itemPath>
@@ -116,6 +118,10 @@
       </item>
       <item path="Room.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="RoomMap.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="RoomMap.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="User.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="User.h" ex="false" tool="3" flavor2="0">
@@ -176,6 +182,10 @@
       <item path="Room.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Room.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="RoomMap.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="RoomMap.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="User.cpp" ex="false" tool="1" flavor2="0">
       </item>

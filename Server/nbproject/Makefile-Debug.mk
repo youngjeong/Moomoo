@@ -41,6 +41,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/InLoginController.o \
 	${OBJECTDIR}/InRoomController.o \
 	${OBJECTDIR}/Room.o \
+	${OBJECTDIR}/RoomMap.o \
 	${OBJECTDIR}/User.o \
 	${OBJECTDIR}/roomManger.o \
 	${OBJECTDIR}/server.o \
@@ -100,6 +101,11 @@ ${OBJECTDIR}/Room.o: Room.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Room.o Room.cpp
+
+${OBJECTDIR}/RoomMap.o: RoomMap.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/RoomMap.o RoomMap.cpp
 
 ${OBJECTDIR}/User.o: User.cpp
 	${MKDIR} -p ${OBJECTDIR}
