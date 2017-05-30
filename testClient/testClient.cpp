@@ -26,11 +26,28 @@ int main() {
     memset(&header,0,sizeof(header));
     S_PROTOCOL_JOIN_REQ body;
     memset(&body,0,sizeof(body));
-    body.header.protocolID = PROTOCOL_JOIN_REQ;
+   
+    body.header.protocolID = PROTOCOL_LOGIN_REQ;
     body.header.result = 10;
-    strcpy(body.id, "1234");
-    strcpy(body.password, "1234");
-    strcpy(body.nickname, "1234");
+    strcpy(body.id, "321");
+    strcpy(body.password, "456s");
+    //strcpy(body.nickname, "newnick");
+    
+    int body_size = sizeof(body);
+    write(sock, &body,body_size);
+    
+    char buf[BUF_SIZE]={0,};
+    read(sock, buf, BUF_SIZE);
+    S_PROTOCOL_LOGIN_ACK ack_msg;
+    memcpy(&ack_msg, buf, sizeof(ack_msg));
+    
+    printf("%d", ack_msg.header.result);
+    
+    /*body.header.protocolID = PROTOCOL_JOIN_REQ;
+    body.header.result = 10;
+    strcpy(body.id, "321");
+    strcpy(body.password, "456s");
+    strcpy(body.nickname, "newnick");
     
     int body_size = sizeof(body);
     write(sock, &body,body_size);
@@ -40,7 +57,7 @@ int main() {
     S_PROTOCOL_JOIN_ACK ack_msg;
     memcpy(&ack_msg, buf, sizeof(ack_msg));
     
-    printf("%d", ack_msg.header.result);
+    printf("%d", ack_msg.header.result);*/
         
     return 0;
 }

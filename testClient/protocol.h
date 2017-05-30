@@ -44,7 +44,7 @@ public:
 struct _header : _protocol {
    int protocolID;
    int result;
-   char accessToken[16];
+   int userno;
 };
 
 typedef struct _PROTOCOL_JOIN_REQ : _protocol {
@@ -81,7 +81,7 @@ typedef struct _PROTOCOL_LOGIN_REQ : _protocol {
 
 typedef struct _PROTOCOL_LOGIN_ACK : _protocol {
    _header header;
-   char accessToken[16];
+   int userno;
 
    _PROTOCOL_LOGIN_ACK()
    {

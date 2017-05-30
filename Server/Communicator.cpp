@@ -28,16 +28,16 @@ int Communicator::parse(int sock) {
     if (read(sock, &header_buf, header_size) == 0)
         return -1;
 
-    memcpy(body_buf + 4, &header_buf, header_size);
+    memcpy(body_buf+4, &header_buf, header_size);
     switch (header_buf.protocolID) {
         case PROTOCOL_JOIN_REQ:
         {
             Communicator::readBody(sock, body_buf, sizeof (S_PROTOCOL_JOIN_REQ));
             S_PROTOCOL_JOIN_REQ body;
+            S_PROTOCOL_JOIN_ACK ack_msg;
             memcpy(&body, body_buf, sizeof (body));
             // Join Request Function
             int join_result = InLoginController::signUpRequest(&body);
-            S_PROTOCOL_JOIN_ACK ack_msg;
             ack_msg.header.result = join_result;
             write(sock, &ack_msg, sizeof (ack_msg)); // Join response
             break;
@@ -45,10 +45,12 @@ int Communicator::parse(int sock) {
         case PROTOCOL_LOGIN_REQ:
         {
             S_PROTOCOL_LOGIN_REQ body;
+            S_PROTOCOL_LOGIN_ACK ack_msg;
             Communicator::readBody(sock, body_buf, sizeof (body));
             memcpy(&body, body_buf, sizeof (body));
             // Login Request Function
-            // login_request(&body);
+            ack_msg = InLoginController::loginRequest(&body, sock);
+            write(sock, &ack_msg, sizeof(ack_msg));
             break;
         }
         case PROTOCOL_LOBBY_ROOMLIST_REQ:

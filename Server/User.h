@@ -18,7 +18,7 @@
 #include<cstdlib>
 class User {
 public:
-    User(int, char*, char*){}; 
+    User(int, char*, char*); 
     virtual ~User();
     
     int getSockNum();
