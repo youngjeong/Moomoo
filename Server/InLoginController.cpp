@@ -16,12 +16,44 @@
 InLoginController::InLoginController() {
 }
 
-void InLoginController::loginRequest() {
 
+/* 
+ * loginRequest
+ * Parameter : S_PROTOCOL_LOGIN_REQ
+ * Return Type : int
+ * Return Value : Login result ( 1 = Success 0 = Fail )
+ */
+int InLoginController::loginRequest(S_PROTOCOL_LOGIN_REQ *msg) {
+    printf("Recevied ID : %s\n", msg->id);
+    printf("Recevied PW : %s\n", msg->password);
+    
+    DBConnect db;
+    if(db.login(msg->id, msg->password)){
+        printf("login error at server\n");
+        return 0;
+    }
+    
+    // Todo : print to log file
+    printf("login success\n");
+    return 1;
 }
 
-void InLoginController::signUpRequest() {
-
+/* 
+ * signUpRequest
+ * Parameter : S_PROTOCOL_JOIN_REQ
+ * Return Type : int
+ * Return Value : Join result ( 1 = Success 0 = Fail )
+ */
+int InLoginController::signUpRequest(S_PROTOCOL_JOIN_REQ *msg) {
+    printf("Received ID : %s\n", msg->id);
+    printf("Received PW : %s\n", msg->password);
+    printf("Received Nick : %s\n", msg->nickname);
+    DBConnect db;
+    if(db.signUp(msg->id, msg->password, msg->nickname)){
+        printf("signup error at server");
+        return 0;
+    }
+    return 1;
 }
 
 InLoginController::InLoginController(const InLoginController& orig) {

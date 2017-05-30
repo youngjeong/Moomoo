@@ -19,8 +19,8 @@ public:
     InLoginController();
     InLoginController(const InLoginController& orig);
     virtual ~InLoginController();
-    static void loginRequest();
-    static void signUpRequest();
+    static int loginRequest(S_PROTOCOL_LOGIN_REQ);
+    static int signUpRequest(S_PROTOCOL_JOIN_REQ);
     
 private:
 

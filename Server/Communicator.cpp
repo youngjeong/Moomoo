@@ -8,6 +8,7 @@
 #include "protocol.h"
 #include "Communicator.h"
 #include "DBConnect.h"
+#include "InLoginController.h"
 
 #define BUF_SIZE 2048
 
@@ -34,7 +35,12 @@ int Communicator::parse(int sock) {
             S_PROTOCOL_JOIN_REQ body;
             memcpy(&body, body_buf, sizeof (body));
             // Join Request Function
-            join_request(&body); 
+            if(InLoginController::signUpRequest(&body)){ // Join Success
+                
+            } 
+            else{ // Join Fail
+                
+            }
             break;
         }
         case PROTOCOL_LOGIN_REQ:
@@ -117,33 +123,4 @@ void Communicator::readBody(int sock, char* body_buf, int size)
         int recv_size = read(sock, body_buf+recv_len+header_size+4, body_size-recv_len);
         recv_len+=recv_size;
     }
-}
-
-
-// Todo: Test function must be removed
-int join_request(S_PROTOCOL_JOIN_REQ *body_buf)
-{
-    printf("Received ID : %s\n", body_buf->id);
-    printf("Received PW : %s\n", body_buf->password);
-    printf("Received Nick : %s\n", body_buf->nickname);
-    DBConnect db;
-    if(db.signUp(body_buf->id, body_buf->password, body_buf->nickname)){
-        printf("signup error at server");
-        return 1;
-    }
-    return 0;
-}
-
-int login_request(S_PROTOCOL_LOGIN_REQ *body_buf)
-{
-    printf("Recevied ID : %s\n", body_buf->id);
-    printf("Recevied PW : %s\n", body_buf->password);
-    
-    DBConnect db;
-    if(db.login(body_buf->id, body_buf->password)){
-        printf("login error at server\n");
-        return 1;
-    }
-    printf("login success\n");
-    return 0;
 }
