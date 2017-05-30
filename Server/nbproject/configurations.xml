@@ -13,6 +13,7 @@
       <itemPath>InRoomController.h</itemPath>
       <itemPath>Room.h</itemPath>
       <itemPath>User.h</itemPath>
+      <itemPath>errorcode.h</itemPath>
       <itemPath>protocol.h</itemPath>
       <itemPath>roomManger.h</itemPath>
       <itemPath>userManger.h</itemPath>
@@ -132,6 +133,8 @@
       </item>
       <item path="User.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="errorcode.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="protocol.h" ex="false" tool="3" flavor2="0">
@@ -200,6 +203,8 @@
       <item path="User.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="User.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="errorcode.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
