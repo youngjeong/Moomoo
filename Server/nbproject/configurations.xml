@@ -4,7 +4,9 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>Communicator.h</itemPath>
       <itemPath>DBConnect.h</itemPath>
+      <itemPath>Epoll.h</itemPath>
       <itemPath>InGameController.h</itemPath>
       <itemPath>InLobbyController.h</itemPath>
       <itemPath>InLoginController.h</itemPath>
@@ -12,6 +14,7 @@
       <itemPath>Room.h</itemPath>
       <itemPath>RoomMap.h</itemPath>
       <itemPath>User.h</itemPath>
+      <itemPath>errorcode.h</itemPath>
       <itemPath>protocol.h</itemPath>
       <itemPath>roomManger.h</itemPath>
       <itemPath>userManger.h</itemPath>
@@ -23,7 +26,9 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>Communicator.cpp</itemPath>
       <itemPath>DBConnect.cpp</itemPath>
+      <itemPath>Epoll.cpp</itemPath>
       <itemPath>InGameController.cpp</itemPath>
       <itemPath>InLobbyController.cpp</itemPath>
       <itemPath>InLoginController.cpp</itemPath>
@@ -31,8 +36,8 @@
       <itemPath>Room.cpp</itemPath>
       <itemPath>RoomMap.cpp</itemPath>
       <itemPath>User.cpp</itemPath>
+      <itemPath>main.cpp</itemPath>
       <itemPath>roomManger.cpp</itemPath>
-      <itemPath>server.cpp</itemPath>
       <itemPath>userManger.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -94,9 +99,17 @@
           <commandLine>-lmysqlclient</commandLine>
         </linkerTool>
       </compileType>
+      <item path="Communicator.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Communicator.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="DBConnect.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="DBConnect.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Epoll.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Epoll.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="InGameController.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -126,13 +139,15 @@
       </item>
       <item path="User.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="errorcode.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="protocol.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="roomManger.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="roomManger.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="server.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="userManger.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -159,9 +174,17 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="Communicator.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Communicator.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="DBConnect.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="DBConnect.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Epoll.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Epoll.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="InGameController.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -191,13 +214,15 @@
       </item>
       <item path="User.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="errorcode.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="protocol.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="roomManger.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="roomManger.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="server.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="userManger.cpp" ex="false" tool="1" flavor2="0">
       </item>

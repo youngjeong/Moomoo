@@ -35,7 +35,9 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/Communicator.o \
 	${OBJECTDIR}/DBConnect.o \
+	${OBJECTDIR}/Epoll.o \
 	${OBJECTDIR}/InGameController.o \
 	${OBJECTDIR}/InLobbyController.o \
 	${OBJECTDIR}/InLoginController.o \
@@ -43,8 +45,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/Room.o \
 	${OBJECTDIR}/RoomMap.o \
 	${OBJECTDIR}/User.o \
+	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/roomManger.o \
-	${OBJECTDIR}/server.o \
 	${OBJECTDIR}/userManger.o
 
 
@@ -72,10 +74,20 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/server: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/server ${OBJECTFILES} ${LDLIBSOPTIONS} -lmysqlclient
 
+${OBJECTDIR}/Communicator.o: Communicator.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Communicator.o Communicator.cpp
+
 ${OBJECTDIR}/DBConnect.o: DBConnect.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/DBConnect.o DBConnect.cpp
+
+${OBJECTDIR}/Epoll.o: Epoll.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Epoll.o Epoll.cpp
 
 ${OBJECTDIR}/InGameController.o: InGameController.cpp
 	${MKDIR} -p ${OBJECTDIR}
@@ -112,15 +124,15 @@ ${OBJECTDIR}/User.o: User.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/User.o User.cpp
 
+${OBJECTDIR}/main.o: main.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
+
 ${OBJECTDIR}/roomManger.o: roomManger.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/roomManger.o roomManger.cpp
-
-${OBJECTDIR}/server.o: server.cpp
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/server.o server.cpp
 
 ${OBJECTDIR}/userManger.o: userManger.cpp
 	${MKDIR} -p ${OBJECTDIR}

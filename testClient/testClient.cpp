@@ -5,7 +5,7 @@
 #include<arpa/inet.h>
 #include<sys/socket.h>
 #include "protocol.h"
-
+#define BUF_SIZE 2048
 using namespace std;
 
 int main() {
@@ -17,7 +17,7 @@ int main() {
     memset(&serv_adr, 0,sizeof(serv_adr));
     serv_adr.sin_family=AF_INET;
     serv_adr.sin_addr.s_addr=inet_addr("13.124.83.116");
-    serv_adr.sin_port=htons(atoi("9090"));
+    serv_adr.sin_port=htons(atoi("9091"));
     
     if(connect(sock, (struct sockaddr*)&serv_adr, sizeof(serv_adr))==-1)
         printf("connect error");
@@ -26,13 +26,18 @@ int main() {
     memset(&header,0,sizeof(header));
     S_PROTOCOL_JOIN_REQ body;
     memset(&body,0,sizeof(body));
-    body.header.protocolID = PROTOCOL_LOGIN_REQ;
+    body.header.protocolID = PROTOCOL_JOIN_REQ;
     body.header.result = 10;
     strcpy(body.id, "eldkqmfhf123");
     strcpy(body.password, "password1");
-    //strcpy(body.nickname, "test_nickname");
+    strcpy(body.nickname, "test_nickname");
     
     int body_size = sizeof(body);
     write(sock, &body,body_size);
+    while(1){
+        char buf[BUF_SIZE]={0,};
+        if(read(sock, buf, BUF_SIZE)>0)
+            printf("%s\n", buf);
+    }
     return 0;
 }
