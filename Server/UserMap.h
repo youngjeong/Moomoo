@@ -11,12 +11,12 @@
  * Created on 2017년 5월 30일 (화), 오후 5:09
  */
 
-#ifndef USERMAP_H
-#define USERMAP_H
+#pragma once
 
 #include<map>
 #include<string.h>
 #include "User.h"
+
 using namespace std;
 
 class UserMap{ // In Lobby
@@ -27,16 +27,16 @@ private:
     std::map<int, User> usermap;
     
 public:
-    static UserMap* getInstance();
-    
     virtual ~UserMap(){
         UserMapFlag=false;
     };
+    
+    static UserMap* getInstance();
+    
     int getSize();
     void addUser(int, User);
     void delUser(int);
     map<int, User> getMap();
+    int getLastno();
 };
-
-#endif /* USERMAP_H */
 
