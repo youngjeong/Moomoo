@@ -114,9 +114,9 @@ int Communicator::parse(int sock) {
             // Request Lobby Player List Function
             break;
         }
-        case PROTOCOL_ROOM_SET_READY_STATUS_REQ:
+        case PROTOCOL_PLAYER_CHANGE_READY_STATUS_REQ:
         {
-            S_PROTOCOL_ROOM_SET_READY_STATUS_REQ body;
+            S_PROTOCOL_PLAYER_CHANGE_READY_STATUS_REQ body;
             Communicator::readBody(sock, body_buf, sizeof (body));
             memcpy(&body, body_buf, sizeof (body));
             // Change Player Status Function
