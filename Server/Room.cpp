@@ -26,5 +26,6 @@ Room::Room(const Room& orig) {
 }
 
 Room::~Room() {
+    puts("destroyer of Room Instance");
+    
 }
-

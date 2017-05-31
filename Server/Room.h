@@ -16,6 +16,8 @@
 #include<map>
 #include<vector>
 #include"User.h"
+#include<cstdio>
+#include<cstdlib>
 using namespace std;
 
 class Room {
@@ -40,7 +42,7 @@ public:
     void SetUsers(map<char*, User>* users) {
         this->users = users;
     }
-
+    
     int GetRoom_no() const {
         return room_no;
     }
@@ -48,6 +50,9 @@ public:
     void SetRoom_no(int room_no) {
         this->room_no = room_no;
     }
+    
+    void addUser(User * user);
+    
 
 private:
     int room_no;

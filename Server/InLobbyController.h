@@ -21,6 +21,8 @@
 using namespace std;
 
 class InLobbyController {
+    //Todo debugTest must be removed
+    //debugTest : make room for testing
 public:
     InLobbyController();
     InLobbyController(const InLobbyController& orig);

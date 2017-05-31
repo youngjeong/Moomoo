@@ -12,6 +12,9 @@ enum Protocol {
    PROTOCOL_LOGIN_REQ,
    PROTOCOL_LOGIN_ACK,
 
+   PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ,//protocol added
+   PROTOCOL_LOBBY_JOIN_TO_ROOM_ACK,//protocol added
+   
    PROTOCOL_LOBBY_ROOMLIST_REQ,
    PROTOCOL_LOBBY_ROOMLIST_ACK,
 
@@ -89,12 +92,32 @@ typedef struct _PROTOCOL_LOGIN_ACK : _protocol {
    }
 } S_PROTOCOL_LOGIN_ACK;
 
-struct _room_info {
+struct _room_info {//room_info changed
    int room_no;
    //int current;
    //int total;
    char roomName[50];
 };
+
+typedef struct _PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ : _protocol
+{
+    _header header;
+    _PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ()
+    {
+        header.protocolID=PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ;
+    }  
+}S_PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ;
+
+
+typedef struct _PROTOCOL_LOBBY_JOIN_TO_ROOM_ACK : _protocol
+{
+    _header header;
+   _PROTOCOL_LOBBY_JOIN_TO_ROOM_ACK()
+    {
+        header.protocolID=PROTOCOL_LOBBY_JOIN_TO_ROOM_ACK;
+    }  
+}S_PROTOCOL_LOBBY_JOIN_TO_ROOM_ACK;
+
 
 typedef struct _PROTOCOL_LOBBY_ROOMLIST_REQ : _protocol {
    _header header;

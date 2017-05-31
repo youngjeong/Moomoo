@@ -39,14 +39,13 @@ void InLobbyController::makeRoom() {
 }
 
 void InLobbyController::debugTest(int room_no, Room &room_obj) {
+    //Todo : debugTest must be removed
+    //debugTest adds room for testing
      RoomMap * instance = RoomMap::getInstance();
      
      
      instance->addRoom(room_no,room_obj);
-     
-     map<int,Room *> roomMap=instance->getRooms();
-     map<int,Room *>::iterator iter=roomMap.begin();
-     iter=roomMap.find(room_no);
+
         
 }
 
@@ -68,12 +67,14 @@ void InLobbyController::getAllRooms(S_PROTOCOL_LOBBY_ROOMLIST_REQ *roomRequest,S
     
     
     roomAck->count=roomMap.size();
+    
  
     for(i=0,it = roomMap.begin();it!=roomMap.end();it++,i++)
     {
         strcpy(roomAck->rooms[i].roomName,  it->second->GetRoomName());
         roomAck->rooms[i].room_no=it->first;
-        
+        printf("InLobbyController::getAllRooms room_no : %d roomName : %s\n",
+                roomAck->rooms[i].room_no,roomAck->rooms[i].roomName);
         
     }        
     

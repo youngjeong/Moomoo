@@ -44,8 +44,11 @@ int main() {
     memcpy(&ack_msg, buf, sizeof(ack_msg));
     printf("%d\n",ack_msg.count);
     printf("%s\n",ack_msg.rooms[0].roomName);
-    
     printf("%d\n",ack_msg.rooms[0].room_no);
+    
+    
+    printf("%s\n",ack_msg.rooms[1].roomName);
+    printf("%d\n",ack_msg.rooms[1].room_no);
     //printf("%d\n", ack_msg.header.result);
     //printf("%d\n",ack_msg.count);
     //printf("%s\n",ack_msg.rooms[0].roomName);
