@@ -44,7 +44,7 @@ public:
 struct _header : _protocol {
    int protocolID;
    int result;
-   char accessToken[16];
+   int userno;
 };
 
 typedef struct _PROTOCOL_JOIN_REQ : _protocol {
@@ -81,7 +81,7 @@ typedef struct _PROTOCOL_LOGIN_REQ : _protocol {
 
 typedef struct _PROTOCOL_LOGIN_ACK : _protocol {
    _header header;
-   char accessToken[16];
+   int userno;
 
    _PROTOCOL_LOGIN_ACK()
    {
@@ -90,14 +90,14 @@ typedef struct _PROTOCOL_LOGIN_ACK : _protocol {
 } S_PROTOCOL_LOGIN_ACK;
 
 struct _room_info {
-   int num;
-   int current;
-   int total;
+   int room_no;
+   //int current;
+   //int total;
+   char roomName[50];
 };
 
 typedef struct _PROTOCOL_LOBBY_ROOMLIST_REQ : _protocol {
    _header header;
-
    _PROTOCOL_LOBBY_ROOMLIST_REQ()
    {
       header.protocolID = PROTOCOL_LOBBY_ROOMLIST_REQ;
@@ -107,7 +107,7 @@ typedef struct _PROTOCOL_LOBBY_ROOMLIST_REQ : _protocol {
 typedef struct _PROTOCOL_LOBBY_ROOMLIST_ACK : _protocol {
    _header header;
    int count;
-   _room_info rooms[255];
+   _room_info rooms[20];
 
    _PROTOCOL_LOBBY_ROOMLIST_ACK()
    {
@@ -123,7 +123,7 @@ struct _player_info {
 
 typedef struct _PROTOCOL_LOBBY_PLAYER_LIST_REQ : _protocol {
    _header header;
-
+   struct _player_info waitPlayers[20];
    _PROTOCOL_LOBBY_PLAYER_LIST_REQ()
    {
       header.protocolID = PROTOCOL_LOBBY_PLAYER_LIST_REQ;
@@ -133,7 +133,7 @@ typedef struct _PROTOCOL_LOBBY_PLAYER_LIST_REQ : _protocol {
 typedef struct _PROTOCOL_LOBBY_PLAYER_LIST_ACK : _protocol {
    _header header;
    int count;
-   _player_info players[255];
+   _player_info players[20];
 
    _PROTOCOL_LOBBY_PLAYER_LIST_ACK()
    {

@@ -9,9 +9,14 @@
  * Author: admin
  * 
  * Created on 2017년 5월 28일 (일), 오후 8:05
- */
 
+ *  */
+#include <stdio.h>
 #include "InLoginController.h"
+#include "User.h"
+#include "DBConnect.h"
+#include "UserMap.h"
+#include "errorcode.h"
 
 InLoginController::InLoginController() {
 }
@@ -20,22 +25,31 @@ InLoginController::InLoginController() {
 /* 
  * loginRequest
  * Parameter : S_PROTOCOL_LOGIN_REQ
- * Return Type : int
+ * Return Type : S_PROTOCOL_LOGIN_ACK
  * Return Value : Login result ( 1 = Success 0 = Fail )
  */
-int InLoginController::loginRequest(S_PROTOCOL_LOGIN_REQ *msg) {
+S_PROTOCOL_LOGIN_ACK InLoginController::loginRequest(S_PROTOCOL_LOGIN_REQ *msg, int sockno) {
     printf("Recevied ID : %s\n", msg->id);
     printf("Recevied PW : %s\n", msg->password);
     
+    S_PROTOCOL_LOGIN_ACK ack_msg;
     DBConnect db;
-    if(db.login(msg->id, msg->password)){
-        printf("login error at server\n");
-        return 0;
+    int login_result =  db.login(msg->id, msg->password);
+    ack_msg.header.protocolID = PROTOCOL_LOGIN_ACK;
+    ack_msg.header.result = login_result;
+    
+    if(login_result == SUCCESS)
+    {
+        UserMap *usermap_instance = UserMap::getInstance();
+        userinfo info;
+        db.searchUserInfo(msg->id, &info);
+        User user(sockno, info.id, info.nickname);
+        int userno = usermap_instance->getLastno();
+        usermap_instance->addUser(userno, user);
+        ack_msg.userno = userno;
     }
     
-    // Todo : print to log file
-    printf("login success\n");
-    return 1;
+    return ack_msg;
 }
 
 /* 
@@ -49,11 +63,7 @@ int InLoginController::signUpRequest(S_PROTOCOL_JOIN_REQ *msg) {
     printf("Received PW : %s\n", msg->password);
     printf("Received Nick : %s\n", msg->nickname);
     DBConnect db;
-    if(db.signUp(msg->id, msg->password, msg->nickname)){
-        printf("signup error at server");
-        return 0;
-    }
-    return 1;
+    return db.signUp(msg->id, msg->password, msg->nickname);
 }
 
 InLoginController::InLoginController(const InLoginController& orig) {

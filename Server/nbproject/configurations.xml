@@ -14,6 +14,7 @@
       <itemPath>Room.h</itemPath>
       <itemPath>RoomMap.h</itemPath>
       <itemPath>User.h</itemPath>
+      <itemPath>UserMap.h</itemPath>
       <itemPath>errorcode.h</itemPath>
       <itemPath>protocol.h</itemPath>
     </logicalFolder>
@@ -34,6 +35,7 @@
       <itemPath>Room.cpp</itemPath>
       <itemPath>RoomMap.cpp</itemPath>
       <itemPath>User.cpp</itemPath>
+      <itemPath>UserMap.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -135,6 +137,10 @@
       </item>
       <item path="User.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="UserMap.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="UserMap.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="errorcode.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
@@ -201,6 +207,10 @@
       <item path="User.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="User.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="UserMap.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="UserMap.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="errorcode.h" ex="false" tool="3" flavor2="0">
       </item>

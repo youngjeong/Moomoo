@@ -45,6 +45,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/Room.o \
 	${OBJECTDIR}/RoomMap.o \
 	${OBJECTDIR}/User.o \
+	${OBJECTDIR}/UserMap.o \
 	${OBJECTDIR}/main.o
 
 
@@ -121,6 +122,11 @@ ${OBJECTDIR}/User.o: User.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/User.o User.cpp
+
+${OBJECTDIR}/UserMap.o: UserMap.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/UserMap.o UserMap.cpp
 
 ${OBJECTDIR}/main.o: main.cpp
 	${MKDIR} -p ${OBJECTDIR}

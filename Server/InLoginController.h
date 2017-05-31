@@ -14,17 +14,20 @@
 #ifndef INLOGINCONTROLLER_H
 #define INLOGINCONTROLLER_H
 #include "protocol.h"
+
 #include<iostream>
 #include<cstdio>
 #include"Communicator.h"
 #include"DBConnect.h"
+
 class InLoginController {
 public:
     InLoginController();
     InLoginController(const InLoginController& orig);
     virtual ~InLoginController();
-    static int loginRequest(S_PROTOCOL_LOGIN_REQ *);
-    static int signUpRequest(S_PROTOCOL_JOIN_REQ *);
+
+    static S_PROTOCOL_LOGIN_ACK loginRequest(S_PROTOCOL_LOGIN_REQ*, int sockno);
+    static int signUpRequest(S_PROTOCOL_JOIN_REQ*);
     
 private:
 
