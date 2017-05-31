@@ -196,7 +196,7 @@ typedef struct _PROTOCOL_LOBBY_PLAYER_LIST_ACK : _protocol {
 
 typedef struct _PROTOCOL_ROOM_SET_READY_STATUS_REQ : _protocol {
    _header header;
-   bool status;
+   int status;
 
    _PROTOCOL_ROOM_SET_READY_STATUS_REQ()
    {
@@ -206,7 +206,7 @@ typedef struct _PROTOCOL_ROOM_SET_READY_STATUS_REQ : _protocol {
 
 typedef struct _PROTOCOL_ROOM_SET_READY_STATUS_ACK : _protocol {
    _header header;
-   bool status;
+   int status;
 
    _PROTOCOL_ROOM_SET_READY_STATUS_ACK()
    {
