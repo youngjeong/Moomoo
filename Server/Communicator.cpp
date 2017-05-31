@@ -5,11 +5,13 @@
 #include<arpa/inet.h>
 #include<sys/socket.h>
 #include<sys/epoll.h>
+#include<map>
 #include "errorcode.h"
 #include "protocol.h"
 #include "Communicator.h"
 #include "DBConnect.h"
 #include "InLoginController.h"
+#include "UserMap.h"
 #include "InLobbyController.h"
 #include "InGameController.h"
 
@@ -54,6 +56,23 @@ int Communicator::parse(int sock) {
             // Login Request Function
             ack_msg = InLoginController::loginRequest(&body, sock);
             write(sock, &ack_msg, sizeof(ack_msg));
+            break;
+        }
+        case PROTOCOL_LOBBY_CHAT_REQ:
+        {
+            S_PROTOCOL_LOBBY_CHAT_REQ body;
+            S_PROTOCOL_LOBBY_CHAT_ACK ack_msg;
+            Communicator::readBody(sock, body_buf, sizeof(body));
+            memcpy(&body, body_buf, sizeof(body));
+            memcpy(&ack_msg, &body, sizeof(body));
+            UserMap* usermap_instance  = UserMap::getInstance();
+            auto UserMap = usermap_instance->getMap();
+            strcpy(ack_msg.nickname, UserMap.find(body.header.userno)->second.getNickname());
+            
+            
+            for(auto it=UserMap.begin(); it!=UserMap.end();it++){
+                write(it->second.getSockNum(), &ack_msg, sizeof(ack_msg));
+            }
             break;
         }
         case PROTOCOL_LOBBY_ROOMLIST_REQ:

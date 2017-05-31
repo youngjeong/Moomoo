@@ -470,3 +470,5 @@ testClient/nbproject/private/launcher.properties
 testClient/nbproject/private/Makefile-variables.mk
 testClient/nbproject/private/private.xml
 testClient/nbproject/private/cpp_standard_headers_indexer.cpp
+
+testClient/testClient\.cpp

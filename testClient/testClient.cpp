@@ -24,6 +24,7 @@ int main() {
     
     _header header;
     memset(&header,0,sizeof(header));
+<<<<<<< HEAD
 
     
       S_PROTOCOL_LOBBY_ROOMLIST_REQ body;
@@ -32,6 +33,17 @@ int main() {
     body.header.protocolID = PROTOCOL_LOBBY_ROOMLIST_REQ;
     body.header.result = 15;
     
+=======
+    
+    
+     S_PROTOCOL_LOGIN_REQ body;
+    memset(&body,0,sizeof(body));
+   
+    body.header.protocolID = PROTOCOL_LOGIN_REQ;
+    body.header.result = 10;
+    strcpy(body.id, "a124");
+    strcpy(body.password, "a124");
+>>>>>>> add-lobby-chat
     //strcpy(body.nickname, "newnick");
 
     
@@ -46,6 +58,37 @@ int main() {
     printf("%s\n",ack_msg.rooms[0].roomName);
     printf("%d\n",ack_msg.rooms[0].room_no);
     
+<<<<<<< HEAD
+=======
+    
+    S_PROTOCOL_LOBBY_CHAT_REQ body2;
+    memset(&body,0,sizeof(body2));
+   
+    body2.header.protocolID = PROTOCOL_LOBBY_CHAT_REQ;
+    body2.header.userno = ack_msg.header.userno;
+    //body.header.result = 10;
+    strcpy(body2.message, "New Message");
+    //strcpy(body.password, "456s");
+    //strcpy(body.nickname, "newnick");
+    
+    int body_size2 = sizeof(body2);
+    write(sock, &body2,body_size2);
+    
+    while(1)
+    {
+        char buf[BUF_SIZE]={0,};
+        read(sock, buf, BUF_SIZE);
+        S_PROTOCOL_LOBBY_CHAT_ACK ack_msg;
+        memcpy(&ack_msg, buf, sizeof(ack_msg));
+        printf("%s : %s\n", ack_msg.nickname, ack_msg.message);
+    }
+    
+ /*  body.header.protocolID = PROTOCOL_JOIN_REQ;
+    body.header.result = 10;
+    strcpy(body.id, "a124");
+    strcpy(body.password, "a124");
+    strcpy(body.nickname, "newnick");
+>>>>>>> add-lobby-chat
     
     printf("%s\n",ack_msg.rooms[1].roomName);
     printf("%d\n",ack_msg.rooms[1].room_no);
