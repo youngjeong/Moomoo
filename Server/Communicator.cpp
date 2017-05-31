@@ -119,6 +119,8 @@ int Communicator::parse(int sock) {
             S_PROTOCOL_PLAYER_CHANGE_READY_STATUS_REQ body;
             Communicator::readBody(sock, body_buf, sizeof (body));
             memcpy(&body, body_buf, sizeof (body));
+            
+            InRoomController::changeReadyStatus(body.header.userno, body.status);
             // Change Player Status Function
             break;
         }

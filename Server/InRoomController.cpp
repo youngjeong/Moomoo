@@ -12,9 +12,23 @@
  */
 
 #include "InRoomController.h"
+#include "UserMap.h"
+#include "RoomMap.h"
 
-void InRoomController::checkReadyState() {
-
+void InRoomController::changeReadyStatus(int userno, int status) {
+    UserMap *usermap_instance = UserMap::getInstance();
+    auto usermap = usermap_instance->getMap();
+    User current_user = usermap.find(userno)->second;
+    
+    RoomMap *roommap_instance = RoomMap::getInstance();
+    auto roommap = roommap_instance->getRooms();
+    Room current_room = roommap.find(current_user.getRoomNo())->second;
+    
+    //current_user.changeReady(status);
+    auto users = current_room.GetUsers();
+    for(int i=0;i<users.size();i++)
+    {
+    }
 }
 
 void InRoomController::gameStart() {

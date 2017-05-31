@@ -19,7 +19,7 @@ public:
     InRoomController();
     InRoomController(const InRoomController& orig);
     virtual ~InRoomController();
-    static void checkReadyState();
+    static void changeReadyStatus(int, int);
     static void gameStart();
 private:
 

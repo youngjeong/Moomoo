@@ -35,7 +35,7 @@ public:
         strcpy(this->m_roomName,roomName);
     }
 
-    map<char*, User>* GetUsers() const {
+    vector<User> GetUsers() const {
         return m_users;
     }
 
@@ -57,7 +57,7 @@ public:
 private:
     int m_room_no;
     char  m_roomName[50];
-    map<char *,User> *m_users;
+    vector<User> m_users;
     //User * roomMaster;
 
 };
