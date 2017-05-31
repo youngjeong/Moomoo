@@ -18,8 +18,8 @@ Room::Room() {
 }
 
 Room::Room(int room_no, const char* room_name) {
-    this->room_no=room_no;
-    strcpy(this->roomName,room_name);
+    this->m_room_no=room_no;
+    strcpy(this->m_roomName,room_name);
 }
 
 Room::Room(const Room& orig) {

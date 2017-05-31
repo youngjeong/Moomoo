@@ -64,7 +64,7 @@ int Communicator::parse(int sock) {
             S_PROTOCOL_LOBBY_ROOMLIST_ACK response;
             Communicator::readBody(sock,body_buf,sizeof(body));
             memcpy(&body, body_buf, sizeof(body));
-            Room room1(1234,"testRoom2");
+            Room room1(1234,"testRoom1");
             Room room2(4321,"testRoom2");
             InLobbyController::debugTest(1234,room1);
             InLobbyController::debugTest(4321,room2);
@@ -79,11 +79,11 @@ int Communicator::parse(int sock) {
         {
             puts("PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ");
             S_PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ body;
-            S_PROTOCOL_LOBBY_JOIN_TO_ROOM_ACK response;
+            S_PROTOCOL_LOBBY_JOIN_TO_ROOM_ACK res;
             Communicator::readBody(sock,body_buf,sizeof(body));
             memcpy(&body,body_buf,sizeof(body));
-            
-            write(sock,&body,sizeof(body));
+            InLobbyController::joinToRoom(&body, &res);
+            write(sock,&res,sizeof(body));
             
             break;
         }

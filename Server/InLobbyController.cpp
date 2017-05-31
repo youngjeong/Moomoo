@@ -30,11 +30,22 @@ void InLobbyController::getWaitingUsers() {
     
 }
 
-void InLobbyController::joinToRoom() {
-
+void InLobbyController::joinToRoom(S_PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ *req, S_PROTOCOL_LOBBY_JOIN_TO_ROOM_ACK *res) {
+    //find req->room_no, delete user from usermap, move user to usermap in room Instance
+    
+    
+    RoomMap *roomMapInstance = RoomMap::getInstance();
+    map<int, Room*> rooms=roomMapInstance->getRooms();
+    map<int, Room*>::iterator roomIter= rooms.begin();
+    
+    UserMap *userMapInstance = UserMap::getInstance();
+    map<int, User> users =userMapInstance->getMap();
+    map<int, User>::iterator userIter;
+    
 }
 
-void InLobbyController::makeRoom() {
+void InLobbyController::makeRoom(int room_no, User *user) {
+    
 
 }
 

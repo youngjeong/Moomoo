@@ -15,6 +15,9 @@ enum Protocol {
    PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ,//protocol added
    PROTOCOL_LOBBY_JOIN_TO_ROOM_ACK,//protocol added
    
+   PROTOCOL_LOBBY_MAKE_ROOM_REQ,//protocol added
+   PROTOCOL_LOBBY_MAKE_ROOM_ACK,//protocol added
+   
    PROTOCOL_LOBBY_ROOMLIST_REQ,
    PROTOCOL_LOBBY_ROOMLIST_ACK,
 
@@ -102,6 +105,7 @@ struct _room_info {//room_info changed
 typedef struct _PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ : _protocol
 {
     _header header;
+    int room_no;//room number to join
     _PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ()
     {
         header.protocolID=PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ;
@@ -118,6 +122,23 @@ typedef struct _PROTOCOL_LOBBY_JOIN_TO_ROOM_ACK : _protocol
     }  
 }S_PROTOCOL_LOBBY_JOIN_TO_ROOM_ACK;
 
+typedef struct _PROTOCOL_LOBBY_MAKE_ROOM_REQ : _protocol
+{ 
+    _header header;
+   _PROTOCOL_LOBBY_MAKE_ROOM_REQ()
+    {
+        header.protocolID=PROTOCOL_LOBBY_MAKE_ROOM_REQ;
+    }  
+}S__PROTOCOL_LOBBY_MAKE_ROOM_REQ;
+
+typedef struct _PROTOCOL_LOBBY_MAKE_ROOM_ACK : _protocol
+{
+    _header header;
+   _PROTOCOL_LOBBY_MAKE_ROOM_ACK()
+    {
+        header.protocolID=PROTOCOL_LOBBY_MAKE_ROOM_ACK;
+    }  
+}S_PROTOCOL_LOBBY_MAKE_ROOM_ACK;
 
 typedef struct _PROTOCOL_LOBBY_ROOMLIST_REQ : _protocol {
    _header header;

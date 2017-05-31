@@ -17,7 +17,7 @@ int main() {
     memset(&serv_adr, 0,sizeof(serv_adr));
     serv_adr.sin_family=AF_INET;
     serv_adr.sin_addr.s_addr=inet_addr("13.124.83.116");
-    serv_adr.sin_port=htons(atoi("9092"));
+    serv_adr.sin_port=htons(atoi("9090"));
     
     if(connect(sock, (struct sockaddr*)&serv_adr, sizeof(serv_adr))==-1)
         printf("connect error");
@@ -49,9 +49,6 @@ int main() {
     
     printf("%s\n",ack_msg.rooms[1].roomName);
     printf("%d\n",ack_msg.rooms[1].room_no);
-    //printf("%d\n", ack_msg.header.result);
-    //printf("%d\n",ack_msg.count);
-    //printf("%s\n",ack_msg.rooms[0].roomName);
     
   
         
