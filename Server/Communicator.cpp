@@ -9,6 +9,8 @@
 #include "Communicator.h"
 #include "DBConnect.h"
 #include "InLoginController.h"
+#include "InLobbyController.h"
+#include "InGameController.h"
 
 #define BUF_SIZE 2048
 
@@ -54,10 +56,25 @@ int Communicator::parse(int sock) {
         }
         case PROTOCOL_LOBBY_ROOMLIST_REQ:
         {
+            puts("\n\n\n\n\nin!!");
+//            S_PROTOCOL_LOBBY_ROOMLIST_REQ body;
+//            Communicator::readBody(sock, body_buf, sizeof(body));
+//            memcpy(&body, body_buf, sizeof (body));
+//            // Request Room List Function
+//            break;
+            
             S_PROTOCOL_LOBBY_ROOMLIST_REQ body;
-            Communicator::readBody(sock, body_buf, sizeof(body));
-            memcpy(&body, body_buf, sizeof (body));
-            // Request Room List Function
+            S_PROTOCOL_LOBBY_ROOMLIST_ACK response;
+            Communicator::readBody(sock,body_buf,sizeof(body));
+            memcpy(&body, body_buf, sizeof(body));
+            Room room;
+            room.SetRoom_no(1234);
+            room.SetRoomName("testRoom");
+            
+            InLobbyController::debugTest(0,room);
+            InLobbyController::getAllRooms(&body,&response);
+            
+            printf("\n\n\n\n\n\nroom test: %d",response.count);
             break;
         }
         case PROTOCOL_LOBBY_PLAYER_LIST_REQ:
@@ -108,6 +125,7 @@ int Communicator::parse(int sock) {
             // Change Player Status Function
             break;
         }
+     
     }
     return 1;
 }

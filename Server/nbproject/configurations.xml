@@ -16,8 +16,6 @@
       <itemPath>User.h</itemPath>
       <itemPath>errorcode.h</itemPath>
       <itemPath>protocol.h</itemPath>
-      <itemPath>roomManger.h</itemPath>
-      <itemPath>userManger.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -37,8 +35,6 @@
       <itemPath>RoomMap.cpp</itemPath>
       <itemPath>User.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
-      <itemPath>roomManger.cpp</itemPath>
-      <itemPath>userManger.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -145,14 +141,6 @@
       </item>
       <item path="protocol.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="roomManger.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="roomManger.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="userManger.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="userManger.h" ex="false" tool="3" flavor2="0">
-      </item>
     </conf>
     <conf name="Release" type="1">
       <toolsSet>
@@ -219,14 +207,6 @@
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="protocol.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="roomManger.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="roomManger.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="userManger.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="userManger.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>

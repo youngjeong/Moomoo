@@ -14,6 +14,9 @@
 #ifndef ROOMMAP_H
 #define ROOMMAP_H
 #include"protocol.h"
+#include"DBConnect.h"
+#include"Room.h"
+#include<cstdio>
 #include<iostream>
 #include <map>
 using namespace std;
@@ -23,13 +26,14 @@ public:
     RoomMap(const RoomMap& orig);
     virtual ~RoomMap();
     static RoomMap * getInstance();
-     std::map<char *,Room> getRooms();
+     std::map<int,Room> getRooms();
      void delRoom(int room_no, Room room_obj);
      void  addRoom(int room_no, Room room_obj);
       int getRoomSize();
+     
 private:
     static bool RoomMapFlag;
-    std::map<char *, Room> rooms;
+    std::map<int, Room> rooms;
     static RoomMap * instance;
 
 };

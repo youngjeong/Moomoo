@@ -20,15 +20,19 @@ RoomMap::RoomMap() {
 
 void RoomMap::addRoom(int room_no, Room room_obj) {
 
-    rooms.insert({room_no,room_obj});
+    rooms.insert(make_pair(room_no, room_obj));
 }
 
 void RoomMap::delRoom(int room_no, Room room_obj) {
-    auto it = rooms.find(room_no);
-    if(it=rooms.end())
+    
+    map<int, Room>::iterator iter = rooms.begin();
+    
+    iter = rooms.find(room_no);
+   
+    if(iter==rooms.end())
         return;
     else
-        rooms.erase(it);
+        rooms.erase(iter);
 }
 
 RoomMap* RoomMap::getInstance() {
@@ -49,11 +53,8 @@ int RoomMap::getRoomSize() {
        return rooms.size();
 }
 
-std::map<char*, Room> RoomMap::getRooms() {
+std::map<int, Room> RoomMap::getRooms() {
 
-    if(instance==NULL)
-        return NULL;
-    else
         return rooms;
 }
 
@@ -63,4 +64,3 @@ RoomMap::RoomMap(const RoomMap& orig) {
 
 RoomMap::~RoomMap() {
 }
-

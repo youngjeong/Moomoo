@@ -45,9 +45,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/Room.o \
 	${OBJECTDIR}/RoomMap.o \
 	${OBJECTDIR}/User.o \
-	${OBJECTDIR}/main.o \
-	${OBJECTDIR}/roomManger.o \
-	${OBJECTDIR}/userManger.o
+	${OBJECTDIR}/main.o
 
 
 # C Compiler Flags
@@ -128,16 +126,6 @@ ${OBJECTDIR}/main.o: main.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
-
-${OBJECTDIR}/roomManger.o: roomManger.cpp
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/roomManger.o roomManger.cpp
-
-${OBJECTDIR}/userManger.o: userManger.cpp
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/userManger.o userManger.cpp
 
 # Subprojects
 .build-subprojects:

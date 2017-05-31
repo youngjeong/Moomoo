@@ -23,12 +23,12 @@ public:
     Room();
     Room(const Room& orig);
     virtual ~Room();
-    char* GetRoomName() const {
+    char* GetRoomName() {
         return roomName;
     }
 
     void SetRoomName(char* roomName) {
-        this->roomName = roomName;
+        strcpy(this->roomName,roomName);
     }
 
     map<char*, User>* GetUsers() const {
@@ -39,8 +39,17 @@ public:
         this->users = users;
     }
 
+    int GetRoom_no() const {
+        return room_no;
+    }
+
+    void SetRoom_no(int room_no) {
+        this->room_no = room_no;
+    }
+
 private:
-    char * roomName;
+    int room_no;
+    char  roomName[50];
     map<char *,User> *users;
     User * roomMaster;
 

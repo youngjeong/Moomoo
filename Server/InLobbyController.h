@@ -13,14 +13,23 @@
 
 #ifndef INLOBBYCONTROLLER_H
 #define INLOBBYCONTROLLER_H
+#include "protocol.h"
+#include<cstdio>
+#include"RoomMap.h"
+#include "Room.h"
+using namespace std;
 
 class InLobbyController {
 public:
     InLobbyController();
     InLobbyController(const InLobbyController& orig);
     virtual ~InLobbyController();
-    static void getRooms();
+    static void getAllRooms(S_PROTOCOL_LOBBY_ROOMLIST_REQ* req,S_PROTOCOL_LOBBY_ROOMLIST_ACK *result);
     static void getWaitingUsers();
+    static void makeRoom();
+    static void joinToRoom();
+    static void debugTest(int room_no, Room &room_obj);
+    
 private:
 
 };

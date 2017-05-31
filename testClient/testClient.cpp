@@ -17,20 +17,25 @@ int main() {
     memset(&serv_adr, 0,sizeof(serv_adr));
     serv_adr.sin_family=AF_INET;
     serv_adr.sin_addr.s_addr=inet_addr("13.124.83.116");
-    serv_adr.sin_port=htons(atoi("9091"));
+    serv_adr.sin_port=htons(atoi("9090"));
     
     if(connect(sock, (struct sockaddr*)&serv_adr, sizeof(serv_adr))==-1)
         printf("connect error");
     
     _header header;
     memset(&header,0,sizeof(header));
-    S_PROTOCOL_JOIN_REQ body;
+//    S_PROTOCOL_LOGIN_REQ body;
+//    memset(&body,0,sizeof(body));
+//    body.header.protocolID = PROTOCOL_LOGIN_REQ;
+//    body.header.result = 10;
+//    strcpy(body.id, "eldkqmfhf123");
+//    strcpy(body.password, "password1");
+    //strcpy(body.nickname, "test_nickname");
+    
+      S_PROTOCOL_LOBBY_ROOMLIST_REQ body;
     memset(&body,0,sizeof(body));
-    body.header.protocolID = PROTOCOL_JOIN_REQ;
+    body.header.protocolID = PROTOCOL_LOBBY_ROOMLIST_REQ;
     body.header.result = 10;
-    strcpy(body.id, "eldkqmfhf123");
-    strcpy(body.password, "password1");
-    strcpy(body.nickname, "test_nickname");
     
     int body_size = sizeof(body);
     write(sock, &body,body_size);
