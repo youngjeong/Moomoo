@@ -43,13 +43,12 @@ int main() {
     S_PROTOCOL_LOGIN_ACK ack_msg;
     memcpy(&ack_msg, buf, sizeof(ack_msg));
     
-    printf("%d", ack_msg.header.result);
-    
     
     S_PROTOCOL_LOBBY_CHAT_REQ body2;
     memset(&body,0,sizeof(body2));
    
-    body.header.protocolID = PROTOCOL_LOBBY_CHAT_REQ;
+    body2.header.protocolID = PROTOCOL_LOBBY_CHAT_REQ;
+    body2.header.userno = ack_msg.header.userno;
     //body.header.result = 10;
     strcpy(body2.message, "New Message");
     //strcpy(body.password, "456s");
@@ -64,7 +63,7 @@ int main() {
         read(sock, buf, BUF_SIZE);
         S_PROTOCOL_LOBBY_CHAT_ACK ack_msg;
         memcpy(&ack_msg, buf, sizeof(ack_msg));
-        printf("%s\n", ack_msg.message);
+        printf("%s : %s\n", ack_msg.nickname, ack_msg.message);
     }
     
  /*  body.header.protocolID = PROTOCOL_JOIN_REQ;

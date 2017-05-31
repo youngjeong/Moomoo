@@ -84,7 +84,6 @@ typedef struct _PROTOCOL_LOGIN_REQ : _protocol {
 
 typedef struct _PROTOCOL_LOGIN_ACK : _protocol {
    _header header;
-   int userno;
 
    _PROTOCOL_LOGIN_ACK()
    {
@@ -100,6 +99,7 @@ struct _room_info {
 
 typedef struct _PROTOCOL_LOBBY_CHAT_REQ : _protocol {
     _header header;
+    char nickname[16];
     char message[256];
 } S_PROTOCOL_LOBBY_CHAT_REQ, S_PROTOCOL_LOBBY_CHAT_ACK;
 

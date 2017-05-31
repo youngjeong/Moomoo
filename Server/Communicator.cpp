@@ -5,6 +5,7 @@
 #include<arpa/inet.h>
 #include<sys/socket.h>
 #include<sys/epoll.h>
+#include<map>
 #include "errorcode.h"
 #include "protocol.h"
 #include "Communicator.h"
@@ -61,11 +62,12 @@ int Communicator::parse(int sock) {
             Communicator::readBody(sock, body_buf, sizeof(body));
             memcpy(&body, body_buf, sizeof(body));
             memcpy(&ack_msg, &body, sizeof(body));
-            
             UserMap* usermap_instance  = UserMap::getInstance();
             auto UserMap = usermap_instance->getMap();
+            strcpy(ack_msg.nickname, UserMap.find(body.header.userno)->second.getNickname());
+            
+            
             for(auto it=UserMap.begin(); it!=UserMap.end();it++){
-                if(it->second.getSockNum() == sock)continue;
                 write(it->second.getSockNum(), &ack_msg, sizeof(ack_msg));
             }
             break;
