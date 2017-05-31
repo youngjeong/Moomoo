@@ -2,9 +2,12 @@
 
 enum PlayerStatus {
     INLOBBY = 0x00000000,
-    INROOM_WITH_NOT_READY,
-    INROOM_WITH_READY,
+    INROOM,
     INGAME
+};
+enum ReadyStatus {
+    NOT_READY = 0x00000000,
+    READY
 };
 
 enum Protocol {
