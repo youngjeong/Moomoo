@@ -45,6 +45,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/Room.o \
 	${OBJECTDIR}/RoomMap.o \
 	${OBJECTDIR}/User.o \
+	${OBJECTDIR}/UserMap.o \
 	${OBJECTDIR}/main.o
 
 
