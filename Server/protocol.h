@@ -12,6 +12,15 @@ enum Protocol {
    PROTOCOL_LOGIN_REQ,
    PROTOCOL_LOGIN_ACK,
 
+   PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ,//protocol added
+   PROTOCOL_LOBBY_JOIN_TO_ROOM_ACK,//protocol added
+   
+   PROTOCOL_LOBBY_MAKE_ROOM_REQ,//protocol added
+   PROTOCOL_LOBBY_MAKE_ROOM_ACK,//protocol added
+   
+   PROTOCOL_LOBBY_CHAT_REQ,
+   PROTOCOL_LOBBY_CHAT_ACK,
+   
    PROTOCOL_LOBBY_ROOMLIST_REQ,
    PROTOCOL_LOBBY_ROOMLIST_ACK,
 
@@ -44,7 +53,7 @@ public:
 struct _header : _protocol {
    int protocolID;
    int result;
-   char accessToken[16];
+   int userno;
 };
 
 typedef struct _PROTOCOL_JOIN_REQ : _protocol {
@@ -81,7 +90,6 @@ typedef struct _PROTOCOL_LOGIN_REQ : _protocol {
 
 typedef struct _PROTOCOL_LOGIN_ACK : _protocol {
    _header header;
-   char accessToken[16];
 
    _PROTOCOL_LOGIN_ACK()
    {
@@ -89,15 +97,60 @@ typedef struct _PROTOCOL_LOGIN_ACK : _protocol {
    }
 } S_PROTOCOL_LOGIN_ACK;
 
-struct _room_info {
-   int num;
-   int current;
-   int total;
+struct _room_info {//room_info changed
+   int room_no;
+   //int current;
+   //int total;
+   char roomName[50];
 };
+
+    char nickname[16];
+typedef struct _PROTOCOL_LOBBY_CHAT_REQ : _protocol {
+    _header header;
+    char nickname[16];
+    char message[256];
+} S_PROTOCOL_LOBBY_CHAT_REQ, S_PROTOCOL_LOBBY_CHAT_ACK;
+
+typedef struct _PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ : _protocol
+{
+    _header header;
+    int room_no;//room number to join
+    _PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ()
+    {
+        header.protocolID=PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ;
+    }  
+}S_PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ;
+
+
+typedef struct _PROTOCOL_LOBBY_JOIN_TO_ROOM_ACK : _protocol
+{
+    _header header;
+   _PROTOCOL_LOBBY_JOIN_TO_ROOM_ACK()
+    {
+        header.protocolID=PROTOCOL_LOBBY_JOIN_TO_ROOM_ACK;
+    }  
+}S_PROTOCOL_LOBBY_JOIN_TO_ROOM_ACK;
+
+typedef struct _PROTOCOL_LOBBY_MAKE_ROOM_REQ : _protocol
+{ 
+    _header header;
+   _PROTOCOL_LOBBY_MAKE_ROOM_REQ()
+    {
+        header.protocolID=PROTOCOL_LOBBY_MAKE_ROOM_REQ;
+    }  
+}S__PROTOCOL_LOBBY_MAKE_ROOM_REQ;
+
+typedef struct _PROTOCOL_LOBBY_MAKE_ROOM_ACK : _protocol
+{
+    _header header;
+   _PROTOCOL_LOBBY_MAKE_ROOM_ACK()
+    {
+        header.protocolID=PROTOCOL_LOBBY_MAKE_ROOM_ACK;
+    }  
+}S_PROTOCOL_LOBBY_MAKE_ROOM_ACK;
 
 typedef struct _PROTOCOL_LOBBY_ROOMLIST_REQ : _protocol {
    _header header;
-
    _PROTOCOL_LOBBY_ROOMLIST_REQ()
    {
       header.protocolID = PROTOCOL_LOBBY_ROOMLIST_REQ;
@@ -107,7 +160,7 @@ typedef struct _PROTOCOL_LOBBY_ROOMLIST_REQ : _protocol {
 typedef struct _PROTOCOL_LOBBY_ROOMLIST_ACK : _protocol {
    _header header;
    int count;
-   _room_info rooms[255];
+   _room_info rooms[20];
 
    _PROTOCOL_LOBBY_ROOMLIST_ACK()
    {
@@ -123,7 +176,7 @@ struct _player_info {
 
 typedef struct _PROTOCOL_LOBBY_PLAYER_LIST_REQ : _protocol {
    _header header;
-
+   struct _player_info waitPlayers[20];
    _PROTOCOL_LOBBY_PLAYER_LIST_REQ()
    {
       header.protocolID = PROTOCOL_LOBBY_PLAYER_LIST_REQ;
@@ -133,7 +186,7 @@ typedef struct _PROTOCOL_LOBBY_PLAYER_LIST_REQ : _protocol {
 typedef struct _PROTOCOL_LOBBY_PLAYER_LIST_ACK : _protocol {
    _header header;
    int count;
-   _player_info players[255];
+   _player_info players[20];
 
    _PROTOCOL_LOBBY_PLAYER_LIST_ACK()
    {

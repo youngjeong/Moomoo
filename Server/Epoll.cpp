@@ -8,18 +8,17 @@
 #include<algorithm>
 #include<vector>
 #include "protocol.h"
-#include "DBConnect.h" 
 #include "Communicator.h"
 
 #define BUF_SIZE 2048
 #define EPOLL_SIZE 50
+
+using namespace std;
+
 void error_handling(char *buf);
 int read_body(int fd, char* body_buf, int size);
-int join_request(S_PROTOCOL_JOIN_REQ *body_buf);
-int login_request(S_PROTOCOL_LOGIN_REQ *body_buf);
-int main(int argc, char *argv[])
+void epoll_init(int port)
 {
-    printf("%d", getpid());
     int serv_sock, clnt_sock;
     struct sockaddr_in serv_adr, clnt_adr;
     socklen_t adr_sz;
@@ -30,11 +29,6 @@ int main(int argc, char *argv[])
     struct epoll_event event;
     int epfd, event_cnt;
     
-    if(argc!=2){
-        printf("Usage : %s <port>\n", argv[0]);
-        exit(1);
-    }
-    
     serv_sock=socket(PF_INET, SOCK_STREAM, 0);
     int option;
     socklen_t optlen= sizeof(option);
@@ -43,7 +37,7 @@ int main(int argc, char *argv[])
     memset(&serv_adr, 0, sizeof(serv_adr));
     serv_adr.sin_family=AF_INET;
     serv_adr.sin_addr.s_addr=htonl(INADDR_ANY);
-    serv_adr.sin_port=htons(atoi(argv[1]));
+    serv_adr.sin_port=htons(port);
     
     if(bind(serv_sock, (struct sockaddr*)&serv_adr, sizeof(serv_adr))==-1)
         error_handling("bind() error");
@@ -90,40 +84,11 @@ int main(int argc, char *argv[])
     }
     close(serv_sock);
     close(epfd);
-    return 0;
 }
 
-void error_handling(char *buf)
+void error_handling( char *buf)
 {
     fputs(buf, stderr);
     fputc('\n', stderr);
     exit(1);
-}
-
-
-int join_request(S_PROTOCOL_JOIN_REQ *body_buf)
-{
-    printf("Received ID : %s\n", body_buf->id);
-    printf("Received PW : %s\n", body_buf->password);
-    printf("Received Nick : %s\n", body_buf->nickname);
-    DBConnect db;
-    if(db.signUp(body_buf->id, body_buf->password, body_buf->nickname)){
-        printf("signup error at server");
-        return 1;
-    }
-    return 0;
-}
-
-int login_request(S_PROTOCOL_LOGIN_REQ *body_buf)
-{
-    printf("Recevied ID : %s\n", body_buf->id);
-    printf("Recevied PW : %s\n", body_buf->password);
-    
-    DBConnect db;
-    if(db.login(body_buf->id, body_buf->password)){
-        printf("login error at server\n");
-        return 1;
-    }
-    printf("login success\n");
-    return 0;
 }

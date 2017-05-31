@@ -16,33 +16,49 @@
 #include<map>
 #include<vector>
 #include"User.h"
+#include<cstdio>
+#include<cstdlib>
 using namespace std;
 
 class Room {
 public:
+    Room(int room_no, const char * room_name);
     Room();
+    Room(Room *);
     Room(const Room& orig);
     virtual ~Room();
-    char* GetRoomName() const {
-        return roomName;
+    char* GetRoomName() {
+        return m_roomName;
     }
 
     void SetRoomName(char* roomName) {
-        this->roomName = roomName;
+        strcpy(this->m_roomName,roomName);
     }
 
     map<char*, User>* GetUsers() const {
-        return users;
+        return m_users;
     }
 
     void SetUsers(map<char*, User>* users) {
-        this->users = users;
+        this->m_users = users;
+    }
+    
+    int GetRoom_no() const {
+        return m_room_no;
     }
 
+    void SetRoom_no(int room_no) {
+        this->m_room_no = room_no;
+    }
+    
+    void addUser(User * user);
+    
+
 private:
-    char * roomName;
-    map<char *,User> *users;
-    User * roomMaster;
+    int m_room_no;
+    char  m_roomName[50];
+    map<char *,User> *m_users;
+    //User * roomMaster;
 
 };
 

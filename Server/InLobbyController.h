@@ -13,14 +13,30 @@
 
 #ifndef INLOBBYCONTROLLER_H
 #define INLOBBYCONTROLLER_H
+#include "protocol.h"
+#include<cstdio>
+#include"RoomMap.h"
+#include "Room.h"
+#include <iostream>
+#include "UserMap.h"
+#include "User.h"
+#include <map>
+#include <cstdio>
+using namespace std;
 
 class InLobbyController {
+    //Todo debugTest must be removed
+    //debugTest : make room for testing
 public:
     InLobbyController();
     InLobbyController(const InLobbyController& orig);
     virtual ~InLobbyController();
-    static void getRooms();
+    static void getAllRooms(S_PROTOCOL_LOBBY_ROOMLIST_REQ* req,S_PROTOCOL_LOBBY_ROOMLIST_ACK *result);
     static void getWaitingUsers();
+    static void makeRoom(int room_no, User *user);
+    static void joinToRoom(S_PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ * res, S_PROTOCOL_LOBBY_JOIN_TO_ROOM_ACK *req);
+    static void debugTest(int room_no, Room &room_obj);
+    
 private:
 
 };
