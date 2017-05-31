@@ -12,6 +12,7 @@
  */
 
 #include <string.h>
+#include "protocol.h"
 #include "User.h"
 
 User::User(int sockNum, char *username, char *nickname) {
@@ -41,4 +42,12 @@ int User::getRoomNo() {
 
 int User::getStatus() {
     return m_state;
+}
+
+void User::changeReady(int readyStatus){    
+    m_ready = readyStatus;
+}
+
+void User::changeStatus(int status){
+    m_state = status;
 }

@@ -26,10 +26,12 @@ public:
     char *getNickname();
     int getRoomNo();
     int getStatus();
+    void changeReady(int);
+    void changeStatus(int);
   
 private:  
     int m_sockNum;
-    bool m_ready;
+    int m_ready;
     char m_username[16];
     char m_nickname[16];
     int m_roomNumber;
