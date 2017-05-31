@@ -1,5 +1,12 @@
 #pragma once
 
+enum PlayerStatus {
+    INLOBBY = 0x00000000,
+    INROOM_WITH_NOT_READY,
+    INROOM_WITH_READY,
+    INGAME
+};
+
 enum Protocol {
    PROTOCOL_GENERAL_FAIL = 0x00000000,
    PROTOCOL_GENERAL_SUCESS = 0x00000001,
