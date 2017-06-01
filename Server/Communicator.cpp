@@ -63,8 +63,8 @@ int Communicator::parse(int sock) {
         }
         case PROTOCOL_CHAT_REQ:
         {
-            S_PROTOCOL_LOBBY_CHAT_REQ body;
-            S_PROTOCOL_LOBBY_CHAT_ACK ack_msg;
+            S_PROTOCOL_CHAT_REQ body;
+            S_PROTOCOL_CHAT_ACK ack_msg;
             Communicator::readBody(sock, body_buf, sizeof(body));
             memcpy(&body, body_buf, sizeof(body));
             memcpy(&ack_msg, &body, sizeof(body));
