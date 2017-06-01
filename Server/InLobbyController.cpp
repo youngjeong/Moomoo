@@ -70,17 +70,17 @@ void InLobbyController::makeRoom(int room_no, User *user) {
     
 
 }
-//
-//void InLobbyController::debugTest(int room_no, Room &room_obj) {
-//    //Todo : debugTest must be removed
-//    //debugTest adds room for testing
-//     RoomMap * instance = RoomMap::getInstance();
-//     
-//     
-//     instance->addRoom(room_no,room_obj);
-//
-//        
-//}
+
+void InLobbyController::debugTest(int room_no, Room &room_obj) {
+    //Todo : debugTest must be removed
+    //debugTest adds room for testing
+     RoomMap * instance = RoomMap::getInstance();
+     
+     
+     instance->addRoom(room_no,room_obj);
+
+        
+}
 
 
 void InLobbyController::getAllRooms(S_PROTOCOL_LOBBY_ROOMLIST_REQ *roomRequest,S_PROTOCOL_LOBBY_ROOMLIST_ACK * roomAck) {

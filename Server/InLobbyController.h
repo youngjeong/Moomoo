@@ -35,7 +35,7 @@ public:
     static void getWaitingUsers();
     static void makeRoom(int room_no, User *user);
     static void joinToRoom(S_PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ * res, S_PROTOCOL_LOBBY_JOIN_TO_ROOM_ACK *req);
-    //static void debugTest(int room_no, Room &room_obj);
+    static void debugTest(int room_no, Room &room_obj);
     
 private:
 
