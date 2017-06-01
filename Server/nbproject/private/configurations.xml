@@ -29,8 +29,9 @@
           <runcommandpicklistitem>"${OUTPUT_PATH}" 9091</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" 9092</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" 9090</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" 9094</runcommandpicklistitem>
         </runcommandpicklist>
-        <runcommand>"${OUTPUT_PATH}" 9090</runcommand>
+        <runcommand>"${OUTPUT_PATH}" 9094</runcommand>
         <rundir></rundir>
         <buildfirst>true</buildfirst>
         <terminal-type>0</terminal-type>

@@ -25,6 +25,13 @@ Room::Room(int room_no, const char* room_name) {
 Room::Room(const Room& orig) {
 }
 
+void Room::addUser(User* user) {
+    UserMap *userMapInstance= UserMap::getInstance();
+    
+
+}
+
+
 Room::~Room() {
     puts("destroyer of Room Instance");
     
