@@ -72,9 +72,9 @@ int Communicator::parse(int sock) {
             auto UserMap = usermap_instance->getMap();
             strcpy(ack_msg.nickname, UserMap.find(body.header.userno)->second.getNickname());
             
-            
             for(auto it=UserMap.begin(); it!=UserMap.end();it++){
-                write(it->second.getSockNum(), &ack_msg, sizeof(ack_msg));
+                if(it->second.getStatus() == INLOBBY)
+                    write(it->second.getSockNum(), &ack_msg, sizeof(ack_msg));
             }
             break;
         }
