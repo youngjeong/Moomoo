@@ -474,3 +474,5 @@ testClient/nbproject/private/cpp_standard_headers_indexer.cpp
 testClient/testClient\.cpp
 
 Server/nbproject/private/private\.xml
+
+testClient/
