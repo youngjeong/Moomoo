@@ -18,10 +18,10 @@ RoomMap * RoomMap::instance = NULL;
 RoomMap::RoomMap() {
 }
 
-void RoomMap::addRoom(int room_no, Room &room_obj) {
+void RoomMap::addRoom(int room_no, Room *room_obj) {
 
    
-    rooms.insert(make_pair(room_no, new Room(room_no,room_obj.GetRoomName())));
+    rooms.insert(make_pair(room_no, room_obj));
     
   
 }

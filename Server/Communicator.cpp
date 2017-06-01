@@ -84,18 +84,31 @@ int Communicator::parse(int sock) {
             }
             break;
         }
+        case PROTOCOL_LOBBY_MAKE_ROOM_REQ:
+        {
+            S_PROTOCOL_LOBBY_MAKE_ROOM_REQ body;
+            S_PROTOCOL_LOBBY_MAKE_ROOM_ACK response;
+            
+            Communicator::readBody(sock,body_buf,sizeof(body));
+            memcpy(&body,body_buf,sizeof(body));
+            InLobbyController::makeRoom(&body,&response);
+            
+            write(sock,&response,sizeof(response));
+            
+        }
         case PROTOCOL_LOBBY_ROOMLIST_REQ:
         {
+            printf("communicator : PROTOCOL_LOBBY_ROOMLIST_REQ\n");
             //Todo debugTest must be romoved
             //debugTest : make room for testing
             S_PROTOCOL_LOBBY_ROOMLIST_REQ body;
             S_PROTOCOL_LOBBY_ROOMLIST_ACK response;
             Communicator::readBody(sock,body_buf,sizeof(body));
             memcpy(&body, body_buf, sizeof(body));
-            Room room1(1234,"testRoom1");
-            Room room2(4321,"testRoom2");
-            InLobbyController::debugTest(1234,room1);
-            InLobbyController::debugTest(4321,room2);
+//            Room room1(1234,"testRoom1");
+//            Room room2(4321,"testRoom2");
+//            InLobbyController::debugTest(1234,room1);
+//            InLobbyController::debugTest(4321,room2);
             InLobbyController::getAllRooms(&body,&response);
           
             write(sock,&response,sizeof(response));

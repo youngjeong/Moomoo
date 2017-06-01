@@ -40,7 +40,7 @@ public:
         return m_users;
     }
 
-    void SetUsers(map<char*, User>* users) {
+    void SetUsers(map<int, User*> users) {
         this->m_users = users;
     }
     
@@ -52,14 +52,26 @@ public:
         this->m_room_no = room_no;
     }
     
-    void addUser(User * user);
+    void addUser(User  *user);
+  
     
+      User* GetRoomMaster() const {
+        return roomMaster;
+    }
+
+    void SetRoomMaster(User* roomMaster) {
+        this->roomMaster = roomMaster;
+    }
+
+    bool isRoomFull();
 
 private:
-    int m_room_no;
+    
+    int m_room_no;//room_no is roomMaster's user_no
+    
     char  m_roomName[50];
     vector<User> m_users;
-    //User * roomMaster;
+    User * roomMaster;
 
 };
 

@@ -28,7 +28,7 @@ public:
     static RoomMap * getInstance();
      std::map<int,Room*> getRooms();
     void delRoom(int room_no, Room room_obj);
-    void addRoom(int room_no, Room &room_obj);
+    void addRoom(int room_no, Room *room_obj);
      
     int getRoomSize();
      

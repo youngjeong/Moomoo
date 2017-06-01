@@ -6,6 +6,15 @@ using System.Text;
 
 namespace PT
 {
+    enum ErrorCode
+    {
+        SUCCESS = 0x00000000,
+        INTERNAL_SERVER_ERROR,
+        ID_ALREADY_EXISTS,
+        INCORRECT_PASSWORD,
+        CANNOT_FOUND_USER_KEY_FROM_DB
+    };
+
     enum Protocol
     {
         PROTOCOL_GENERAL_FAIL = 0x00000000,
@@ -46,10 +55,10 @@ namespace PT
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
     struct _header
     {
+        public int useless;
         public int protocolID;
         public int result;
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 16)]
-        public string accessToken;
+        public int userID;
 
         public byte[] Serialize()
         {
@@ -65,6 +74,13 @@ namespace PT
             gch.Free();
 
             return buffer;
+        }
+
+        public void Deserialize(byte[] data)
+        {
+            var gch = GCHandle.Alloc(data, GCHandleType.Pinned);
+            this = (_header)Marshal.PtrToStructure(gch.AddrOfPinnedObject(), typeof(_header));
+            gch.Free();
         }
     };
 
@@ -98,5 +114,60 @@ namespace PT
             return buffer;
         }
     }
-        
+
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
+    struct S_PROTOCOL_JOIN_ACK
+    {
+        public _header header;
+
+        public void Deserialize(byte[] data)
+        {
+            var gch = GCHandle.Alloc(data, GCHandleType.Pinned);
+            this = (S_PROTOCOL_JOIN_ACK)Marshal.PtrToStructure(gch.AddrOfPinnedObject(), typeof(S_PROTOCOL_JOIN_ACK));
+            gch.Free();
+        }
+    }
+
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
+    struct S_PROTOCOL_LOGIN_REQ
+    {
+        public _header header;
+
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 16)]
+        public string id;
+
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 16)]
+        public string password;
+
+        public byte[] Serialize()
+        {
+            // allocate a byte array for the struct data
+            var buffer = new byte[Marshal.SizeOf(typeof(S_PROTOCOL_LOGIN_REQ))];
+
+            // Allocate a GCHandle and get the array pointer
+            var gch = GCHandle.Alloc(buffer, GCHandleType.Pinned);
+            var pBuffer = gch.AddrOfPinnedObject();
+
+            // copy data from struct to array and unpin the gc pointer
+            Marshal.StructureToPtr(this, pBuffer, false);
+            gch.Free();
+
+            return buffer;
+        }
+    }
+
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
+    struct S_PROTOCOL_LOGIN_ACK
+    {
+        public _header header;
+
+        public int userID;
+
+        public void Deserialize(byte[] data)
+        {
+            var gch = GCHandle.Alloc(data, GCHandleType.Pinned);
+            this = (S_PROTOCOL_LOGIN_ACK)Marshal.PtrToStructure(gch.AddrOfPinnedObject(), typeof(S_PROTOCOL_LOGIN_ACK));
+            gch.Free();
+        }
+    }
 }

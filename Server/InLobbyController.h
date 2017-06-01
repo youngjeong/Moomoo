@@ -33,7 +33,7 @@ public:
     virtual ~InLobbyController();
     static void getAllRooms(S_PROTOCOL_LOBBY_ROOMLIST_REQ* req,S_PROTOCOL_LOBBY_ROOMLIST_ACK *result);
     static void getWaitingUsers();
-    static void makeRoom(int room_no, User *user);
+    static void makeRoom(S_PROTOCOL_LOBBY_MAKE_ROOM_REQ *req, S_PROTOCOL_LOBBY_MAKE_ROOM_ACK *res);
     static void joinToRoom(S_PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ * res, S_PROTOCOL_LOBBY_JOIN_TO_ROOM_ACK *req);
     static void debugTest(int room_no, Room &room_obj);
     

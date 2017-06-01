@@ -20,17 +20,25 @@ Room::Room() {
 Room::Room(int room_no, const char* room_name) {
     this->m_room_no=room_no;
     strcpy(this->m_roomName,room_name);
+    
 }
 
 Room::Room(const Room& orig) {
 }
 
-void Room::addUser(User* user) {
-    UserMap *userMapInstance= UserMap::getInstance();
-    
+void Room::addUser(User *user) {
+  
+    this->m_users.insert(make_pair(m_users.size(),user));
 
 }
 
+bool Room::isRoomFull() {
+
+    if(this->m_users.size()<4)
+        return false;
+    else if(this->m_users.size()==4)
+        return true;
+}
 
 Room::~Room() {
     puts("destroyer of Room Instance");

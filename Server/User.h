@@ -22,7 +22,7 @@ public:
     virtual ~User();
     
     int getSockNum();
-    char *getUsername();
+    char *getId();
     char *getNickname();
     int getRoomNo();
     int getStatus();
@@ -31,8 +31,8 @@ public:
   
 private:  
     int m_sockNum;
-    int m_ready;
-    char m_username[16];
+    bool m_ready;
+    char m_id[16];
     char m_nickname[16];
     int m_roomNumber;
     int m_state;//in lobby : 1 in room : 2 in game : 3
