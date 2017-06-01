@@ -13,6 +13,9 @@
 
 #ifndef COMUNICATOR_H
 #define COMUNICATOR_H
+#include <vector>
+
+template <typename T>
 
 class Communicator
 {
@@ -23,6 +26,7 @@ public:
 private:
     Communicator(){}
     static void readBody(int sock, char* body_buf, int size);
+    static void writeMultiClient(std::vector<int>, T);
     
 };
 

@@ -5,6 +5,7 @@
 #include<arpa/inet.h>
 #include<sys/socket.h>
 #include<sys/epoll.h>
+#include<vector>
 #include<map>
 #include "errorcode.h"
 #include "protocol.h"
@@ -16,6 +17,8 @@
 #include "InGameController.h"
 
 #define BUF_SIZE 2048
+
+
 
 // Todo: Test function must be removed
 int join_request(S_PROTOCOL_JOIN_REQ *body_buf);
@@ -169,5 +172,13 @@ void Communicator::readBody(int sock, char* body_buf, int size) {
     while (recv_len < body_size) {
         int recv_size = read(sock, body_buf + recv_len + header_size + 4, body_size - recv_len);
         recv_len += recv_size;
+    }
+}
+
+void Communicator::writeMultiClient(vector<int> sock_list, T msg)
+{
+    for(int i=0;i<sock_list.size();i++)
+    {
+        write(sock_list[i], msg, sizeof(msg));
     }
 }
