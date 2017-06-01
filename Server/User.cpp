@@ -23,13 +23,6 @@ User::User(int sockNum, char *username, char *nickname) {
 User::~User() {
 }
 
-void User::getUserKey() {
-
-}
-
-void User::setUserKey() {
-
-}
 
 int User::getSockNum() {
     return m_sockNum;

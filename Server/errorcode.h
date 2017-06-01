@@ -20,6 +20,8 @@ enum ErrorCode{
     ID_ALREADY_EXISTS,
     INCORRECT_PASSWORD,
     CANNOT_FOUND_USER_KEY_FROM_DB,
+    
+            
   
 };
 

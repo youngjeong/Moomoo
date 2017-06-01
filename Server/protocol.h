@@ -8,10 +8,16 @@ enum ReadyStatus {
     NOT_READY = 0x00000000,
     READY
 };
-enum RoomStatus
+enum JoinStatus
 {
     JOIN_TO_ROOM_OK=0xF0000000,
-    JOIN_TO_ROOM_DENIED
+    JOIN_TO_ROOM_DENIED,
+    
+};
+enum RoomMakeStatus
+{
+    ROOM_MAKE_SUCCESSFULLY=0x0F000000,
+    ROOM_ALREADY_EXISTING_NAME
 };
 
 
@@ -32,6 +38,8 @@ enum Protocol {
    
    PROTOCOL_LOBBY_MAKE_ROOM_REQ,//protocol added
    PROTOCOL_LOBBY_MAKE_ROOM_ACK,//protocol added
+   
+   
    
    PROTOCOL_LOBBY_CHAT_REQ,
    PROTOCOL_LOBBY_CHAT_ACK,
@@ -149,11 +157,12 @@ typedef struct _PROTOCOL_LOBBY_JOIN_TO_ROOM_ACK : _protocol
 typedef struct _PROTOCOL_LOBBY_MAKE_ROOM_REQ : _protocol
 { 
     _header header;
+    char room_name[40];
    _PROTOCOL_LOBBY_MAKE_ROOM_REQ()
     {
         header.protocolID=PROTOCOL_LOBBY_MAKE_ROOM_REQ;
     }  
-}S__PROTOCOL_LOBBY_MAKE_ROOM_REQ;
+}S_PROTOCOL_LOBBY_MAKE_ROOM_REQ;
 
 typedef struct _PROTOCOL_LOBBY_MAKE_ROOM_ACK : _protocol
 {

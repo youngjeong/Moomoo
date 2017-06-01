@@ -35,6 +35,8 @@ void InLobbyController::joinToRoom(S_PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ *req, S_PRO
     
     RoomMap *roomMapInstance = RoomMap::getInstance();
     map<int, Room*> rooms=roomMapInstance->getRooms();
+    printf("Current All rooms : %d\n",rooms.size());
+    
     
     map<int, Room*>::iterator roomIter= rooms.find(req->room_no);
     Room * selectedRoom=roomIter->second;
@@ -66,9 +68,48 @@ void InLobbyController::joinToRoom(S_PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ *req, S_PRO
     
 }
 
-void InLobbyController::makeRoom(int room_no, User *user) {
+void InLobbyController::makeRoom(S_PROTOCOL_LOBBY_MAKE_ROOM_REQ *req, S_PROTOCOL_LOBBY_MAKE_ROOM_ACK *res) {
     
-
+    
+    printf("InLobbyController::makeRoom req->room_name : %s\n",req->room_name);
+    
+    printf("InLobbyController::makeRoom req->header.userno : %d\n",req->header.userno);
+    UserMap *usermapInstance = UserMap::getInstance();
+    map<int, User> allUsers=usermapInstance->getMap();
+    map<int, User>::iterator userIter;
+    userIter = allUsers.find(req->header.userno);
+    userIter->second.setState(INROOM);
+    User user(userIter->second.getSockNum(),userIter->second.getId(),userIter->second.getNickname());
+    user.setState(INROOM);//same user info, different user instance;
+    
+    
+    RoomMap *roommapInstance = RoomMap::getInstance();
+    map<int, Room*> allRooms = roommapInstance->getRooms();
+    map<int, Room *>::iterator roomIter = allRooms.begin();
+    
+    Room *cursor;
+    for(;roomIter!=allRooms.end();roomIter++)
+    {
+        cursor=roomIter->second;
+        if(strcmp(cursor->GetRoomName(),req->room_name)==0)
+        {
+            res->header.result=ROOM_ALREADY_EXISTING_NAME;
+            return;
+        }
+    }
+     
+    
+    
+    Room *newRoom=new Room(req->header.userno,req->room_name);
+    newRoom->addUser(&user);//roomMaster & first joined user;
+    newRoom->SetRoomMaster(&user);//roomMaster
+    
+    roommapInstance->addRoom(req->header.userno,newRoom);
+    res->header.result=ROOM_MAKE_SUCCESSFULLY;
+    
+    
+    
+    
 }
 
 void InLobbyController::debugTest(int room_no, Room &room_obj) {
@@ -77,7 +118,7 @@ void InLobbyController::debugTest(int room_no, Room &room_obj) {
      RoomMap * instance = RoomMap::getInstance();
      
      
-     instance->addRoom(room_no,room_obj);
+     //instance->addRoom(room_no,room_obj);
 
         
 }

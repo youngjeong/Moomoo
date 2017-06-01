@@ -20,7 +20,7 @@ Room::Room() {
 Room::Room(int room_no, const char* room_name) {
     this->m_room_no=room_no;
     strcpy(this->m_roomName,room_name);
-    this->m_join_available=true;
+    
 }
 
 Room::Room(const Room& orig) {
@@ -28,7 +28,7 @@ Room::Room(const Room& orig) {
 
 void Room::addUser(User *user) {
   
-    this->m_users.insert(make_pair(m_users.size()+1,user));
+    this->m_users.insert(make_pair(m_users.size(),user));
 
 }
 

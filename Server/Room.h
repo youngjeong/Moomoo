@@ -55,17 +55,23 @@ public:
     void addUser(User  *user);
   
     
-  
+      User* GetRoomMaster() const {
+        return roomMaster;
+    }
+
+    void SetRoomMaster(User* roomMaster) {
+        this->roomMaster = roomMaster;
+    }
 
     bool isRoomFull();
 
 private:
-    int m_usersCount;
-    bool m_join_available;
-    int m_room_no;
+    
+    int m_room_no;//room_no is roomMaster's user_no
+    
     char  m_roomName[50];
     map<int,User *> m_users;
-    //User * roomMaster;
+    User * roomMaster;
 
 };
 

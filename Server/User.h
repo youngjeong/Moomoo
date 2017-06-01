@@ -29,11 +29,8 @@ public:
     void setState(int state) {
         m_state = state;
     }
-    void getUserKey();
-    void setUserKey();
-
+    
 private:  
-    int m_userkey;
     int m_sockNum;
     bool m_ready;
     char m_id[16];
