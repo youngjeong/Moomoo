@@ -14,6 +14,7 @@
 #include "InLoginController.h"
 #include "UserMap.h"
 #include "InLobbyController.h"
+#include "InRoomController.h"
 #include "InGameController.h"
 
 #define BUF_SIZE 2048
@@ -70,11 +71,16 @@ int Communicator::parse(int sock) {
             memcpy(&ack_msg, &body, sizeof(body));
             UserMap* usermap_instance  = UserMap::getInstance();
             auto UserMap = usermap_instance->getMap();
-            strcpy(ack_msg.nickname, UserMap.find(body.header.userno)->second.getNickname());
-            
-            for(auto it=UserMap.begin(); it!=UserMap.end();it++){
-                if(it->second.getStatus() == INLOBBY)
-                    write(it->second.getSockNum(), &ack_msg, sizeof(ack_msg));
+            if(UserMap.find(body.header.userno)->second.getStatus() == INLOBBY){
+                strcpy(ack_msg.nickname, UserMap.find(body.header.userno)->second.getNickname());
+
+                for(auto it=UserMap.begin(); it!=UserMap.end();it++){
+                    if(it->second.getStatus() == INLOBBY)
+                        write(it->second.getSockNum(), &ack_msg, sizeof(ack_msg));
+                }
+            }
+            else if(UserMap.find(body.header.userno)->second.getStatus() == INROOM){
+                InRoomController::chatRoom(body);
             }
             break;
         }

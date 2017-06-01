@@ -39,7 +39,35 @@ void InRoomController::changeReadyStatus(int userno, int status) {
     Communicator::writeMultiClient(user_socklist, ack_msg);
 }
 
-void InRoomController::gameStart() {
+void InRoomController::chatRoom(S_PROTOCOL_CHAT_REQ req_msg){
+    int userno = req_msg.header.userno;
+    UserMap *usermap_instance = UserMap::getInstance();
+    auto usermap = usermap_instance->getMap();
+    User current_user = usermap.find(userno)->second;
+    
+    RoomMap *roommap_instance = RoomMap::getInstance();
+    auto roommap = roommap_instance->getRooms();
+    Room current_room = roommap.find(current_user.getRoomNo())->second;
+    
+    vector<int> user_socklist;
+    auto userlist = current_room.GetUsers();
+    for(int i=0;i<userlist.size();i++){
+        user_socklist.push_back(userlist[i].getSockNum());
+    }
+    
+    S_PROTOCOL_CHAT_ACK ack_msg;
+    ack_msg.header.protocolID = PROTOCOL_CHAT_ACK;
+    strcpy(ack_msg.nickname, current_user.getNickname());
+    strcpy(ack_msg.message, req_msg.message);
+    
+    Communicator::writeMultiClient(user_socklist, ack_msg);
+}
+void InRoomController::gameStart(S_PROTOCOL_PLAYER_CLICK_GAME_START_REQ req_msg) {
+    
+}
+
+bool InRoomController::gameStartValidator(int roomno)
+{
     
 }
 
