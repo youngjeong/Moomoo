@@ -27,55 +27,7 @@ int main() {
     memset(&header,0,sizeof(header));
 
     
-//      S_PROTOCOL_LOBBY_ROOMLIST_REQ body;
-//    memset(&body,0,sizeof(body));
-//   
-//    body.header.protocolID = PROTOCOL_LOBBY_ROOMLIST_REQ;
-//    body.header.result = 15;
-//    
-    //strcpy(body.nickname, "newnick");
-
-//    S_PROTOCOL_LOGIN_REQ req;
-//    memset(&req, 0, sizeof(req));
-//    req.header.protocolID=PROTOCOL_LOGIN_REQ;
-//    req.header.result=1;
-//    
-//    strcpy(req.id,"test1");
-//    strcpy(req.password,"1234");
-//    //strcpy(req.nickname,"dordong");
-//
-//    
-//    int body_size = sizeof(req);
-//    write(sock, &req,body_size);
-//    
-//    char buf[BUF_SIZE]={0,};
-//    read(sock, buf, BUF_SIZE);
-//
-//    S_PROTOCOL_LOGIN_ACK res;
-//    memset(&res,0,sizeof(res));
-//    memcpy(&res,buf,sizeof(res));
-//    
-//    printf("res.header.userno : %d\n ",res.header.userno);
-
-//     S_PROTOCOL_LOBBY_ROOMLIST_REQ req;
-//    memset(&req, 0, sizeof(req));
-//    req.header.protocolID=PROTOCOL_LOBBY_ROOMLIST_REQ;
-//    //strcpy(req.nickname,"dordong");
-//
-//    
-//    int body_size = sizeof(req);
-//    write(sock, &req,body_size);
-//    
-//    char buf[BUF_SIZE]={0,};
-//    read(sock, buf, BUF_SIZE);
-//
-//    S_PROTOCOL_LOBBY_ROOMLIST_ACK res;
-//    memset(&res,0,sizeof(res));
-//    memcpy(&res,buf,sizeof(res));
-    
-    
-   // printf("res.room_no : %d  res.room_name : %s\n",res.rooms[0].room_no,res.rooms[0].roomName);
-   /*
+    /*
     int myUserKey;
     
      S_PROTOCOL_LOGIN_REQ loginreq;
@@ -123,19 +75,19 @@ int main() {
         puts("room made");
     else if(res.header.result==ROOM_ALREADY_EXISTING_NAME)
         puts("already exist name");
-        
-   */
+        */
+   
    // ----------------
+   
     
-    
-    
+   
      int myUserKey;
     
      S_PROTOCOL_LOGIN_REQ loginreq;
     memset(&loginreq, 0, sizeof(loginreq));
     loginreq.header.protocolID=PROTOCOL_LOGIN_REQ;
     //strcpy(req.nickname,"dordong");
-    strcpy(loginreq.id,"test2");
+    strcpy(loginreq.id,"20122472");
     strcpy(loginreq.password,"1234");
     
     int body_size = sizeof(loginreq);
@@ -179,6 +131,7 @@ int main() {
         puts("join success");
     else if(res1.header.result==JOIN_TO_ROOM_DENIED)
         puts("join denied");
+    
     
     
     //---------------

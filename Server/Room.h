@@ -36,15 +36,15 @@ public:
         strcpy(this->m_roomName,roomName);
     }
 
-    vector<User> GetUsers() const {
+    vector<User> GetUsers()  {
         return m_users;
     }
 
-    void SetUsers(map<int, User*> users) {
+    void SetUsers(vector<User> users) {
         this->m_users = users;
     }
     
-    int GetRoom_no() const {
+    int GetRoom_no() {
         return m_room_no;
     }
 
@@ -52,10 +52,10 @@ public:
         this->m_room_no = room_no;
     }
     
-    void addUser(User  *user);
+    void addUser(User user);
   
     
-      User* GetRoomMaster() const {
+      User* GetRoomMaster()  {
         return roomMaster;
     }
 
@@ -64,7 +64,8 @@ public:
     }
 
     bool isRoomFull();
-
+    
+    int getRoomUserCount();
 private:
     
     int m_room_no;//room_no is roomMaster's user_no

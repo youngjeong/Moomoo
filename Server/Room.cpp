@@ -26,10 +26,16 @@ Room::Room(int room_no, const char* room_name) {
 Room::Room(const Room& orig) {
 }
 
-void Room::addUser(User *user) {
+void Room::addUser(User user) {
   
-    this->m_users.insert(make_pair(m_users.size(),user));
+    this->m_users.push_back(user);
+    cout<<"addUser after m_users count : "<<this->m_users.size()<<"\n";
+   // this->m_users.insert(make_pair(m_users.size(),user));
 
+}
+
+int Room::getRoomUserCount() {
+    return this->m_users.size();
 }
 
 bool Room::isRoomFull() {

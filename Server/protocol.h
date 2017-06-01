@@ -147,7 +147,7 @@ typedef struct _PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ : _protocol
 typedef struct _PROTOCOL_LOBBY_JOIN_TO_ROOM_ACK : _protocol
 {
     _header header;
-    int result;//join to room accepted or not
+    
    _PROTOCOL_LOBBY_JOIN_TO_ROOM_ACK()
     {
         header.protocolID=PROTOCOL_LOBBY_JOIN_TO_ROOM_ACK;
