@@ -21,12 +21,12 @@ class Communicator
 {
 public:
     static int parse(int sock);
-    
+    static void writeMultiClient(std::vector<int>, T);
     
 private:
     Communicator(){}
     static void readBody(int sock, char* body_buf, int size);
-    static void writeMultiClient(std::vector<int>, T);
+    
     
 };
 

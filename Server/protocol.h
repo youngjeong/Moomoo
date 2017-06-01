@@ -216,6 +216,7 @@ typedef struct _PROTOCOL_PLAYER_CHANGE_READY_STATUS_REQ : _protocol {
 
 typedef struct _PROTOCOL_PLAYER_CHANGE_READY_STATUS_ACK : _protocol {
    _header header;
+   int changed_user_no;
    int status;
 
    _PROTOCOL_PLAYER_CHANGE_READY_STATUS_ACK()
