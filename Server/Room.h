@@ -16,6 +16,7 @@
 #include<map>
 #include<vector>
 #include"User.h"
+#include "UserMap.h"
 #include<cstdio>
 #include<cstdlib>
 using namespace std;
