@@ -49,8 +49,10 @@ int main() {
     char buf[BUF_SIZE]={0,};
     read(sock, buf, BUF_SIZE);
     
-    S_PROTOCOL_JOIN_ACK res;
+    S_PROTOCOL_LOGIN_ACK res;
+    memset(&res,0,sizeof(res));
     memcpy(&res,buf,sizeof(res));
+    
     printf("res.header.userno : %d\n ",res.header.userno);
     
     

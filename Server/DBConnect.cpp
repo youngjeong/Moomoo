@@ -42,7 +42,7 @@ DBConnect::DBConnect(const DBConnect& orig) {
 DBConnect::~DBConnect() {
 }
 
-int DBConnect::getUserKey(const char* id) {
+int DBConnect::getUserKeyWithId(const char* id) {
 
     char query[256];
     char _char_user_key[10];
@@ -72,7 +72,7 @@ int DBConnect::getUserKey(const char* id) {
     }
     if(sql_row==NULL){
          mysql_close(connection);
-        return -1;//cannot found user_key
+        return CANNOT_FOUND_USER_KEY_FROM_DB;//cannot found user_key
     }
 }
 
@@ -119,7 +119,6 @@ int DBConnect::signUp(const char* id, const char* passwd, const char* nickname) 
         strcat(query, nickname);
         strcat(query, "');");
 
-        printf("query : %s\n",query);
         
         query_stat = mysql_query(connection, query);
         if (query_stat != 0) {

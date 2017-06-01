@@ -35,7 +35,6 @@ S_PROTOCOL_LOGIN_ACK InLoginController::loginRequest(S_PROTOCOL_LOGIN_REQ *msg, 
     S_PROTOCOL_LOGIN_ACK ack_msg;
     DBConnect db;
     int login_result =  db.login(msg->id, msg->password);
-    printf("InLoginController::loginRequest msg->id : %s\n",msg->id);
     ack_msg.header.protocolID = PROTOCOL_LOGIN_ACK;
     ack_msg.header.result = login_result;
     
@@ -47,9 +46,10 @@ S_PROTOCOL_LOGIN_ACK InLoginController::loginRequest(S_PROTOCOL_LOGIN_REQ *msg, 
         User user(sockno, info.id, info.nickname);
         //int userno = usermap_instance->getLastno();
         //userno should be primary key of DB
-        int userno=db.getUserKey(info.id);
+        int userno=db.getUserKeyWithId(info.id);
+        
         usermap_instance->addUser(userno, user);
-        ack_msg.userno = userno;
+        ack_msg.header.userno = userno;
     }
     
     return ack_msg;

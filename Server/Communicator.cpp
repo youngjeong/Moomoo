@@ -53,7 +53,6 @@ int Communicator::parse(int sock) {
             memcpy(&body, body_buf, sizeof (body));
             // Login Request Function
             ack_msg = InLoginController::loginRequest(&body, sock);
-            
             write(sock, &ack_msg, sizeof(ack_msg));
             break;
         }
