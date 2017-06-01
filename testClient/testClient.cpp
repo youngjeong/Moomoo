@@ -4,7 +4,7 @@
 #include<unistd.h>
 #include<arpa/inet.h>
 #include<sys/socket.h>
-#include "protocol.h"
+#include "../Server/protocol.h"
 #define BUF_SIZE 2048
 using namespace std;
 
