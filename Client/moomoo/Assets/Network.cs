@@ -3,23 +3,19 @@ using System.Collections;
 using System.Net.Sockets;
 using System.Net;
 using System.Text;
+using System.Threading;
+using PT;
 
 public class Network
 {
     private static Network _instance;
 
-    private Socket m_Socket;
+    private static Socket m_Socket;
 
     string iPAdress = "13.124.83.116";
-    int kPort = 9090;
+    int kPort = 9095;
 
-    private int SenddataLength;                     // Send Data Length. (byte)
-    private int ReceivedataLength;                     // Receive Data Length. (byte)
-
-    private byte[] Sendbyte;                        // Data encoding to send. ( to Change bytes)
-    private byte[] Receivebyte = new byte[2000];    // Receive data by this array to save.
-    private string ReceiveString;
-
+    Thread readThread;
 
     public Network()
     {
@@ -44,45 +40,63 @@ public class Network
             return;
         }
 
-        receive();
+        ThreadStart readThreadStart = new ThreadStart(receive);
+        readThread = new Thread(readThreadStart);
+        readThread.IsBackground = true;
+        readThread.Start();
     }
-
+    
     public void send(byte[] buffer, int size)
     {
         try
         {
-            //=======================================================
-            // Send.
             m_Socket.Send(buffer, size, 0);
-
-            //=======================================================       
-            // Receive.
-            m_Socket.Receive(Receivebyte);
-            ReceiveString = Encoding.Default.GetString(Receivebyte);
-            ReceivedataLength = Encoding.Default.GetByteCount(ReceiveString.ToString());
-            Debug.Log("Receive Data : " + ReceiveString + "(" + ReceivedataLength + ")");
         }
         catch (SocketException err)
         {
             Debug.Log("Socket send or receive error! : " + err.ToString());
         }
     }
-
-    IEnumerator receive()
+    
+    public static void receive()
     {
-        try
-        {
-            m_Socket.Receive(Receivebyte);
-            ReceiveString = Encoding.Default.GetString(Receivebyte);
-            ReceivedataLength = Encoding.Default.GetByteCount(ReceiveString.ToString());
-            Debug.Log("Receive Data : " + ReceiveString + "(" + ReceivedataLength + ")");
-        }
-        catch (SocketException err)
-        {
-            Debug.Log("Socket send or receive error! : " + err.ToString());
-        }
+        byte[] Receivebyte = new byte[2000];    // Receive data by this array to save.
+        string ReceiveString;
+        int ReceivedataLength;
 
-        yield return null;
+        while (true)
+        {
+            try
+            {
+                m_Socket.Receive(Receivebyte);
+                ReceiveString = Encoding.Default.GetString(Receivebyte);
+                ReceivedataLength = Encoding.Default.GetByteCount(ReceiveString.ToString());
+
+                _header ack = new _header();
+                ack.Deserialize(Receivebyte);
+                
+                switch ((Protocol)ack.protocolID)
+                {
+                    case Protocol.PROTOCOL_JOIN_ACK:
+                        S_PROTOCOL_JOIN_ACK join_ack = new S_PROTOCOL_JOIN_ACK();
+                        join_ack.Deserialize(Receivebyte);
+                        Communicator.I().cb.Enqueue(ack);
+                        Communicator.I().cb.Enqueue(join_ack);
+                        break;
+
+                    case Protocol.PROTOCOL_LOGIN_ACK:
+                        S_PROTOCOL_LOGIN_ACK login_ack = new S_PROTOCOL_LOGIN_ACK();
+                        login_ack.Deserialize(Receivebyte);
+                        Communicator.I().cb.Enqueue(ack);
+                        Communicator.I().cb.Enqueue(login_ack);
+                        break;
+                }
+            }
+            catch (SocketException err)
+            {
+                Debug.Log("Socket send or receive error! : " + err.ToString());
+            }
+        }
     }
 
     public static Network i()
@@ -91,8 +105,16 @@ public class Network
         return _instance;
     }
 
+    public void terminate()
+    {
+        if (readThread != null)
+            readThread.Abort();
+    }
+
     ~Network()
     {
+        Debug.Log("NETWORK DESTROYED");
+
         m_Socket.Close();
         m_Socket = null;
     }

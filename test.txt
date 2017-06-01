@@ -1,1 +1,1 @@
-ttteeesssttt
+ssh -i "Moomoo.pem" ubuntu@ec2-13-124-83-116.ap-northeast-2.compute.amazonaws.com

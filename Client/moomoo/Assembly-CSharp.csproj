@@ -5,8 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{D83170CB-2814-4632-ED17-B64294F54858}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -47,46 +46,49 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Communicator.cs" />
-    <Compile Include="Assets\Follower.cs" />
-    <Compile Include="Assets\InputFieldScript.cs" />
-    <Compile Include="Assets\Network.cs" />
-    <Compile Include="Assets\protocol.cs" />
-    <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
-    <Compile Include="Assets\TutorialInfo\Scripts\TutorialInfo.cs" />
-    <Compile Include="Assets\UIButtonListener.cs" />
-    <Compile Include="Assets\_Complete-Game\Scripts\BoardManager.cs" />
-    <Compile Include="Assets\_Complete-Game\Scripts\Enemy.cs" />
-    <Compile Include="Assets\_Complete-Game\Scripts\GameManager.cs" />
-    <Compile Include="Assets\_Complete-Game\Scripts\Loader.cs" />
-    <Compile Include="Assets\_Complete-Game\Scripts\MovingObject.cs" />
-    <Compile Include="Assets\_Complete-Game\Scripts\Player.cs" />
-    <Compile Include="Assets\_Complete-Game\Scripts\SoundManager.cs" />
-    <Compile Include="Assets\_Complete-Game\Scripts\Wall.cs" />
-    <Compile Include="Assets\controller.cs" />
-    <None Include="Assets\TutorialInfo\Fonts\LICENSE.txt" />
-    <None Include="Assets\Fonts\OFL.txt" />
-    <Reference Include="UnityEngine.UI">
-      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.Networking">
-      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.TestRunner">
-      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.Analytics">
-      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.HoloLens">
-      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.VR">
-      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
-    </Reference>
+     <Compile Include="Assets\CircularBuffer.cs" />
+     <Compile Include="Assets\Communicator.cs" />
+     <Compile Include="Assets\Controller.cs" />
+     <Compile Include="Assets\EnterButtonListener.cs" />
+     <Compile Include="Assets\Follower.cs" />
+     <Compile Include="Assets\InputFieldScript.cs" />
+     <Compile Include="Assets\JoinButtonListener.cs" />
+     <Compile Include="Assets\Network.cs" />
+     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
+     <Compile Include="Assets\TutorialInfo\Scripts\TutorialInfo.cs" />
+     <Compile Include="Assets\UnitController.cs" />
+     <Compile Include="Assets\_Complete-Game\Scripts\BoardManager.cs" />
+     <Compile Include="Assets\_Complete-Game\Scripts\Enemy.cs" />
+     <Compile Include="Assets\_Complete-Game\Scripts\GameManager.cs" />
+     <Compile Include="Assets\_Complete-Game\Scripts\Loader.cs" />
+     <Compile Include="Assets\_Complete-Game\Scripts\MovingObject.cs" />
+     <Compile Include="Assets\_Complete-Game\Scripts\Player.cs" />
+     <Compile Include="Assets\_Complete-Game\Scripts\SoundManager.cs" />
+     <Compile Include="Assets\_Complete-Game\Scripts\Wall.cs" />
+     <Compile Include="Assets\protocol.cs" />
+     <None Include="Assets\TutorialInfo\Fonts\LICENSE.txt" />
+     <None Include="Assets\Fonts\OFL.txt" />
+ <Reference Include="UnityEngine.UI">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.Networking">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.TestRunner">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll</HintPath>
+ </Reference>
+ <Reference Include="nunit.framework">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/nunit.framework.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.Analytics">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.HoloLens">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.VR">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
+ </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -96,4 +98,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  
 </Project>
