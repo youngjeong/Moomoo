@@ -61,7 +61,7 @@ int Communicator::parse(int sock) {
             write(sock, &ack_msg, sizeof(ack_msg));
             break;
         }
-        case PROTOCOL_LOBBY_CHAT_REQ:
+        case PROTOCOL_CHAT_REQ:
         {
             S_PROTOCOL_LOBBY_CHAT_REQ body;
             S_PROTOCOL_LOBBY_CHAT_ACK ack_msg;
