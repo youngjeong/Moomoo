@@ -22,15 +22,21 @@ public:
     virtual ~User();
     
     int getSockNum();
-    char *getUsername();
+    char *getId();
     char *getNickname();
     int getRoomNo();
     int getStatus();
-  
+    void setState(int state) {
+        m_state = state;
+    }
+    void getUserKey();
+    void setUserKey();
+
 private:  
+    int m_userkey;
     int m_sockNum;
     bool m_ready;
-    char m_username[16];
+    char m_id[16];
     char m_nickname[16];
     int m_roomNumber;
     int m_state;//in lobby : 1 in room : 2 in game : 3

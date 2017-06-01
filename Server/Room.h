@@ -36,11 +36,11 @@ public:
         strcpy(this->m_roomName,roomName);
     }
 
-    map<char*, User>* GetUsers() const {
+    map<int, User*> GetUsers() const {
         return m_users;
     }
 
-    void SetUsers(map<char*, User>* users) {
+    void SetUsers(map<int, User*> users) {
         this->m_users = users;
     }
     
@@ -52,13 +52,19 @@ public:
         this->m_room_no = room_no;
     }
     
-    void addUser(User * user);
+    void addUser(User  *user);
+  
     
+  
+
+    bool isRoomFull();
 
 private:
+    int m_usersCount;
+    bool m_join_available;
     int m_room_no;
     char  m_roomName[50];
-    map<char *,User> *m_users;
+    map<int,User *> m_users;
     //User * roomMaster;
 
 };

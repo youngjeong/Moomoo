@@ -1,4 +1,19 @@
 #pragma once
+enum PlayerStatus {
+    INLOBBY = 0x00000000,
+    INROOM,
+    INGAME
+};
+enum ReadyStatus {
+    NOT_READY = 0x00000000,
+    READY
+};
+enum RoomStatus
+{
+    JOIN_TO_ROOM_OK=0xF0000000,
+    JOIN_TO_ROOM_DENIED
+};
+
 
 enum Protocol {
    PROTOCOL_GENERAL_FAIL = 0x00000000,
@@ -121,10 +136,10 @@ typedef struct _PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ : _protocol
     }  
 }S_PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ;
 
-
 typedef struct _PROTOCOL_LOBBY_JOIN_TO_ROOM_ACK : _protocol
 {
     _header header;
+    int result;//join to room accepted or not
    _PROTOCOL_LOBBY_JOIN_TO_ROOM_ACK()
     {
         header.protocolID=PROTOCOL_LOBBY_JOIN_TO_ROOM_ACK;

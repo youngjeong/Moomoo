@@ -35,13 +35,31 @@ int main() {
 //    
     //strcpy(body.nickname, "newnick");
 
-    S_PROTOCOL_LOGIN_REQ req;
+//    S_PROTOCOL_LOGIN_REQ req;
+//    memset(&req, 0, sizeof(req));
+//    req.header.protocolID=PROTOCOL_LOGIN_REQ;
+//    req.header.result=1;
+//    
+//    strcpy(req.id,"test1");
+//    strcpy(req.password,"1234");
+//    //strcpy(req.nickname,"dordong");
+//
+//    
+//    int body_size = sizeof(req);
+//    write(sock, &req,body_size);
+//    
+//    char buf[BUF_SIZE]={0,};
+//    read(sock, buf, BUF_SIZE);
+//
+//    S_PROTOCOL_LOGIN_ACK res;
+//    memset(&res,0,sizeof(res));
+//    memcpy(&res,buf,sizeof(res));
+//    
+//    printf("res.header.userno : %d\n ",res.header.userno);
+
+     S_PROTOCOL_LOBBY_ROOMLIST_REQ req;
     memset(&req, 0, sizeof(req));
-    req.header.protocolID=PROTOCOL_LOGIN_REQ;
-    req.header.result=1;
-    
-    strcpy(req.id,"test1");
-    strcpy(req.password,"1234");
+    req.header.protocolID=PROTOCOL_LOBBY_ROOMLIST_REQ;
     //strcpy(req.nickname,"dordong");
 
     
@@ -51,12 +69,35 @@ int main() {
     char buf[BUF_SIZE]={0,};
     read(sock, buf, BUF_SIZE);
 
-    S_PROTOCOL_LOGIN_ACK res;
+    S_PROTOCOL_LOBBY_ROOMLIST_ACK res;
     memset(&res,0,sizeof(res));
     memcpy(&res,buf,sizeof(res));
     
-    printf("res.header.userno : %d\n ",res.header.userno);
+    printf("res.room_no : %d  res.room_name : %s\n",res.rooms[0].room_no,res.rooms[0].roomName);
+    
+    S_PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ req1;
+    memset(&req, 0, sizeof(req));
+    req1.header.protocolID=PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ;
+    req1.header.result=1;
+    req1.room_no=1234;
+    //strcpy(req.nickname,"dordong");
 
+    memset(&buf,0,sizeof(buf));
+    
+    body_size = sizeof(req1);
+    write(sock, &req1,body_size);
+    
+    read(sock, buf, BUF_SIZE);
+
+    S_PROTOCOL_LOBBY_JOIN_TO_ROOM_ACK res1;
+    memset(&res1,0,sizeof(res1));
+    memcpy(&res1,buf,sizeof(res1));
+    
+    printf("res.result : %d\n",res1.header.result);
+    if(res1.header.result==JOIN_TO_ROOM_OK)
+        puts("join success");
+    else if(res1.header.result==JOIN_TO_ROOM_DENIED)
+        puts("join denied");
     /*body.header.protocolID = PROTOCOL_JOIN_REQ;
     body.header.result = 10;
     strcpy(body.id, "321");

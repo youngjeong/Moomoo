@@ -16,19 +16,27 @@
 
 User::User(int sockNum, char *username, char *nickname) {
     m_sockNum = sockNum;
-    strcpy(m_username, username);
+    strcpy(m_id, username);
     strcpy(m_nickname, nickname);
 }
 
 User::~User() {
 }
 
+void User::getUserKey() {
+
+}
+
+void User::setUserKey() {
+
+}
+
 int User::getSockNum() {
     return m_sockNum;
 }
 
-char* User::getUsername() {
-    return m_username;
+char* User::getId() {
+    return m_id;
 }
 
 char* User::getNickname() {

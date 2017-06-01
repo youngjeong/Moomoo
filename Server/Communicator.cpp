@@ -83,10 +83,10 @@ int Communicator::parse(int sock) {
             S_PROTOCOL_LOBBY_ROOMLIST_ACK response;
             Communicator::readBody(sock,body_buf,sizeof(body));
             memcpy(&body, body_buf, sizeof(body));
-            Room room1(1234,"testRoom1");
-            Room room2(4321,"testRoom2");
-            InLobbyController::debugTest(1234,room1);
-            InLobbyController::debugTest(4321,room2);
+//            Room room1(1234,"testRoom1");
+//            Room room2(4321,"testRoom2");
+//            InLobbyController::debugTest(1234,room1);
+//            InLobbyController::debugTest(4321,room2);
             InLobbyController::getAllRooms(&body,&response);
           
             write(sock,&response,sizeof(response));

@@ -15,7 +15,7 @@
 
 #include "InLobbyController.h"
 #include "protocol.h"
-
+#include "errorcode.h"
 InLobbyController::InLobbyController() {
 }
 
@@ -31,23 +31,37 @@ void InLobbyController::getWaitingUsers() {
 }
 
 void InLobbyController::joinToRoom(S_PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ *req, S_PROTOCOL_LOBBY_JOIN_TO_ROOM_ACK *res) {
-    //find req->room_no, delete user from usermap, move user to usermap in room Instance
-    
+    //find req->room_no, move user to usermap in room Instance,change user status
     
     RoomMap *roomMapInstance = RoomMap::getInstance();
     map<int, Room*> rooms=roomMapInstance->getRooms();
-    map<int, Room*>::iterator roomIter= rooms.begin();
-    Room * selectedRoom;
     
-//    roomIter=rooms->find(req->room_no);
- //   selectedRoom=roomIter->second;
-    
-    
-    
+    map<int, Room*>::iterator roomIter= rooms.find(req->room_no);
+    Room * selectedRoom=roomIter->second;
     
     UserMap *userMapInstance = UserMap::getInstance();
-    map<int, User> users =userMapInstance->getMap();
+    map<int, User > allUsers= userMapInstance->getMap();
     map<int, User>::iterator userIter;
+    
+    map<int, User*> usersInRoom = selectedRoom->GetUsers();
+    
+    
+    if(selectedRoom->isRoomFull()){
+        res->header.result=JOIN_TO_ROOM_DENIED;
+    
+        return;
+    }
+    
+    userIter=allUsers.find(req->header.userno);
+    //int room_member_num=rooms.size();
+    User newUser(userIter->second.getSockNum(),userIter->second.getId(),userIter->second.getNickname());
+    
+    userIter->second.setState(INROOM);
+    
+    printf("room size : %ld\n",usersInRoom.size());
+    selectedRoom->addUser(&newUser);
+    res->header.result=JOIN_TO_ROOM_OK;
+    
     
     
 }
@@ -56,17 +70,17 @@ void InLobbyController::makeRoom(int room_no, User *user) {
     
 
 }
-
-void InLobbyController::debugTest(int room_no, Room &room_obj) {
-    //Todo : debugTest must be removed
-    //debugTest adds room for testing
-     RoomMap * instance = RoomMap::getInstance();
-     
-     
-     instance->addRoom(room_no,room_obj);
-
-        
-}
+//
+//void InLobbyController::debugTest(int room_no, Room &room_obj) {
+//    //Todo : debugTest must be removed
+//    //debugTest adds room for testing
+//     RoomMap * instance = RoomMap::getInstance();
+//     
+//     
+//     instance->addRoom(room_no,room_obj);
+//
+//        
+//}
 
 
 void InLobbyController::getAllRooms(S_PROTOCOL_LOBBY_ROOMLIST_REQ *roomRequest,S_PROTOCOL_LOBBY_ROOMLIST_ACK * roomAck) {
