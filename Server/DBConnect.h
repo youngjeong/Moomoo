@@ -45,7 +45,7 @@ public:
     virtual ~DBConnect();
     
     int makeDBConnect();
-    
+    int getUserKeyWithId(const char *id);
     int signUp(const char *id, const char *passwd, const char *nickname);
     int searchUserInfo(const char* id, userInfo*);
     int insertLadderInfo(const char *nickname,const char *timestamp);

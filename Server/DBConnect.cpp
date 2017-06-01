@@ -17,6 +17,8 @@
 DBConnect::DBConnect() {
 }
 
+
+
 int DBConnect::makeDBConnect() {
     //DBConnect Success : 0;
     //Failed  : 1;
@@ -35,8 +37,45 @@ DBConnect::DBConnect(const DBConnect& orig) {
 
 }
 
+
+
 DBConnect::~DBConnect() {
 }
+
+int DBConnect::getUserKeyWithId(const char* id) {
+
+    char query[256];
+    char _char_user_key[10];
+    memset(query,0,sizeof(query));
+    
+    
+     if (makeDBConnect() != 0) {
+        fprintf(stderr, "DB connection failed :signUp");
+        return INTERNAL_SERVER_ERROR;
+    }
+    strcat(query,"select * from userinfo where (id='");
+    strcat(query,id);
+    strcat(query,"');");
+    
+    query_stat = mysql_query(connection, query);
+    if (query_stat != 0) {
+        fprintf(stderr, "mysql query error : %s\n", mysql_error(&conn));
+        return INTERNAL_SERVER_ERROR;
+    }
+
+    sql_result = mysql_store_result(connection);
+
+    while ((sql_row = mysql_fetch_row(sql_result)) != NULL) {
+        strcpy(_char_user_key,sql_row[0]);
+         mysql_close(connection);
+        return atoi(_char_user_key);
+    }
+    if(sql_row==NULL){
+         mysql_close(connection);
+        return CANNOT_FOUND_USER_KEY_FROM_DB;//cannot found user_key
+    }
+}
+
 
 int DBConnect::signUp(const char* id, const char* passwd, const char* nickname) {
     //signUp failed : 1
@@ -69,7 +108,7 @@ int DBConnect::signUp(const char* id, const char* passwd, const char* nickname) 
     if (sql_row == NULL) {
         memset(query, 0, sizeof (query));
 
-        strcat(query, "insert into userinfo VALUES(");
+        strcat(query, "insert into userinfo(id,passwd,nickname)VALUES(");
         strcat(query, "'");
         strcat(query, id);
         strcat(query, "','");
@@ -80,6 +119,7 @@ int DBConnect::signUp(const char* id, const char* passwd, const char* nickname) 
         strcat(query, nickname);
         strcat(query, "');");
 
+        
         query_stat = mysql_query(connection, query);
         if (query_stat != 0) {
             fprintf(stderr, "mysql query error : %s\n", mysql_error(&conn));
@@ -93,10 +133,10 @@ int DBConnect::signUp(const char* id, const char* passwd, const char* nickname) 
 }
 
 int DBConnect::login(const char* id, const char* passwd) {
+    //return value : person_key;
 
-
-    //login success : 0;
-    //login failed : 1;
+    //login success : integer bigger than 1;
+    //login failed : 1 -> -1;
     if (makeDBConnect() != 0) {
         fprintf(stderr, "DB connnection failed : login\n");
         return INTERNAL_SERVER_ERROR;
@@ -122,10 +162,12 @@ int DBConnect::login(const char* id, const char* passwd) {
     sql_result = mysql_store_result(connection);
 
     while ((sql_row = mysql_fetch_row(sql_result)) != NULL) {
-        printf("%s %s %s\n", sql_row[0], sql_row[1], sql_row[2]);
-        strcpy(passwd_from_server, sql_row[1]);
+        printf("%s %s %s\n", sql_row[1], sql_row[2], sql_row[3]);
+        printf("user_key : %s\n",sql_row[0]);
+        //0 : user_key    1 : id     2: passwd     3 : nickname
+        strcpy(passwd_from_server, sql_row[2]);
 
-        if (strcmp(_passwd, sql_row[1]) != 0) {
+        if (strcmp(_passwd, sql_row[2]) != 0) {
             fprintf(stderr, "passwd incorrect\n");
             return INCORRECT_PASSWORD;
         } else
@@ -137,6 +179,9 @@ int DBConnect::login(const char* id, const char* passwd) {
     mysql_close(connection);
     return SUCCESS;
 }
+
+
+
 
 int DBConnect::insertLadderInfo(const char* nickname, const char* timestamp) {
     //insert successed : 0;
@@ -247,10 +292,11 @@ int DBConnect::searchUserInfo(const char* id , userInfo *result) {
     sql_result = mysql_store_result(connection);
 
     while ((sql_row = mysql_fetch_row(sql_result)) != NULL) {
-        printf("%s %s %s\n", sql_row[0], sql_row[1], sql_row[2]);
-        strcpy(result->id, sql_row[0]);
-        strcpy(result->passwd, sql_row[1]);
-        strcpy(result->nickname, sql_row[2]);
+        printf("%s %s %s %s\n", sql_row[0], sql_row[1], sql_row[2],sql_row[3]);
+       
+        strcpy(result->id, sql_row[1]);
+        strcpy(result->passwd, sql_row[2]);
+        strcpy(result->nickname, sql_row[3]);
         mysql_close(connection);
         return SUCCESS;
 

@@ -37,10 +37,18 @@ void InLobbyController::joinToRoom(S_PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ *req, S_PRO
     RoomMap *roomMapInstance = RoomMap::getInstance();
     map<int, Room*> rooms=roomMapInstance->getRooms();
     map<int, Room*>::iterator roomIter= rooms.begin();
+    Room * selectedRoom;
+    
+//    roomIter=rooms->find(req->room_no);
+ //   selectedRoom=roomIter->second;
+    
+    
+    
     
     UserMap *userMapInstance = UserMap::getInstance();
     map<int, User> users =userMapInstance->getMap();
     map<int, User>::iterator userIter;
+    
     
 }
 

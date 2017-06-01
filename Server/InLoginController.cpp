@@ -44,7 +44,10 @@ S_PROTOCOL_LOGIN_ACK InLoginController::loginRequest(S_PROTOCOL_LOGIN_REQ *msg, 
         userinfo info;
         db.searchUserInfo(msg->id, &info);
         User user(sockno, info.id, info.nickname);
-        int userno = usermap_instance->getLastno();
+        //int userno = usermap_instance->getLastno();
+        //userno should be primary key of DB
+        int userno=db.getUserKeyWithId(info.id);
+        
         usermap_instance->addUser(userno, user);
         ack_msg.header.userno = userno;
     }
