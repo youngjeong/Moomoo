@@ -1,4 +1,19 @@
 #pragma once
+enum PlayerStatus {
+    INLOBBY = 0x00000000,
+    INROOM,
+    INGAME
+};
+enum ReadyStatus {
+    NOT_READY = 0x00000000,
+    READY
+};
+enum RoomStatus
+{
+    JOIN_TO_ROOM_OK=0xF0000000,
+    JOIN_TO_ROOM_DENIED
+};
+
 
 enum Protocol {
    PROTOCOL_GENERAL_FAIL = 0x00000000,
@@ -12,14 +27,14 @@ enum Protocol {
    PROTOCOL_LOGIN_REQ,
    PROTOCOL_LOGIN_ACK,
 
-   PROTOCOL_LOBBY_CHAT_REQ,
-   PROTOCOL_LOBBY_CHAT_ACK,
-   
    PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ,//protocol added
    PROTOCOL_LOBBY_JOIN_TO_ROOM_ACK,//protocol added
    
    PROTOCOL_LOBBY_MAKE_ROOM_REQ,//protocol added
    PROTOCOL_LOBBY_MAKE_ROOM_ACK,//protocol added
+   
+   PROTOCOL_LOBBY_CHAT_REQ,
+   PROTOCOL_LOBBY_CHAT_ACK,
    
    PROTOCOL_LOBBY_ROOMLIST_REQ,
    PROTOCOL_LOBBY_ROOMLIST_ACK,
@@ -103,20 +118,28 @@ struct _room_info {//room_info changed
    //int total;
    char roomName[50];
 };
+//
+//    char nickname[16];
+typedef struct _PROTOCOL_LOBBY_CHAT_REQ : _protocol {
+    _header header;
+    char nickname[16];
+    char message[256];
+} S_PROTOCOL_LOBBY_CHAT_REQ, S_PROTOCOL_LOBBY_CHAT_ACK;
 
 typedef struct _PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ : _protocol
 {
     _header header;
+    int room_no;//room number to join
     _PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ()
     {
         header.protocolID=PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ;
     }  
 }S_PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ;
 
-
 typedef struct _PROTOCOL_LOBBY_JOIN_TO_ROOM_ACK : _protocol
 {
     _header header;
+    int result;//join to room accepted or not
    _PROTOCOL_LOBBY_JOIN_TO_ROOM_ACK()
     {
         header.protocolID=PROTOCOL_LOBBY_JOIN_TO_ROOM_ACK;
@@ -140,12 +163,6 @@ typedef struct _PROTOCOL_LOBBY_MAKE_ROOM_ACK : _protocol
         header.protocolID=PROTOCOL_LOBBY_MAKE_ROOM_ACK;
     }  
 }S_PROTOCOL_LOBBY_MAKE_ROOM_ACK;
-
-typedef struct _PROTOCOL_LOBBY_CHAT_REQ : _protocol {
-    _header header;
-    char nickname[16];
-    char message[256];
-} S_PROTOCOL_LOBBY_CHAT_REQ, S_PROTOCOL_LOBBY_CHAT_ACK;
 
 typedef struct _PROTOCOL_LOBBY_ROOMLIST_REQ : _protocol {
    _header header;
