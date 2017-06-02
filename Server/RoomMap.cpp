@@ -18,7 +18,7 @@ RoomMap * RoomMap::instance = NULL;
 RoomMap::RoomMap() {
 }
 
-void RoomMap::addRoom(int room_no, Room *room_obj) {
+void RoomMap::addRoom(int room_no, Room room_obj) {
 
    
     rooms.insert(make_pair(room_no, room_obj));
@@ -28,7 +28,7 @@ void RoomMap::addRoom(int room_no, Room *room_obj) {
 
 void RoomMap::delRoom(int room_no, Room room_obj) {
     
-    map<int, Room*>::iterator iter = rooms.begin();
+    map<int, Room>::iterator iter = rooms.begin();
     
     iter = rooms.find(room_no);
    
@@ -56,7 +56,7 @@ int RoomMap::getRoomSize() {
        return rooms.size();
 }
 
-std::map<int, Room*> RoomMap::getRooms() {
+std::map<int, Room> RoomMap::getRooms() {
 
         return rooms;
 }

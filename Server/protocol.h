@@ -128,11 +128,24 @@ struct _room_info {//room_info changed
    char roomName[50];
 };
 
-typedef struct _PROTOCOL_LOBBY_CHAT_REQ : _protocol {
+typedef struct _PROTOCOL_CHAT_REQ : _protocol {
+    _header header;
+    char message[256];
+    _PROTOCOL_CHAT_REQ()
+    {
+        header.protocolID=PROTOCOL_CHAT_REQ;
+    }  
+} S_PROTOCOL_CHAT_REQ;
+
+typedef struct _PROTOCOL_CHAT_ACK : _protocol {
     _header header;
     char nickname[16];
     char message[256];
-} S_PROTOCOL_CHAT_REQ, S_PROTOCOL_CHAT_ACK;
+    _PROTOCOL_CHAT_ACK()
+    {
+        header.protocolID=PROTOCOL_CHAT_ACK;
+    }
+} S_PROTOCOL_CHAT_ACK;
 
 typedef struct _PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ : _protocol
 {

@@ -68,7 +68,8 @@ int Communicator::parse(int sock) {
             S_PROTOCOL_CHAT_ACK ack_msg;
             Communicator::readBody(sock, body_buf, sizeof(body));
             memcpy(&body, body_buf, sizeof(body));
-            memcpy(&ack_msg, &body, sizeof(body));
+            ack_msg.header.protocolID = PROTOCOL_CHAT_ACK;
+            strcpy(ack_msg.message, body.message);
             UserMap* usermap_instance  = UserMap::getInstance();
             auto UserMap = usermap_instance->getMap();
             if(UserMap.find(body.header.userno)->second.getStatus() == INLOBBY){
@@ -191,13 +192,5 @@ void Communicator::readBody(int sock, char* body_buf, int size) {
     while (recv_len < body_size) {
         int recv_size = read(sock, body_buf + recv_len + header_size + 4, body_size - recv_len);
         recv_len += recv_size;
-    }
-}
-
-void Communicator::writeMultiClient(vector<int> sock_list, T msg)
-{
-    for(int i=0;i<sock_list.size();i++)
-    {
-        write(sock_list[i], msg, sizeof(msg));
     }
 }
