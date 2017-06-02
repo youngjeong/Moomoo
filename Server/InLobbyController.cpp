@@ -34,13 +34,13 @@ void InLobbyController::joinToRoom(S_PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ *req, S_PRO
     //find req->room_no, move user to usermap in room Instance,change user status
     
     RoomMap *roomMapInstance = RoomMap::getInstance();
-    map<int, Room*> rooms=roomMapInstance->getRooms();
+    map<int, Room> rooms=roomMapInstance->getRooms();
 
     
     
-    map<int, Room*>::iterator roomIter= rooms.find(req->room_no);
-    Room * selectedRoom=roomIter->second;
-    printf("InLobbyController::joinToRoom  roomno : %d roomname : %s",selectedRoom->GetRoom_no(),selectedRoom->GetRoomName());
+    map<int, Room>::iterator roomIter= rooms.find(req->room_no);
+    Room selectedRoom=roomIter->second;
+    printf("InLobbyController::joinToRoom  roomno : %d roomname : %s",selectedRoom.GetRoom_no(),selectedRoom.GetRoomName());
     
    
     
@@ -54,7 +54,7 @@ void InLobbyController::joinToRoom(S_PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ *req, S_PRO
     
     //printf("InLobbyController::joinToRoom  selectedRoom member count%d\n",usersInRoom.size());
     
-    if(selectedRoom->isRoomFull()){
+    if(selectedRoom.isRoomFull()){
         res->header.result=JOIN_TO_ROOM_DENIED;
         return;
     }
@@ -63,11 +63,11 @@ void InLobbyController::joinToRoom(S_PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ *req, S_PRO
     //int room_member_num=rooms.size();
     User newUser(userIter->second.getSockNum(),userIter->second.getId(),userIter->second.getNickname());
     
-    userIter->second.setState(INROOM);
+    userIter->second.changeStatus(INROOM);
     
     
     
-    selectedRoom->addUser(newUser);
+    selectedRoom.addUser(newUser);
     res->header.result=JOIN_TO_ROOM_OK;
     
 }
@@ -82,22 +82,22 @@ void InLobbyController::makeRoom(S_PROTOCOL_LOBBY_MAKE_ROOM_REQ *req, S_PROTOCOL
     map<int, User> allUsers=usermapInstance->getMap();
     map<int, User>::iterator userIter;
     userIter = allUsers.find(req->header.userno);
-    userIter->second.setState(INROOM);
+    userIter->second.changeStatus(INROOM);
    
     
     User user(userIter->second.getSockNum(),userIter->second.getId(),userIter->second.getNickname());
-    user.setState(INROOM);//same user info, different user instance;
+    user.changeStatus(INROOM);//same user info, different user instance;
     
     
     RoomMap *roommapInstance = RoomMap::getInstance();
-    map<int, Room*> allRooms = roommapInstance->getRooms();
-    map<int, Room *>::iterator roomIter = allRooms.begin();
+    map<int, Room> allRooms = roommapInstance->getRooms();
+    map<int, Room>::iterator roomIter = allRooms.begin();
     
-    Room *cursor;
+    Room cursor;
     for(;roomIter!=allRooms.end();roomIter++)
     {
         cursor=roomIter->second;
-        if(strcmp(cursor->GetRoomName(),req->room_name)==0)
+        if(strcmp(cursor.GetRoomName(),req->room_name)==0)
         {
             res->header.result=ROOM_ALREADY_EXISTING_NAME;
             return;
@@ -111,9 +111,9 @@ void InLobbyController::makeRoom(S_PROTOCOL_LOBBY_MAKE_ROOM_REQ *req, S_PROTOCOL
 //    newRoom->SetRoomMaster(&user);//roomMaster
 //    
     
-    Room *newRoom=new Room(req->header.userno,req->room_name);
-    newRoom->addUser(user);
-    newRoom->SetRoomMaster(&user);
+    Room newRoom(req->header.userno,req->room_name);
+    newRoom.addUser(user);
+    newRoom.SetRoomMaster(&user);
     
     
     roommapInstance->addRoom(req->header.userno,newRoom);
@@ -145,8 +145,8 @@ void InLobbyController::getAllRooms(S_PROTOCOL_LOBBY_ROOMLIST_REQ *roomRequest,S
     
     RoomMap * instance = RoomMap::getInstance();
     
-    map<int, Room *> roomMap =instance->getRooms();
-    map<int, Room *>::iterator it = roomMap.begin();
+    map<int, Room> roomMap =instance->getRooms();
+    map<int, Room>::iterator it = roomMap.begin();
     
     
     
@@ -155,7 +155,7 @@ void InLobbyController::getAllRooms(S_PROTOCOL_LOBBY_ROOMLIST_REQ *roomRequest,S
  
     for(i=0,it = roomMap.begin();it!=roomMap.end();it++,i++)
     {
-        strcpy(roomAck->rooms[i].roomName,  it->second->GetRoomName());
+        strcpy(roomAck->rooms[i].roomName,  it->second.GetRoomName());
         roomAck->rooms[i].room_no=it->first;
         printf("InLobbyController::getAllRooms room_no : %d roomName : %s\n",
                 roomAck->rooms[i].room_no,roomAck->rooms[i].roomName);

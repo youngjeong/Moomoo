@@ -11,6 +11,7 @@
  * Created on 2017년 5월 28일 (일), 오후 8:05
  */
 
+#include <unistd.h>
 #include "InRoomController.h"
 #include "protocol.h"
 #include "Communicator.h"
@@ -36,7 +37,11 @@ void InRoomController::changeReadyStatus(int userno, int status) {
     ack_msg.changed_user_no = userno;
     ack_msg.status = status;
     ack_msg.header.protocolID = PROTOCOL_PLAYER_CHANGE_READY_STATUS_ACK;
-    Communicator::writeMultiClient(user_socklist, ack_msg);
+    //Todo : write to clients
+/*    for(int i=0;i<user_socklist.size();i++)
+    {
+        write(user_socklist[i], ack_msg, sizeof(ack_msg));
+    }*/
 }
 
 void InRoomController::chatRoom(S_PROTOCOL_CHAT_REQ req_msg){
@@ -60,9 +65,14 @@ void InRoomController::chatRoom(S_PROTOCOL_CHAT_REQ req_msg){
     strcpy(ack_msg.nickname, current_user.getNickname());
     strcpy(ack_msg.message, req_msg.message);
     
-    Communicator::writeMultiClient(user_socklist, ack_msg);
+  //  Communicator::writeMultiClient(user_socklist, ack_msg);
+    //Todo : write to clients
+   /* for(int i=0;i<user_socklist.size();i++)
+    {
+        write(user_socklist[i], &ack_msg, sizeof(ack_msg));
+    }*/
 }
-void InRoomController::gameStart(S_PROTOCOL_PLAYER_CLICK_GAME_START_REQ req_msg) {
+/*void InRoomController::gameStart(S_PROTOCOL_PLAYER_CLICK_GAME_START_REQ req_msg) {
     
 }
 
@@ -70,7 +80,7 @@ bool InRoomController::gameStartValidator(int roomno)
 {
     
 }
-
+*/
 
 InRoomController::InRoomController() {
 }

@@ -15,13 +15,10 @@
 #define COMUNICATOR_H
 #include <vector>
 
-
 class Communicator
 {
 public:
     static int parse(int sock);
-    template <typename T>
-    static void writeMultiClient(std::vector<int>, T);
     
 private:
     Communicator(){}

@@ -25,7 +25,6 @@ class Room {
 public:
     Room(int room_no, const char * room_name);
     Room();
-    Room(Room *);
     Room(const Room& orig);
     virtual ~Room();
     char* GetRoomName() {

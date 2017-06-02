@@ -118,6 +118,7 @@ int DBConnect::signUp(const char* id, const char* passwd, const char* nickname) 
         strcat(query, "'");
         strcat(query, nickname);
         strcat(query, "');");
+        
 
         
         query_stat = mysql_query(connection, query);
