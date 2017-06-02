@@ -13,16 +13,20 @@
 
 #ifndef COMUNICATOR_H
 #define COMUNICATOR_H
+#include <vector>
+
+template <typename T>
 
 class Communicator
 {
 public:
     static int parse(int sock);
-    
+    static void writeMultiClient(std::vector<int>, T);
     
 private:
     Communicator(){}
     static void readBody(int sock, char* body_buf, int size);
+    
     
 };
 

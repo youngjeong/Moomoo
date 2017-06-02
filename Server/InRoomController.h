@@ -14,15 +14,18 @@
 #ifndef INROOMCONTROLLER_H
 #define INROOMCONTROLLER_H
 
+#include "protocol.h"
+
 class InRoomController {
 public:
     InRoomController();
     InRoomController(const InRoomController& orig);
     virtual ~InRoomController();
-    static void checkReadyState();
+    static void changeReadyStatus(int, int);
+    static void chatRoom(S_PROTOCOL_CHAT_REQ);
     static void gameStart();
 private:
-
+    static bool gameStartValidator(int);
 };
 
 #endif /* INROOMCONTROLLER_H */

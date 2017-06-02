@@ -5,6 +5,7 @@
 #include<arpa/inet.h>
 #include<sys/socket.h>
 #include<sys/epoll.h>
+#include<vector>
 #include<map>
 #include "errorcode.h"
 #include "protocol.h"
@@ -13,9 +14,12 @@
 #include "InLoginController.h"
 #include "UserMap.h"
 #include "InLobbyController.h"
+#include "InRoomController.h"
 #include "InGameController.h"
 
 #define BUF_SIZE 2048
+
+
 
 // Todo: Test function must be removed
 int join_request(S_PROTOCOL_JOIN_REQ *body_buf);
@@ -58,20 +62,25 @@ int Communicator::parse(int sock) {
             write(sock, &ack_msg, sizeof(ack_msg));
             break;
         }
-        case PROTOCOL_LOBBY_CHAT_REQ:
+        case PROTOCOL_CHAT_REQ:
         {
-            S_PROTOCOL_LOBBY_CHAT_REQ body;
-            S_PROTOCOL_LOBBY_CHAT_ACK ack_msg;
+            S_PROTOCOL_CHAT_REQ body;
+            S_PROTOCOL_CHAT_ACK ack_msg;
             Communicator::readBody(sock, body_buf, sizeof(body));
             memcpy(&body, body_buf, sizeof(body));
             memcpy(&ack_msg, &body, sizeof(body));
             UserMap* usermap_instance  = UserMap::getInstance();
             auto UserMap = usermap_instance->getMap();
-            strcpy(ack_msg.nickname, UserMap.find(body.header.userno)->second.getNickname());
-            
-            
-            for(auto it=UserMap.begin(); it!=UserMap.end();it++){
-                write(it->second.getSockNum(), &ack_msg, sizeof(ack_msg));
+            if(UserMap.find(body.header.userno)->second.getStatus() == INLOBBY){
+                strcpy(ack_msg.nickname, UserMap.find(body.header.userno)->second.getNickname());
+
+                for(auto it=UserMap.begin(); it!=UserMap.end();it++){
+                    if(it->second.getStatus() == INLOBBY)
+                        write(it->second.getSockNum(), &ack_msg, sizeof(ack_msg));
+                }
+            }
+            else if(UserMap.find(body.header.userno)->second.getStatus() == INROOM){
+                InRoomController::chatRoom(body);
             }
             break;
         }
@@ -127,11 +136,13 @@ int Communicator::parse(int sock) {
             // Request Lobby Player List Function
             break;
         }
-        case PROTOCOL_ROOM_SET_READY_STATUS_REQ:
+        case PROTOCOL_PLAYER_CHANGE_READY_STATUS_REQ:
         {
-            S_PROTOCOL_ROOM_SET_READY_STATUS_REQ body;
+            S_PROTOCOL_PLAYER_CHANGE_READY_STATUS_REQ body;
             Communicator::readBody(sock, body_buf, sizeof (body));
             memcpy(&body, body_buf, sizeof (body));
+            
+            InRoomController::changeReadyStatus(body.header.userno, body.status);
             // Change Player Status Function
             break;
         }
@@ -180,5 +191,13 @@ void Communicator::readBody(int sock, char* body_buf, int size) {
     while (recv_len < body_size) {
         int recv_size = read(sock, body_buf + recv_len + header_size + 4, body_size - recv_len);
         recv_len += recv_size;
+    }
+}
+
+void Communicator::writeMultiClient(vector<int> sock_list, T msg)
+{
+    for(int i=0;i<sock_list.size();i++)
+    {
+        write(sock_list[i], msg, sizeof(msg));
     }
 }

@@ -26,10 +26,9 @@ public:
     char *getNickname();
     int getRoomNo();
     int getStatus();
-    void setState(int state) {
-        m_state = state;
-    }
-    
+    void changeReady(int);
+    void changeStatus(int);
+  
 private:  
     int m_sockNum;
     bool m_ready;

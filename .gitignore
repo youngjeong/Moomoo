@@ -476,3 +476,4 @@ testClient/testClient\.cpp
 Server/nbproject/private/private\.xml
 
 testClient/
+testClient/testClient.cpp
