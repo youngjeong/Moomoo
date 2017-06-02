@@ -194,6 +194,8 @@ void Communicator::readBody(int sock, char* body_buf, int size) {
     }
 }
 
+
+template <typename T>
 void Communicator::writeMultiClient(vector<int> sock_list, T msg)
 {
     for(int i=0;i<sock_list.size();i++)
