@@ -104,7 +104,6 @@ struct _room_info {//room_info changed
    char roomName[50];
 };
 
-    char nickname[16];
 typedef struct _PROTOCOL_LOBBY_CHAT_REQ : _protocol {
     _header header;
     char nickname[16];
