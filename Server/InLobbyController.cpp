@@ -40,13 +40,22 @@ void InLobbyController::joinToRoom(S_PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ *req, S_PRO
     
     map<int, Room>::iterator roomIter= rooms.find(req->room_no);
     Room selectedRoom=roomIter->second;
-    printf("InLobbyController::joinToRoom  roomno : %d roomname : %s",selectedRoom.GetRoom_no(),selectedRoom.GetRoomName());
     
-   
+    if(roomIter->first!=req->room_no)
+    {
+        printf("join failed\n");
+        printf("request room_no : %d found room_no : %d\n",req->room_no,roomIter->first);
+        res->header.result=JOIN_TO_ROOM_DENIED;
+        return;
+        
+    }
+    
+    printf("InLobbyController::joinToRoom  roomno : %d roomname : %s",selectedRoom.GetRoom_no(),selectedRoom.GetRoomName());
     
     UserMap *userMapInstance = UserMap::getInstance();
     map<int, User > allUsers= userMapInstance->getMap();
     map<int, User>::iterator userIter;
+    
     
     //map<int, User*> usersInRoom = selectedRoom->GetUsers();
     //vector<User> usersInRoom = selectedRoom->GetUsers();

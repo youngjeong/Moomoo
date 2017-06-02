@@ -13,13 +13,13 @@
             <file>file:/C:/Users/admin/Desktop/int%20main()/2017-1/네트워크/project/Moomoo/Server/errorcode.h</file>
             <file>file:/C:/Users/admin/Desktop/int%20main()/2017-1/네트워크/project/Moomoo/Server/Room.h</file>
             <file>file:/C:/Users/admin/Desktop/int%20main()/2017-1/네트워크/project/Moomoo/Server/DBConnect.cpp</file>
+            <file>file:/C:/Users/admin/Desktop/int%20main()/2017-1/네트워크/project/Moomoo/Server/InGameController.h</file>
             <file>file:/C:/Users/admin/Desktop/int%20main()/2017-1/네트워크/project/Moomoo/Server/InLobbyController.h</file>
-            <file>file:/C:/Users/admin/Desktop/int%20main()/2017-1/네트워크/project/Moomoo/Server/UserMap.h</file>
             <file>file:/C:/Users/admin/Desktop/int%20main()/2017-1/네트워크/project/Moomoo/Server/RoomMap.cpp</file>
+            <file>file:/C:/Users/admin/Desktop/int%20main()/2017-1/네트워크/project/Moomoo/Server/UserMap.h</file>
             <file>file:/C:/Users/admin/Desktop/int%20main()/2017-1/네트워크/project/Moomoo/Server/DBConnect.h</file>
-            <file>file:/C:/Users/admin/Desktop/int%20main()/2017-1/네트워크/project/Moomoo/Server/UserMap.cpp</file>
-            <file>file:/C:/Users/admin/Desktop/int%20main()/2017-1/네트워크/project/Moomoo/Server/User.cpp</file>
             <file>file:/C:/Users/admin/Desktop/int%20main()/2017-1/네트워크/project/Moomoo/Server/Epoll.cpp</file>
+            <file>file:/C:/Users/admin/Desktop/int%20main()/2017-1/네트워크/project/Moomoo/Server/UserMap.cpp</file>
             <file>file:/C:/Users/admin/Desktop/int%20main()/2017-1/네트워크/project/Moomoo/Server/Room.cpp</file>
             <file>file:/C:/Users/admin/Desktop/int%20main()/2017-1/네트워크/project/Moomoo/Server/InLobbyController.cpp</file>
             <file>file:/C:/Users/admin/Desktop/int%20main()/2017-1/네트워크/project/Moomoo/Server/InLoginController.h</file>
@@ -30,7 +30,6 @@
             <file>file:/C:/Users/admin/Desktop/int%20main()/2017-1/네트워크/project/Moomoo/Server/InLoginController.cpp</file>
             <file>file:/C:/Users/admin/Desktop/int%20main()/2017-1/네트워크/project/Moomoo/Server/Communicator.cpp</file>
             <file>file:/C:/Users/admin/Desktop/int%20main()/2017-1/네트워크/project/Moomoo/Server/Communicator.h</file>
-            <file>file:/C:/Users/admin/Desktop/int%20main()/2017-1/네트워크/project/Moomoo/Server/InRoomController.cpp</file>
             <file>file:/C:/Users/admin/Desktop/int%20main()/2017-1/네트워크/project/Moomoo/Server/User.h</file>
         </group>
     </open-files>

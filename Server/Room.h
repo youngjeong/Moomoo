@@ -19,6 +19,7 @@
 #include "UserMap.h"
 #include<cstdio>
 #include<cstdlib>
+#include <iostream>
 using namespace std;
 
 class Room {

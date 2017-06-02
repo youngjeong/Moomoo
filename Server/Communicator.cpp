@@ -95,7 +95,7 @@ int Communicator::parse(int sock) {
             InLobbyController::makeRoom(&body,&response);
             
             write(sock,&response,sizeof(response));
-            
+            break;
         }
         case PROTOCOL_LOBBY_ROOMLIST_REQ:
         {

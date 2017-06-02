@@ -16,7 +16,7 @@ int main() {
         printf("socker() error");
     memset(&serv_adr, 0,sizeof(serv_adr));
     serv_adr.sin_family=AF_INET;
-    serv_adr.sin_addr.s_addr=inet_addr("13.124.83.116");
+    serv_adr.sin_addr.s_addr=inet_addr("13.124.23.230");
 
     serv_adr.sin_port=htons(atoi("9090"));
     
