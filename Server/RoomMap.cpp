@@ -18,6 +18,10 @@ RoomMap * RoomMap::instance = NULL;
 RoomMap::RoomMap() {
 }
 
+void RoomMap::setRoomInPosition(int pos, Room room_obj) {
+    this->rooms[pos]=room_obj;
+}
+
 void RoomMap::addRoom(int room_no, Room room_obj) {
 
    

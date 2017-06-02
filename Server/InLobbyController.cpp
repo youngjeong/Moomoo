@@ -35,8 +35,6 @@ void InLobbyController::joinToRoom(S_PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ *req, S_PRO
     
     RoomMap *roomMapInstance = RoomMap::getInstance();
     map<int, Room> rooms=roomMapInstance->getRooms();
-
-    
     
     map<int, Room>::iterator roomIter= rooms.find(req->room_no);
     Room selectedRoom=roomIter->second;
@@ -47,10 +45,9 @@ void InLobbyController::joinToRoom(S_PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ *req, S_PRO
         printf("request room_no : %d found room_no : %d\n",req->room_no,roomIter->first);
         res->header.result=JOIN_TO_ROOM_DENIED;
         return;
-        
     }
     
-    printf("InLobbyController::joinToRoom  roomno : %d roomname : %s",selectedRoom.GetRoom_no(),selectedRoom.GetRoomName());
+    printf("InLobbyController::joinToRoom  roomno : %d roomname : %s\n",selectedRoom.GetRoom_no(),selectedRoom.GetRoomName());
     
     UserMap *userMapInstance = UserMap::getInstance();
     map<int, User > allUsers= userMapInstance->getMap();
@@ -59,8 +56,6 @@ void InLobbyController::joinToRoom(S_PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ *req, S_PRO
     
     //map<int, User*> usersInRoom = selectedRoom->GetUsers();
     //vector<User> usersInRoom = selectedRoom->GetUsers();
-    
-    
     //printf("InLobbyController::joinToRoom  selectedRoom member count%d\n",usersInRoom.size());
     
     if(selectedRoom.isRoomFull()){
@@ -73,10 +68,12 @@ void InLobbyController::joinToRoom(S_PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ *req, S_PRO
     User newUser(userIter->second.getSockNum(),userIter->second.getId(),userIter->second.getNickname());
     
     userIter->second.changeStatus(INROOM);
-    
-    
-    
     selectedRoom.addUser(newUser);
+    
+    printf("selectedRoom.getRoomUserCount() : %d\n",selectedRoom.getRoomUserCount());
+    
+    roomMapInstance->setRoomInPosition(req->room_no,selectedRoom);
+    
     res->header.result=JOIN_TO_ROOM_OK;
     
 }
@@ -112,8 +109,6 @@ void InLobbyController::makeRoom(S_PROTOCOL_LOBBY_MAKE_ROOM_REQ *req, S_PROTOCOL
             return;
         }
     }
-     
-    
 //    
 //    Room *newRoom=new Room(req->header.userno,req->room_name);
 //    newRoom->addUser(&user);//roomMaster & first joined user;
@@ -122,10 +117,12 @@ void InLobbyController::makeRoom(S_PROTOCOL_LOBBY_MAKE_ROOM_REQ *req, S_PROTOCOL
     
     Room newRoom(req->header.userno,req->room_name);
     newRoom.addUser(user);
-    newRoom.SetRoomMaster(&user);
-    
+    newRoom.SetRoomMaster(user);
     
     roommapInstance->addRoom(req->header.userno,newRoom);
+    
+   
+    
     res->header.result=ROOM_MAKE_SUCCESSFULLY;
     
     

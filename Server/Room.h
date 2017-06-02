@@ -13,7 +13,7 @@
 
 #ifndef ROOM_H
 #define ROOM_H
-#include<map>
+//#include<map>
 #include<vector>
 #include"User.h"
 #include "UserMap.h"
@@ -26,10 +26,10 @@ class Room {
 public:
     Room(int room_no, const char * room_name);
     Room();
-    Room(const Room& orig);
     virtual ~Room();
     char* GetRoomName() {
         return m_roomName;
+        
     }
 
     void SetRoomName(char* roomName) {
@@ -55,14 +55,15 @@ public:
     void addUser(User user);
   
     
-      User* GetRoomMaster()  {
+      User GetRoomMaster()  {
         return roomMaster;
     }
 
-    void SetRoomMaster(User* roomMaster) {
+    void SetRoomMaster(User roomMaster) {
         this->roomMaster = roomMaster;
+        
     }
-
+    
     bool isRoomFull();
     
     int getRoomUserCount();
@@ -72,7 +73,7 @@ private:
     
     char  m_roomName[50];
     vector<User> m_users;
-    User * roomMaster;
+    User  roomMaster;
 
 };
 
