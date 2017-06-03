@@ -50,6 +50,9 @@ int User::getRoomNo() {
     return m_roomNumber;
 }
 
+int User::setRoomNo(int roomno){
+    m_roomNumber = roomno;
+}
 int User::getStatus() {
     return m_state;
 }

@@ -27,6 +27,7 @@ public:
     char *getId();
     char *getNickname();
     int getRoomNo();
+    int setRoomNo(int);
     int getStatus();
     bool getReady();
     void changeReady(int);
