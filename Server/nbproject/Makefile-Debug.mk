@@ -50,7 +50,7 @@ OBJECTFILES= \
 
 
 # C Compiler Flags
-CFLAGS=
+CFLAGS=-std=c++11
 
 # CC Compiler Flags
 CCFLAGS=
