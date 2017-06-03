@@ -60,7 +60,14 @@ int RoomMap::getRoomSize() {
     else
        return rooms.size();
 }
-
+void RoomMap::updateRoom(int room_no, Room room_obj){
+    auto it = rooms.begin();
+    for(;it!=rooms.end();it++){
+        if(it->first == room_no){
+            it->second = room_obj;
+        }
+    }
+}
 std::map<int, Room> RoomMap::getRooms() {
 
         return rooms;

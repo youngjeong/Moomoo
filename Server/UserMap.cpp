@@ -36,6 +36,14 @@ map<int, User> UserMap::getMap()
     return usermap;
 }
 
+void UserMap::updateUser(int user_no, User user_obj){
+    auto it = usermap.begin();
+    for(;it!=usermap.end();it++){
+        if(it->first == user_no){
+            it->second = user_obj;
+        }
+    }
+}
 int UserMap::getLastno()
 {
     if(!UserMapFlag)return -1;
