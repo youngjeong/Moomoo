@@ -151,7 +151,42 @@ void InRoomController::getRoomUserList(S_PROTOCOL_ROOM_PLAYER_LIST_REQ req_msg){
 }
 
 void InRoomController::exitAtRoom(S_PROTOCOL_ROOM_EXIT_REQ req_msg){
+    auto usermap_instance = UserMap::getInstance();
+    auto usermap = usermap_instance->getMap();
+    User current_user = usermap.find(req_msg.header.userno)->second;
+       
+    auto roommap_instance = RoomMap::getInstance();
+    auto roommap = roommap_instance->getRooms();
+    Room current_room = roommap.find(req_msg.header.userno)->second;
+    auto roomUsers = current_room.GetUsers();
     
+    current_user.changeStatus(INLOBBY);
+    
+    for(int i=0;i<roomUsers.size();i++){
+        if(strcmp(roomUsers[i].getId(), current_user.getId())==0){
+            roomUsers.erase(roomUsers.begin()+i);
+            break;
+        }
+    }
+    
+    S_PROTOCOL_ROOM_PLAYER_LIST_ACK ack_msg;
+    ack_msg.header.protocolID = PROTOCOL_ROOM_PLAYER_LIST_ACK;
+    ack_msg.count = roomUsers.size();
+    for(int i=0;i<roomUsers.size();i++){
+        strcpy(ack_msg.players[i].nickname, roomUsers[i].getNickname());
+        if(roomUsers[i].getReady()){
+            ack_msg.players[i].ready_status = 1;
+        }
+        else
+            ack_msg.players[i].ready_status = 0;
+    }
+    for(int i=0;i<roomUsers.size();i++){
+        write(roomUsers[i].getSockNum(), &ack_msg, sizeof(ack_msg));
+    }
+    
+    S_PROTOCOL_ROOM_EXIT_ACK exit_ack;
+    exit_ack.header.protocolID = PROTOCOL_ROOM_EXIT_ACK;
+    write(current_user.getSockNum(), &exit_ack, sizeof(exit_ack));
 }
 InRoomController::InRoomController() {
 }
