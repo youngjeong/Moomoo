@@ -5,6 +5,7 @@
 #include<arpa/inet.h>
 #include<sys/socket.h>
 #include "../Server/protocol.h"
+#include "../Server/errorcode.h"
 #define BUF_SIZE 2048
 using namespace std;
 
@@ -71,7 +72,7 @@ int main() {
     memset(&res,0,sizeof(res));
     memcpy(&res,buf,sizeof(res));
     
-    if(res.header.result==ROOM_MAKE_SUCCESSFULLY)
+    if(res.header.result==SUCCESS)
         puts("room made");
     else if(res.header.result==ROOM_ALREADY_EXISTING_NAME)
         puts("already exist name");
@@ -137,7 +138,8 @@ int main() {
     
     // int myUserKey;
     
-    
+    /*
+     //login & roomList
      S_PROTOCOL_LOGIN_REQ loginreq_;
     memset(&loginreq_, 0, sizeof(loginreq_));
     loginreq_.header.protocolID=PROTOCOL_LOGIN_REQ;
@@ -187,7 +189,7 @@ int main() {
     {
         printf("client response : %d %s\n",res1.rooms[i].room_no,res1.rooms[i].roomName);
     }
-    
+    */
    
         
     return 0;

@@ -34,10 +34,17 @@ void InLobbyController::joinToRoom(S_PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ *req, S_PRO
     //find req->room_no, move user to usermap in room Instance,change user status
     
     RoomMap *roomMapInstance = RoomMap::getInstance();
+    
+    puts("log1");
     map<int, Room> rooms=roomMapInstance->getRooms();
+    puts("log2");
     
     map<int, Room>::iterator roomIter= rooms.find(req->room_no);
+    printf("req->room_no : %d\n",req->room_no);
+    puts("log3");
+    
     Room selectedRoom=roomIter->second;
+    puts("log4");
     
     if(roomIter->first!=req->room_no)
     {
@@ -72,12 +79,17 @@ void InLobbyController::joinToRoom(S_PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ *req, S_PRO
     
     printf("selectedRoom.getRoomUserCount() : %d\n",selectedRoom.getRoomUserCount());
     
-    roomMapInstance->setRoomInPosition(req->room_no,selectedRoom);
     
+    roomMapInstance->setRoomInPosition(req->room_no,selectedRoom);
+    puts("log5");
+            
     
     strcpy(res->room_name,selectedRoom.GetRoomName());
-    res->header.result=JOIN_TO_ROOM_OK;
-    
+      puts("log6");
+            
+    res->header.result=SUCCESS;
+      puts("log7");
+            
 }
 
 void InLobbyController::makeRoom(S_PROTOCOL_LOBBY_MAKE_ROOM_REQ *req, S_PROTOCOL_LOBBY_MAKE_ROOM_ACK *res) {
@@ -125,7 +137,7 @@ void InLobbyController::makeRoom(S_PROTOCOL_LOBBY_MAKE_ROOM_REQ *req, S_PROTOCOL
     
    
     
-    res->header.result=ROOM_MAKE_SUCCESSFULLY;
+    res->header.result=SUCCESS;
     strcpy(res->room_name,req->room_name);
     
     
