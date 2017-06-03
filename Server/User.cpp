@@ -50,6 +50,9 @@ int User::getStatus() {
     return m_state;
 }
 
+bool User::getReady() {
+    return m_ready;
+}
 void User::changeReady(int readyStatus){    
     m_ready = readyStatus;
 }

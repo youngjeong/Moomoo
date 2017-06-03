@@ -23,7 +23,8 @@ public:
     virtual ~InRoomController();
     static void changeReadyStatus(int, int);
     static void chatRoom(S_PROTOCOL_CHAT_REQ);
-    static void gameStart();
+    static void gameStart(S_PROTOCOL_PLAYER_CLICK_GAME_START_REQ);
+    
 private:
     static bool gameStartValidator(int);
 };

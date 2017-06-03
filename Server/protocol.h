@@ -261,6 +261,15 @@ typedef struct _PROTOCOL_PLAYER_CLICK_GAME_START_REQ : _protocol {
     }
 } S_PROTOCOL_PLAYER_CLICK_GAME_START_REQ;
 
+typedef struct _PROTOCOL_PLAYER_CLICK_GAME_START_ACK : _protocol {
+    _header header;
+    
+    _PROTOCOL_PLAYER_CLICK_GAME_START_ACK()
+    {
+        header.protocolID = PROTOCOL_PLAYER_CLICK_GAME_START_ACK;
+    }
+} S_PROTOCOL_PLAYER_CLICK_GAME_START_ACK;
+
 
 typedef struct _PROTOCOL_ROOM_PLAYER_LIST_REQ : _protocol {
    _header header;
