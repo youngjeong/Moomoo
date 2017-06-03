@@ -24,6 +24,7 @@ InGameController::InGameController(const InGameController& orig) {
 
 void InGameController::changePlayerStatus(S_PROTOCOL_PLAYER_STATUS_CHANGED_REQ req_msg){
     S_PROTOCOL_PLAYER_STATUS_CHANGED_ACK ack_msg;
+    memset(&ack_msg,0,sizeof(ack_msg));
     auto usermap_instance = UserMap::getInstance();
     auto usermap = usermap_instance->getMap();
     User current_user = usermap.find(req_msg.header.userno)->second;
@@ -45,6 +46,7 @@ void InGameController::changePlayerStatus(S_PROTOCOL_PLAYER_STATUS_CHANGED_REQ r
 
 void InGameController::endGame(S_PROTOCOL_GAME_END_REQ req_msg){
     S_PROTOCOL_GAME_END_ACK ack_msg;
+    memset(&ack_msg,0,sizeof(ack_msg));
     auto usermap_instance = UserMap::getInstance();
     auto usermap = usermap_instance->getMap();
     User current_user = usermap.find(req_msg.header.userno)->second;

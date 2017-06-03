@@ -41,6 +41,7 @@ void InRoomController::changeReadyStatus(int userno, int status) {
     }
     roommap_instance->updateRoomUsers(current_user.getRoomNo(), userlist);
     S_PROTOCOL_ROOM_PLAYER_LIST_ACK ack_msg;
+    memset(&ack_msg,0,sizeof(ack_msg));
     ack_msg.header.protocolID = PROTOCOL_ROOM_PLAYER_LIST_ACK;
     ack_msg.count = userlist.size();
     for(int i=0;i<userlist.size();i++){
@@ -75,6 +76,7 @@ void InRoomController::chatRoom(S_PROTOCOL_CHAT_REQ req_msg){
     }
     
     S_PROTOCOL_CHAT_ACK ack_msg;
+    memset(&ack_msg,0,sizeof(ack_msg));
     ack_msg.header.protocolID = PROTOCOL_CHAT_ACK;
     strcpy(ack_msg.nickname, current_user.getNickname());
     strcpy(ack_msg.message, req_msg.message);
@@ -178,6 +180,7 @@ void InRoomController::exitAtRoom(S_PROTOCOL_ROOM_EXIT_REQ req_msg){
     roommap_instance->updateRoomUsers(roomno, roomUsers);
     
     S_PROTOCOL_ROOM_PLAYER_LIST_ACK ack_msg;
+    memset(&ack_msg,0,sizeof(ack_msg));
     ack_msg.header.protocolID = PROTOCOL_ROOM_PLAYER_LIST_ACK;
     ack_msg.count = roomUsers.size();
     for(int i=0;i<roomUsers.size();i++){
@@ -193,6 +196,7 @@ void InRoomController::exitAtRoom(S_PROTOCOL_ROOM_EXIT_REQ req_msg){
     }
     
     S_PROTOCOL_ROOM_EXIT_ACK exit_ack;
+    memset(&exit_ack,0,sizeof(exit_ack));
     exit_ack.header.protocolID = PROTOCOL_ROOM_EXIT_ACK;
     write(current_user.getSockNum(), &exit_ack, sizeof(exit_ack));
 }
