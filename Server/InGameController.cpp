@@ -43,6 +43,29 @@ void InGameController::changePlayerStatus(S_PROTOCOL_PLAYER_STATUS_CHANGED_REQ r
     }
 }
 
+void InGameController::endGame(S_PROTOCOL_GAME_END_REQ req_msg){
+    S_PROTOCOL_GAME_END_ACK ack_msg;
+    auto usermap_instance = UserMap::getInstance();
+    auto usermap = usermap_instance->getMap();
+    User current_user = usermap.find(req_msg.header.userno)->second;
+    
+    auto roommap_instance = RoomMap::getInstance();
+    auto roommap = roommap_instance->getRooms();
+    auto current_room = roommap.find(req_msg.header.userno)->second;
+    auto userlist = current_room.GetUsers();
+    
+    for(int i=0;i<userlist.size();i++){
+        userlist[i].changeStatus(INLOBBY);
+        userlist[i].changeReady(NOT_READY);
+    }   
+    ack_msg.header.protocolID = PROTOCOL_GAME_END_ACK;
+    ack_msg.win_userID = req_msg.header.userno;
+    for(int i=0;i<userlist.size();i++){
+        write(userlist[i].getSockNum(), &ack_msg, sizeof(ack_msg));
+    }
+    
+    
+}
 InGameController::~InGameController() {
 }
 

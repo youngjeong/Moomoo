@@ -178,6 +178,8 @@ int Communicator::parse(int sock) {
             S_PROTOCOL_GAME_END_REQ body;
             Communicator::readBody(sock, body_buf, sizeof (body));
             memcpy(&body, body_buf, sizeof (body));
+            
+            InGameController::endGame(body);
             // Change Player Status Function
             break;
         }
