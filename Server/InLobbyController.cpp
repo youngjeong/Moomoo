@@ -86,8 +86,7 @@ void InLobbyController::makeRoom(S_PROTOCOL_LOBBY_MAKE_ROOM_REQ *req, S_PROTOCOL
     printf("InLobbyController::makeRoom req->header.userno : %d\n",req->header.userno);
     UserMap *usermapInstance = UserMap::getInstance();
     map<int, User> allUsers=usermapInstance->getMap();
-    map<int, User>::iterator userIter;
-    userIter = allUsers.find(req->header.userno);
+    auto userIter = allUsers.find(req->header.userno);
     userIter->second.changeStatus(INROOM);
    
     
@@ -116,6 +115,7 @@ void InLobbyController::makeRoom(S_PROTOCOL_LOBBY_MAKE_ROOM_REQ *req, S_PROTOCOL
 //    
     
     Room newRoom(req->header.userno,req->room_name);
+    printf("room name : %s\n", newRoom.GetRoomName());
     newRoom.addUser(user);
     newRoom.SetRoomMaster(user);
     
@@ -128,17 +128,6 @@ void InLobbyController::makeRoom(S_PROTOCOL_LOBBY_MAKE_ROOM_REQ *req, S_PROTOCOL
     
     
     
-}
-
-void InLobbyController::debugTest(int room_no, Room &room_obj) {
-    //Todo : debugTest must be removed
-    //debugTest adds room for testing
-     RoomMap * instance = RoomMap::getInstance();
-     
-     
-     //instance->addRoom(room_no,room_obj);
-
-        
 }
 
 
