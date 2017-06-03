@@ -40,12 +40,15 @@ enum Protocol {
    PROTOCOL_PLAYER_CHANGE_READY_STATUS_REQ,
    PROTOCOL_PLAYER_CHANGE_READY_STATUS_ACK,
 
-   PROTOCOL_PLAYER_CLICK_GAME_START_REQ,
-   PROTOCOL_PLAYER_CLICK_GAME_START_ACK,
+   PROTOCOL_PLAYER_GAME_START_REQ,
+   PROTOCOL_PLAYER_GAME_START_ACK,
    
    PROTOCOL_ROOM_PLAYER_LIST_REQ,
    PROTOCOL_ROOM_PLAYER_LIST_ACK,
 
+   PROTOCOL_ROOM_EXIT_REQ,
+   PROTOCOL_ROOM_EXIT_ACK,
+   
    PROTOCOL_INGAME = 0x00F00000,
 
    PROTOCOL_INGAME_LOADING_COMPLETED,
@@ -196,8 +199,7 @@ typedef struct _PROTOCOL_LOBBY_ROOMLIST_ACK : _protocol {
 } S_PROTOCOL_LOBBY_ROOMLIST_ACK;
 
 struct _player_info {
-   int win;
-   int lose;
+    int ready_status;
    char nickname[10];
 };
 
@@ -242,14 +244,23 @@ typedef struct _PROTOCOL_PLAYER_CHANGE_READY_STATUS_ACK : _protocol {
    }
 } S_PROTOCOL_PLAYER_CHANGE_READY_STATUS_ACK;
 
-typedef struct _PROTOCOL_PLAYER_CLICK_GAME_START_REQ : _protocol {
+typedef struct _PROTOCOL_PLAYER_GAME_START_REQ : _protocol {
     _header header;
     
-    _PROTOCOL_PLAYER_CLICK_GAME_START_REQ()
+    _PROTOCOL_PLAYER_GAME_START_REQ()
     {
-        header.protocolID = PROTOCOL_PLAYER_CLICK_GAME_START_REQ;
+        header.protocolID = PROTOCOL_PLAYER_GAME_START_REQ;
     }
-} S_PROTOCOL_PLAYER_CLICK_GAME_START_REQ;
+} S_PROTOCOL_PLAYER_GAME_START_REQ;
+
+typedef struct _PROTOCOL_PLAYER_GAME_START_ACK : _protocol {
+    _header header;
+    
+    _PROTOCOL_PLAYER_GAME_START_ACK()
+    {
+        header.protocolID = PROTOCOL_PLAYER_GAME_START_ACK;
+    }
+} S_PROTOCOL_PLAYER_GAME_START_ACK;
 
 
 typedef struct _PROTOCOL_ROOM_PLAYER_LIST_REQ : _protocol {
@@ -271,6 +282,24 @@ typedef struct _PROTOCOL_ROOM_PLAYER_LIST_ACK : _protocol {
       header.protocolID = PROTOCOL_ROOM_PLAYER_LIST_ACK;
    }
 } S_PROTOCOL_ROOM_PLAYER_LIST_ACK;
+
+typedef struct _PROTOCOL_ROOM_EXIT_REQ : _protocol {
+   _header header;
+
+   _PROTOCOL_ROOM_EXIT_REQ()
+   {
+      header.protocolID = PROTOCOL_ROOM_EXIT_REQ;
+   }
+} S_PROTOCOL_ROOM_EXIT_REQ;
+
+typedef struct _PROTOCOL_ROOM_EXIT_ACK : _protocol {
+   _header header;
+   
+   _PROTOCOL_ROOM_EXIT_ACK()
+   {
+       header.protocolID = PROTOCOL_ROOM_EXIT_ACK;
+   }
+} S_PROTOCOL_ROOM_EXIT_ACK;
 
 typedef struct _PROTOCOL_INGAME_LOADING_COMPLETED : _protocol {
    _header header;
