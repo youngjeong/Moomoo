@@ -140,6 +140,11 @@ void InRoomController::getRoomUserList(S_PROTOCOL_ROOM_PLAYER_LIST_REQ req_msg){
     ack_msg.header.protocolID = PROTOCOL_ROOM_PLAYER_LIST_ACK;
     ack_msg.count = roomUsers.size();
     for(int i=0;i<roomUsers.size();i++){
+        if(roomUsers[i].getReady())
+            ack_msg.players[i].ready_status = 1;
+        else
+            ack_msg.players[i].ready_status = 0;
+        
         strcpy(ack_msg.players[i].nickname, roomUsers[i].getNickname());
     }
     write(current_user.getSockNum(), &ack_msg, sizeof(ack_msg));
