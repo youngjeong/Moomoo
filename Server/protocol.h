@@ -200,7 +200,7 @@ typedef struct _PROTOCOL_LOBBY_ROOMLIST_ACK : _protocol {
 
 struct _player_info {
     int ready_status;
-   char nickname[10];
+   char nickname[16];
 };
 
 typedef struct _PROTOCOL_LOBBY_PLAYER_LIST_REQ : _protocol {
