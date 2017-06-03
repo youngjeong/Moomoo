@@ -20,8 +20,9 @@ User::User() {
 }
 
 
-User::User(int sockNum, char *username, char *nickname) {
+User::User(int sockNum, int userno, char *username, char *nickname) {
     m_sockNum = sockNum;
+    m_userno = userno;
     strcpy(m_id, username);
     strcpy(m_nickname, nickname);
 }
@@ -34,6 +35,9 @@ int User::getSockNum() {
     return m_sockNum;
 }
 
+int User::getuserno(){
+    return m_userno;
+}
 char* User::getId() {
     return m_id;
 }

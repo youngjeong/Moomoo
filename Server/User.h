@@ -23,6 +23,7 @@ public:
     User();
     
     int getSockNum();
+    int getuserno();
     char *getId();
     char *getNickname();
     int getRoomNo();
@@ -32,6 +33,7 @@ public:
     void changeStatus(int);
   
 private:  
+    int m_userno;
     int m_sockNum;
     bool m_ready;
     char m_id[16];
