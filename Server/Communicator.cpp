@@ -154,7 +154,7 @@ int Communicator::parse(int sock) {
             S_PROTOCOL_ROOM_PLAYER_LIST_REQ body;
             Communicator::readBody(sock, body_buf, sizeof (body));
             memcpy(&body, body_buf, sizeof (body));
-            // Request Room Player List Function
+            InRoomController::getRoomUserList(body);
             break;
         }
         case PROTOCOL_INGAME_LOADING_COMPLETED:
