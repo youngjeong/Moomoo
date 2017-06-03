@@ -137,9 +137,9 @@
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
-        <cTool>
+        <ccTool>
           <commandLine>-std=c++11</commandLine>
-        </cTool>
+        </ccTool>
         <linkerTool>
           <commandLine>-lmysqlclient</commandLine>
         </linkerTool>
