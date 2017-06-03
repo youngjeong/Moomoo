@@ -15,6 +15,11 @@
 #include "protocol.h"
 #include "User.h"
 
+User::User() {
+
+}
+
+
 User::User(int sockNum, char *username, char *nickname) {
     m_sockNum = sockNum;
     strcpy(m_id, username);

@@ -16,7 +16,7 @@ int main() {
         printf("socker() error");
     memset(&serv_adr, 0,sizeof(serv_adr));
     serv_adr.sin_family=AF_INET;
-    serv_adr.sin_addr.s_addr=inet_addr("13.124.83.116");
+    serv_adr.sin_addr.s_addr=inet_addr("13.124.23.230");
 
     serv_adr.sin_port=htons(atoi("9090"));
     
@@ -34,8 +34,8 @@ int main() {
     memset(&loginreq, 0, sizeof(loginreq));
     loginreq.header.protocolID=PROTOCOL_LOGIN_REQ;
     //strcpy(req.nickname,"dordong");
-    strcpy(loginreq.id,"20122472");
-    strcpy(loginreq.password,"1234");
+    strcpy(loginreq.id,"123");
+    strcpy(loginreq.password,"123");
     
     int body_size = sizeof(loginreq);
     write(sock, &loginreq,body_size);
@@ -75,8 +75,8 @@ int main() {
         puts("room made");
     else if(res.header.result==ROOM_ALREADY_EXISTING_NAME)
         puts("already exist name");
-        */
-   
+        
+   */
    // ----------------
    
     
@@ -87,8 +87,8 @@ int main() {
     memset(&loginreq, 0, sizeof(loginreq));
     loginreq.header.protocolID=PROTOCOL_LOGIN_REQ;
     //strcpy(req.nickname,"dordong");
-    strcpy(loginreq.id,"20122472");
-    strcpy(loginreq.password,"1234");
+    strcpy(loginreq.id,"123");
+    strcpy(loginreq.password,"123");
     
     int body_size = sizeof(loginreq);
     write(sock, &loginreq,body_size);

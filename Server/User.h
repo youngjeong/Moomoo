@@ -20,6 +20,7 @@ class User {
 public:
     User(int, char*, char*); 
     virtual ~User();
+    User();
     
     int getSockNum();
     char *getId();
