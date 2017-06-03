@@ -1,4 +1,5 @@
 #pragma once
+
 enum PlayerStatus {
     INLOBBY = 0x00000000,
     INROOM,
@@ -8,22 +9,10 @@ enum ReadyStatus {
     NOT_READY = 0x00000000,
     READY
 };
-enum JoinStatus
-{
-    JOIN_TO_ROOM_OK=0xF0000000,
-    JOIN_TO_ROOM_DENIED,
-    
-};
-enum RoomMakeStatus
-{
-    ROOM_MAKE_SUCCESSFULLY=0x0F000000,
-    ROOM_ALREADY_EXISTING_NAME
-};
-
 
 enum Protocol {
-   PROTOCOL_GENERAL_FAIL = 0x00000000,
-   PROTOCOL_GENERAL_SUCESS = 0x00000001,
+//   PROTOCOL_GENERAL_FAIL = 0x00000000,
+//   PROTOCOL_GENERAL_SUCESS = 0x00000001,
 
    PROTOCOL_OUTGAME = 0x000F0000,
 
@@ -163,7 +152,7 @@ typedef struct _PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ : _protocol
 typedef struct _PROTOCOL_LOBBY_JOIN_TO_ROOM_ACK : _protocol
 {
     _header header;
-    
+    char room_name[40];
    _PROTOCOL_LOBBY_JOIN_TO_ROOM_ACK()
     {
         header.protocolID=PROTOCOL_LOBBY_JOIN_TO_ROOM_ACK;
@@ -183,6 +172,7 @@ typedef struct _PROTOCOL_LOBBY_MAKE_ROOM_REQ : _protocol
 typedef struct _PROTOCOL_LOBBY_MAKE_ROOM_ACK : _protocol
 {
     _header header;
+    char room_name[40];
    _PROTOCOL_LOBBY_MAKE_ROOM_ACK()
     {
         header.protocolID=PROTOCOL_LOBBY_MAKE_ROOM_ACK;
@@ -199,8 +189,8 @@ typedef struct _PROTOCOL_LOBBY_ROOMLIST_REQ : _protocol {
 
 typedef struct _PROTOCOL_LOBBY_ROOMLIST_ACK : _protocol {
    _header header;
-   int count;
-   _room_info rooms[20];
+   //int count;
+   _room_info rooms[16];
 
    _PROTOCOL_LOBBY_ROOMLIST_ACK()
    {
