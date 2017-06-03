@@ -27,7 +27,7 @@ int main() {
     memset(&header,0,sizeof(header));
 
     
-    /*
+    
     int myUserKey;
     
      S_PROTOCOL_LOGIN_REQ loginreq;
@@ -59,7 +59,7 @@ int main() {
     req.header.userno=myUserKey;
     //strcpy(req.nickname,"dordong");
     
-    strcpy(req.room_name,"testroom1");
+    strcpy(req.room_name,"moomooRoom");
     
     body_size = sizeof(req);
     write(sock, &req,body_size);
@@ -77,7 +77,7 @@ int main() {
         puts("already exist name");
      
    //login & makeroom   
-   */
+   
    // ----------------
    
     /*
@@ -135,37 +135,39 @@ int main() {
     
     */
     
-     int myUserKey;
+    // int myUserKey;
     
-     S_PROTOCOL_LOGIN_REQ loginreq;
-    memset(&loginreq, 0, sizeof(loginreq));
-    loginreq.header.protocolID=PROTOCOL_LOGIN_REQ;
+    
+     S_PROTOCOL_LOGIN_REQ loginreq_;
+    memset(&loginreq_, 0, sizeof(loginreq_));
+    loginreq_.header.protocolID=PROTOCOL_LOGIN_REQ;
     //strcpy(req.nickname,"dordong");
-    strcpy(loginreq.id,"123");
-    strcpy(loginreq.password,"123");
+    strcpy(loginreq_.id,"xxxx");
+    strcpy(loginreq_.password,"xxxx");
     
-    int body_size = sizeof(loginreq);
-    write(sock, &loginreq,body_size);
+     body_size = sizeof(loginreq);
+    write(sock, &loginreq_,body_size);
     
-    char buf[BUF_SIZE]={0,};
+    //char buf[BUF_SIZE]={0,};
+    memset(buf,0,sizeof(buf));
     read(sock, buf, BUF_SIZE);
 
-    S_PROTOCOL_LOGIN_ACK res_login;
-    memset(&res_login,0,sizeof(res_login));
-    memcpy(&res_login,buf,sizeof(res_login));
+    S_PROTOCOL_LOGIN_ACK res_login_;
+    memset(&res_login_,0,sizeof(res_login_));
+    memcpy(&res_login_,buf,sizeof(res_login_));
     
-    printf("login request userno  : %d\n",res_login.header.userno);
-    myUserKey=res_login.header.userno;    
+    printf("login request userno  : %d\n",res_login_.header.userno);
+    myUserKey=res_login_.header.userno;    
   
     
     memset(&buf,0,sizeof(buf));
     
-    S_PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ req1;
+    S_PROTOCOL_LOBBY_ROOMLIST_REQ req1;
     //memset(&req, 0, sizeof(req));
-    req1.header.protocolID=PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ;
+    req1.header.protocolID=PROTOCOL_LOBBY_ROOMLIST_REQ;
     
     req1.header.result=1;
-    req1.room_no=1;
+    //req1.room_no=1;
     //strcpy(req.nickname,"dordong");
 
     memset(&buf,0,sizeof(buf));
@@ -176,15 +178,15 @@ int main() {
     read(sock, buf, BUF_SIZE);
     
     //
-    S_PROTOCOL_LOBBY_JOIN_TO_ROOM_ACK res1;
+    S_PROTOCOL_LOBBY_ROOMLIST_ACK res1;
     memset(&res1,0,sizeof(res1));
     memcpy(&res1,buf,sizeof(res1));
     
-    printf("res.result : %d\n",res1.header.result);
-    if(res1.header.result==JOIN_TO_ROOM_OK)
-        puts("join success");
-    else if(res1.header.result==JOIN_TO_ROOM_DENIED)
-        puts("join denied");
+        printf("================\n");
+    for(int i=0;i<16;i++)
+    {
+        printf("client response : %d %s\n",res1.rooms[i].room_no,res1.rooms[i].roomName);
+    }
     
    
         

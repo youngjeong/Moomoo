@@ -74,6 +74,8 @@ void InLobbyController::joinToRoom(S_PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ *req, S_PRO
     
     roomMapInstance->setRoomInPosition(req->room_no,selectedRoom);
     
+    
+    strcpy(res->room_name,selectedRoom.GetRoomName());
     res->header.result=JOIN_TO_ROOM_OK;
     
 }
@@ -124,6 +126,7 @@ void InLobbyController::makeRoom(S_PROTOCOL_LOBBY_MAKE_ROOM_REQ *req, S_PROTOCOL
    
     
     res->header.result=ROOM_MAKE_SUCCESSFULLY;
+    strcpy(res->room_name,req->room_name);
     
     
     
@@ -142,19 +145,31 @@ void InLobbyController::getAllRooms(S_PROTOCOL_LOBBY_ROOMLIST_REQ *roomRequest,S
     
     map<int, Room> roomMap =instance->getRooms();
     map<int, Room>::iterator it = roomMap.begin();
-    
-    
-    
-    roomAck->count=roomMap.size();
+   
+    //roomAck->count=roomMap.size();
     
  
-    for(i=0,it = roomMap.begin();it!=roomMap.end();it++,i++)
-    {
+    for(i=0,it = roomMap.begin(); it != roomMap.end() ;i++)
+    {//return room size 16 fix;
+        if(it!=roomMap.end()){
         strcpy(roomAck->rooms[i].roomName,  it->second.GetRoomName());
         roomAck->rooms[i].room_no=it->first;
+        it++;
+        
+        }
+        
         printf("InLobbyController::getAllRooms room_no : %d roomName : %s\n",
                 roomAck->rooms[i].room_no,roomAck->rooms[i].roomName);
-    }        
+    
+    }
+    
+    for ( ; i < 16 ; i ++ ) {
+        memset(roomAck->rooms[i].roomName, 0, sizeof(roomAck->rooms[i].roomName));
+            roomAck->rooms[i].room_no=0;
+      printf("InLobbyController::getAllRooms room_no : %d roomName : %s\n",
+                roomAck->rooms[i].room_no,roomAck->rooms[i].roomName);
+    
+    }
    
 }
 

@@ -44,6 +44,7 @@ int Communicator::parse(int sock) {
             Communicator::readBody(sock, body_buf, sizeof (S_PROTOCOL_JOIN_REQ));
             S_PROTOCOL_JOIN_REQ body;
             S_PROTOCOL_JOIN_ACK ack_msg;
+            memset(&ack_msg,0,sizeof(ack_msg));
             memcpy(&body, body_buf, sizeof (body));
             // Join Request Function
             int join_result = InLoginController::signUpRequest(&body);
@@ -66,6 +67,7 @@ int Communicator::parse(int sock) {
         {
             S_PROTOCOL_CHAT_REQ body;
             S_PROTOCOL_CHAT_ACK ack_msg;
+            memset(&ack_msg,0,sizeof(ack_msg));
             Communicator::readBody(sock, body_buf, sizeof(body));
             memcpy(&body, body_buf, sizeof(body));
             ack_msg.header.protocolID = PROTOCOL_CHAT_ACK;
@@ -90,6 +92,7 @@ int Communicator::parse(int sock) {
             S_PROTOCOL_LOBBY_MAKE_ROOM_REQ body;
             S_PROTOCOL_LOBBY_MAKE_ROOM_ACK response;
             
+            memset(&response,0,sizeof(response));
             Communicator::readBody(sock,body_buf,sizeof(body));
             memcpy(&body,body_buf,sizeof(body));
             InLobbyController::makeRoom(&body,&response);
@@ -118,6 +121,7 @@ int Communicator::parse(int sock) {
             puts("PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ");
             S_PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ body;
             S_PROTOCOL_LOBBY_JOIN_TO_ROOM_ACK res;
+            memset(&res,0,sizeof(res));
             Communicator::readBody(sock,body_buf,sizeof(body));
             memcpy(&body,body_buf,sizeof(body));
             InLobbyController::joinToRoom(&body, &res);

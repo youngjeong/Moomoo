@@ -160,7 +160,7 @@ typedef struct _PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ : _protocol
 typedef struct _PROTOCOL_LOBBY_JOIN_TO_ROOM_ACK : _protocol
 {
     _header header;
-    
+    char room_name[40];
    _PROTOCOL_LOBBY_JOIN_TO_ROOM_ACK()
     {
         header.protocolID=PROTOCOL_LOBBY_JOIN_TO_ROOM_ACK;
@@ -180,6 +180,7 @@ typedef struct _PROTOCOL_LOBBY_MAKE_ROOM_REQ : _protocol
 typedef struct _PROTOCOL_LOBBY_MAKE_ROOM_ACK : _protocol
 {
     _header header;
+    char room_name[40];
    _PROTOCOL_LOBBY_MAKE_ROOM_ACK()
     {
         header.protocolID=PROTOCOL_LOBBY_MAKE_ROOM_ACK;
@@ -196,8 +197,8 @@ typedef struct _PROTOCOL_LOBBY_ROOMLIST_REQ : _protocol {
 
 typedef struct _PROTOCOL_LOBBY_ROOMLIST_ACK : _protocol {
    _header header;
-   int count;
-   _room_info rooms[20];
+   //int count;
+   _room_info rooms[16];
 
    _PROTOCOL_LOBBY_ROOMLIST_ACK()
    {
