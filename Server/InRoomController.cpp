@@ -29,16 +29,21 @@ void InRoomController::changeReadyStatus(int userno, int status) {
     Room current_room = roommap.find(current_user.getRoomNo())->second;
     
     current_user.changeReady(status);
+    usermap_instance->updateUser(current_user.getuserno(), current_user);
+    
     vector<int> user_socklist;
     auto userlist = current_room.GetUsers();
     for(int i=0;i<userlist.size();i++){
+        if(userlist[i].getuserno() == userno){
+            userlist[i].changeReady(status);
+        }
         user_socklist.push_back(userlist[i].getSockNum());
     }
-    
+    roommap_instance->updateRoomUsers(current_user.getRoomNo(), userlist);
     S_PROTOCOL_ROOM_PLAYER_LIST_ACK ack_msg;
     ack_msg.header.protocolID = PROTOCOL_ROOM_PLAYER_LIST_ACK;
     ack_msg.count = userlist.size();
-    for(int i=0;i<userlist.size();i++){
+    for(int i=0;i<userslist.size();i++){
         strcpy(ack_msg.players[i].nickname, userlist[i].getNickname());
         if(userlist[i].getReady()){
             ack_msg.players[i].ready_status = 1;
@@ -154,13 +159,15 @@ void InRoomController::exitAtRoom(S_PROTOCOL_ROOM_EXIT_REQ req_msg){
     auto usermap_instance = UserMap::getInstance();
     auto usermap = usermap_instance->getMap();
     User current_user = usermap.find(req_msg.header.userno)->second;
-       
+    int roomno = current_user.getRoomNo();   
     auto roommap_instance = RoomMap::getInstance();
     auto roommap = roommap_instance->getRooms();
     Room current_room = roommap.find(req_msg.header.userno)->second;
     auto roomUsers = current_room.GetUsers();
     
     current_user.changeStatus(INLOBBY);
+    current_user.setRoomNo(0);
+    usermap_instance->updateUser(current_user.getuserno(), current_user);
     
     for(int i=0;i<roomUsers.size();i++){
         if(strcmp(roomUsers[i].getId(), current_user.getId())==0){
@@ -168,6 +175,7 @@ void InRoomController::exitAtRoom(S_PROTOCOL_ROOM_EXIT_REQ req_msg){
             break;
         }
     }
+    roommap_instance->updateRoomUsers(roomno, roomUsers);
     
     S_PROTOCOL_ROOM_PLAYER_LIST_ACK ack_msg;
     ack_msg.header.protocolID = PROTOCOL_ROOM_PLAYER_LIST_ACK;

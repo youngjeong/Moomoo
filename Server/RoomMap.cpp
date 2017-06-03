@@ -60,11 +60,11 @@ int RoomMap::getRoomSize() {
     else
        return rooms.size();
 }
-void RoomMap::updateRoom(int room_no, Room room_obj){
+void RoomMap::updateRoomUsers(int room_no, vector<User> users){
     auto it = rooms.begin();
     for(;it!=rooms.end();it++){
         if(it->first == room_no){
-            it->second = room_obj;
+            it->second.SetUsers(users);
         }
     }
 }
