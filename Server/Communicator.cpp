@@ -125,11 +125,7 @@ int Communicator::parse(int sock) {
             Communicator::readBody(sock,body_buf,sizeof(body));
             memcpy(&body,body_buf,sizeof(body));
             InLobbyController::joinToRoom(&body, &res);
-            printf("PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ : %d\n",res.header.protocolID);
-            printf("PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ : %d\n",res.header.result);
-            printf("PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ : %d\n",res.header.userno);
-            printf("PROTOCOL_LOBBY_JOIN_TO_ROOM_REQ : %s\n",res.room_name);
-            
+            S_PROTOCOL_ROOM_PLAYER_LIST_ACK res_room_player_list;
             
             write(sock,&res,sizeof(res));
             puts("log8");
