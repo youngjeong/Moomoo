@@ -323,7 +323,7 @@ typedef struct _PROTOCOL_PLAYER_STATUS_CHANGED_REQ : _protocol {
    _header header;
    int x_coord;
    int y_coord;
-   char direction;
+   int direction;
 
    _PROTOCOL_PLAYER_STATUS_CHANGED_REQ()
    {
@@ -336,7 +336,7 @@ typedef struct _PROTOCOL_PLAYER_STATUS_CHANGED_ACK : _protocol {
    int userID;
    int x_coord;
    int y_coord;
-   char direction;
+   int direction;
 
    _PROTOCOL_PLAYER_STATUS_CHANGED_ACK()
    {
