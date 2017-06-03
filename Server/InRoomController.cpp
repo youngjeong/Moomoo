@@ -43,7 +43,7 @@ void InRoomController::changeReadyStatus(int userno, int status) {
     S_PROTOCOL_ROOM_PLAYER_LIST_ACK ack_msg;
     ack_msg.header.protocolID = PROTOCOL_ROOM_PLAYER_LIST_ACK;
     ack_msg.count = userlist.size();
-    for(int i=0;i<userslist.size();i++){
+    for(int i=0;i<userlist.size();i++){
         strcpy(ack_msg.players[i].nickname, userlist[i].getNickname());
         if(userlist[i].getReady()){
             ack_msg.players[i].ready_status = 1;
