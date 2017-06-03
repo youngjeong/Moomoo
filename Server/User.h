@@ -18,20 +18,23 @@
 #include<cstdlib>
 class User {
 public:
-    User(int, char*, char*); 
+    User(int, int, char*, char*); 
     virtual ~User();
     User();
     
     int getSockNum();
+    int getuserno();
     char *getId();
     char *getNickname();
     int getRoomNo();
+    int setRoomNo(int);
     int getStatus();
     bool getReady();
     void changeReady(int);
     void changeStatus(int);
   
 private:  
+    int m_userno;
     int m_sockNum;
     bool m_ready;
     char m_id[16];

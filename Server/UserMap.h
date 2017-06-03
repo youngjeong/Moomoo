@@ -36,6 +36,7 @@ public:
     int getSize();
     void addUser(int, User);
     void delUser(int);
+    void updateUser(int, User);
     map<int, User> getMap();
     int getLastno();
 };

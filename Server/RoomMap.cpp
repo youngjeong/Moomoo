@@ -60,7 +60,14 @@ int RoomMap::getRoomSize() {
     else
        return rooms.size();
 }
-
+void RoomMap::updateRoomUsers(int room_no, vector<User> users){
+    auto it = rooms.begin();
+    for(;it!=rooms.end();it++){
+        if(it->first == room_no){
+            it->second.SetUsers(users);
+        }
+    }
+}
 std::map<int, Room> RoomMap::getRooms() {
 
         return rooms;

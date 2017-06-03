@@ -57,7 +57,8 @@ void InGameController::endGame(S_PROTOCOL_GAME_END_REQ req_msg){
     for(int i=0;i<userlist.size();i++){
         userlist[i].changeStatus(INLOBBY);
         userlist[i].changeReady(NOT_READY);
-    }   
+    }
+    roommap_instance->updateRoomUsers(current_user.getuserno(), userlist);
     ack_msg.header.protocolID = PROTOCOL_GAME_END_ACK;
     ack_msg.win_userID = req_msg.header.userno;
     for(int i=0;i<userlist.size();i++){
