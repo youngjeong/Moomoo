@@ -23,7 +23,9 @@ public:
     virtual ~InRoomController();
     static void changeReadyStatus(int, int);
     static void chatRoom(S_PROTOCOL_CHAT_REQ);
-    static void gameStart(S_PROTOCOL_PLAYER_CLICK_GAME_START_REQ);
+    static void gameStart(int);
+    static void getRoomUserList(S_PROTOCOL_ROOM_PLAYER_LIST_REQ);
+    static void exitAtRoom(S_PROTOCOL_ROOM_EXIT_REQ);
     
 private:
     static bool gameStartValidator(int);
