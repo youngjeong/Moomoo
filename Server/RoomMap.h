@@ -30,6 +30,7 @@ public:
     void delRoom(int room_no, Room room_obj);
     void addRoom(int room_no, Room room_obj);
     void setRoomInPosition(int, Room room_obj);
+    void updateRoomUsers(int , vector<User>);
     int getRoomSize();
      
 private:

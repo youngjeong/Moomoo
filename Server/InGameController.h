@@ -14,10 +14,14 @@
 #ifndef INGAMECONTROLLER_H
 #define INGAMECONTROLLER_H
 
+#include "protocol.h"
+
 class InGameController {
 public:
     InGameController();
     InGameController(const InGameController& orig);
+    static void changePlayerStatus(S_PROTOCOL_PLAYER_STATUS_CHANGED_REQ);
+    static void endGame(S_PROTOCOL_GAME_END_REQ);
     virtual ~InGameController();
 private:
 

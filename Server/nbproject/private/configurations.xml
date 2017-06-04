@@ -5,6 +5,7 @@
     <conf name="Debug" type="1">
       <toolsSet>
         <developmentServer>ubuntu@52.79.113.76:22</developmentServer>
+
         <platform>2</platform>
       </toolsSet>
       <dbx_gdbdebugger version="1">

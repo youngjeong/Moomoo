@@ -154,7 +154,7 @@ int Communicator::parse(int sock) {
             S_PROTOCOL_ROOM_PLAYER_LIST_REQ body;
             Communicator::readBody(sock, body_buf, sizeof (body));
             memcpy(&body, body_buf, sizeof (body));
-            // Request Room Player List Function
+            InRoomController::getRoomUserList(body);
             break;
         }
         case PROTOCOL_INGAME_LOADING_COMPLETED:
@@ -170,7 +170,7 @@ int Communicator::parse(int sock) {
             S_PROTOCOL_PLAYER_STATUS_CHANGED_REQ body;
             Communicator::readBody(sock, body_buf, sizeof (body));
             memcpy(&body, body_buf, sizeof (body));
-            // Change Player Status Function
+            InGameController::changePlayerStatus(body);
             break;
         }
         case PROTOCOL_GAME_END_REQ:
@@ -178,6 +178,8 @@ int Communicator::parse(int sock) {
             S_PROTOCOL_GAME_END_REQ body;
             Communicator::readBody(sock, body_buf, sizeof (body));
             memcpy(&body, body_buf, sizeof (body));
+            
+            InGameController::endGame(body);
             // Change Player Status Function
             break;
         }
