@@ -4,7 +4,7 @@
   <confs>
     <conf name="Debug" type="1">
       <toolsSet>
-        <developmentServer>ubuntu@ec2-13-124-23-230.ap-northeast-2.compute.amazonaws.com:22</developmentServer>
+        <developmentServer>ubuntu@52.79.113.76:22</developmentServer>
         <platform>2</platform>
       </toolsSet>
       <dbx_gdbdebugger version="1">
